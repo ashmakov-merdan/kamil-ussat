@@ -4,8 +4,9 @@ import { motion } from "framer-motion";
 import { FC, useEffect, useState } from "react";
 
 const Boxes: FC = () => {
-  const rows = 6;
-  const cols = 10;
+  const isDark = localStorage.theme === "dark";
+  const rows = 8;
+  const cols = 16;
   const [activeCells, setActiveCells] = useState<{ row: number; col: number }[]>([]);
 
   const generateRandomCells = () => {
@@ -38,9 +39,11 @@ const Boxes: FC = () => {
         return (
           <motion.div
             key={index}
-            className="w-28 h-28 border border-gray-200 opacity-[0.03] bg-transparent transition-all duration-200"
+            className="w-28 h-28 border border-gray-600 dark:border-gray-200 opacity-[0.03] bg-transparent transition-all duration-200"
             animate={{
-              backgroundColor: isActive ? "rgba(255, 255, 255, 1)" : "rgba(255, 255, 255, 0)"
+              backgroundColor: isActive 
+                ? (isDark ? "rgba(255, 255, 255, 1)" : "rgba(0, 0, 0, 1)") 
+                : (isDark ? "rgba(0, 0, 0, 0)" : "rgba(255, 255, 255, 0)")
             }}
             transition={{
               backgroundColor: { duration: 1, ease: "easeIn" }

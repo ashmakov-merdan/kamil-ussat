@@ -1,6 +1,9 @@
+"use client"
 import { FC } from "react";
 
 const Logo: FC = () => {
+  const isDark = localStorage.getItem("theme") === "dark";
+
   return (
     <svg width="184" height="32" viewBox="0 0 184 32" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
       <rect width="32" height="32" fill="url(#pattern0_71_3313)" />

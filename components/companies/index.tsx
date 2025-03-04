@@ -4,9 +4,9 @@ import { FC } from "react";
 
 const Companies: FC = () => {
   return (
-    <section id={"collaborates"} className="bg-[#161B26] py-12">
+  <section id={"collaborates"} className="bg-[#F9FAFB] dark:bg-[#161B26] py-12">
       <div className="relative container mx-auto">
-        <Shadow className="w-96 from-[#161B26]" />
+        <Shadow className="w-96 from-[#F9FAFB] dark:from-[#161B26]" />
         <div className="text-center">
           <Heading text="Companies that we collaborate" />
         </div>

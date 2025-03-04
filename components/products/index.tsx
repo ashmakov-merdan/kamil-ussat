@@ -15,7 +15,7 @@ const Products: FC = () => {
         />
         <p className="text-xl font-normal text-[#94969C]">Get a deposit account, credit card, and spend management software — in one refreshingly easy solution. No fees or minimums.</p>
       </div>
-      <div className="flex flex-row flex-nowrap items-center gap-x-12 overflow-x-scroll">
+      <div className="flex flex-row flex-nowrap items-center gap-x-12 overflow-x-scroll no-scrollbar">
         <ProductCard
           priority={"01"}
           title="ERDU"

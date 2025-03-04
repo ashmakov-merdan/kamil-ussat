@@ -8,6 +8,7 @@ export default {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./shared/**/*.{js,ts,jsx,tsx,mdx}"
   ],
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
@@ -15,8 +16,7 @@ export default {
         foreground: "var(--foreground)",
       },
       fontFamily: {
-        body: ["var(--font-display)", ...defaultTheme.fontFamily.sans],
-        display: ["var(--font-body)", ...defaultTheme.fontFamily.sans]
+        inter: ["var(--font-inter)"]
       }
     },
   },

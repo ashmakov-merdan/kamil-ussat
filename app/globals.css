@@ -2,32 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: Inter;
-  src: url("/assets/fonts/Inter-Bold.ttf");
-  font-weight: 700;
+:root {
+  --background: #FFFFFF;
+  --foreground: #101828;
 }
 
-@font-face {
-  font-family: Inter;
-  src: url('/assets/fonts/Inter-SemiBold.ttf');
-  font-weight: 600;
-}
-
-@font-face {
-  font-family: Inter;
-  src: url("/assets/fonts/Inter-Medium.ttf");
-  font-weight: 500;
-}
-
-@font-face {
-  font-family: Inter;
-  src: url("/assets/fonts/Inter-Regular.ttf");
-  font-weight: 400;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0C111D;
+    --foreground: #F5F5F6;
+  }
 }
 
 html body {
-  @apply font-body antialiased;
+  @apply font-inter antialiased;
 }
 
 h1,
@@ -36,21 +24,11 @@ h3,
 h4,
 h5,
 h6 {
-  @apply font-display
+  @apply font-inter
 }
 
-:root {
-  --background: #FFFFFF;
-  --foreground: #171717;
-  --font-display: Inter;
-  --font-body: Inter
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0C111D;
-    --foreground: #ededed;
-  }
+* {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -67,4 +45,16 @@ body {
 .animate-slide {
   display: flex;
   animation: slide 50s linear infinite;
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }

@@ -11,7 +11,7 @@ const Services: FC = () => {
           desc="More services"
         />
       </div>
-      <div className="pt-12 grid gap-6">
+      <div className="pt-12 grid gap-x-6 gap-y-10">
         {services.reduce((acc: ReactNode[], _, index) => {
           if (index % 5 === 0) {
             acc.push(

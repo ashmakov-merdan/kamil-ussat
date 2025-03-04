@@ -19,7 +19,7 @@ const FeatureCard: FC<Props> = ({ title, desc }) => {
         />
       </div>
       <div className="space-y-2 flex-1">
-        <h2 className="text-xl font-semibold text-[#F5F5F6] text-center">{title}</h2>
+        <h2 className="text-xl font-semibold text-[#101828] dark:text-[#F5F5F6] text-center">{title}</h2>
         <p className="text-base font-normal text-[#94969C] text-center">{desc}</p>
       </div>
     </div>
