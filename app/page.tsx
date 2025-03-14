@@ -4,8 +4,8 @@ export default function Home() {
   return (
     <main className="">
       <Navigation />
-      {/* <Header />
-      <Features />
+      <Header />
+      {/* <Features />
       <Products />
       <Services />
       <Companies />

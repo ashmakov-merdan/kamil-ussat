@@ -11,7 +11,7 @@ const Navigation: FC = () => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 bg-white dark:bg-[#0C111D] py-5 z-[5]">
-      <div className="max-lg:px-4 container mx-auto flex justify-between items-center gap-x-10">
+      <div className="px-4 2xl:px-0 container mx-auto flex justify-between items-center gap-x-10">
         <Link href={"/"} className="w-fit">
           <Logo />
         </Link>
