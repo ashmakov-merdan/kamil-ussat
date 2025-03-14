@@ -1,11 +1,12 @@
 "use client"
 import { useEffect, useState } from "react";
+import Button from "../button";
 
 const SwitchTheme = () => {
-  const [ isDark, setDark ] = useState<boolean>(false);
+  const [isDark, setDark] = useState<boolean>(false);
 
   useEffect(() => {
-    if(localStorage.theme === "dark" || 
+    if (localStorage.theme === "dark" ||
       (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)
     ) {
       toDark()
@@ -17,7 +18,7 @@ const SwitchTheme = () => {
   const toDark = () => {
     setDark(true);
     const root = document.querySelector("html");
-    if(!root) return;
+    if (!root) return;
     !root.classList.contains("dark") && root.classList.add("dark");
     localStorage.theme = "dark";
   };
@@ -25,24 +26,25 @@ const SwitchTheme = () => {
   const toLight = () => {
     setDark(false);
     const root = document.querySelector("html");
-    if(!root) return;
+    if (!root) return;
     root.classList.remove("dark");
     localStorage.theme = "light";
   };
 
   const toggleMode = () => {
-    if(localStorage.theme === "light"){
+    if (localStorage.theme === "light") {
       toDark();
     } else {
       toLight();
     }
   };
 
-  return (
-    <button type={"button"} onClick={toggleMode}>
-      
-    </button>
-  )
+  return <Button
+    label={isDark ? "Dark" : "Light"}
+    onClick={toggleMode}
+    variant={"light"}
+    size={"sm"}
+  />
 };
 
 export default SwitchTheme;

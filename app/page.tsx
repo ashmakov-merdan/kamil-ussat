@@ -4,13 +4,13 @@ export default function Home() {
   return (
     <main className="">
       <Navigation />
-      <Header />
+      {/* <Header />
       <Features />
       <Products />
       <Services />
       <Companies />
       <ContactUs />
-      <Footer />
+      <Footer /> */}
     </main>
   );
 }
