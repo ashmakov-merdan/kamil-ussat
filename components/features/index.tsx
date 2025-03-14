@@ -3,17 +3,17 @@ import { FC } from "react";
 
 const Features: FC = () => {
   return (
-    <section id={'features'} className="container mx-auto py-24 flex flex-col gap-y-16">
-      <div className="flex flex-col gap-y-5">
+    <section id={'features'} className="px-4 xl:px-0 container mx-auto py-10 md:py-24 flex flex-col gap-y-16">
+      <div className="flex flex-col gap-y-3 md:gap-y-5">
         <Title
           title="Features"
           desc="Comprehensive IT & Development Solutions"
         />
-        <div className="max-w-3xl w-full mx-auto px-12">
-          <p className="text-xl font-normal text-[#94969C] text-center">Providing scalable, secure, and high-performance solutions for software, networking, and security needs.</p>
+        <div className="lg:max-w-3xl w-full mx-auto lg:px-12">
+          <p className="text-base sm:text-[18px] md:text-xl font-normal text-[#94969C] text-center">Providing scalable, secure, and high-performance solutions for software, networking, and security needs.</p>
         </div>
       </div>
-      <div className="grid grid-cols-3 gap-8">
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-8">
         <FeatureCard
           title="Software development"
           desc="We provide end-to-end software development services, including web and desktop applications, ensuring scalable and high-performing solutions tailored to your business needs."

@@ -5,8 +5,8 @@ export default function Home() {
     <main className="">
       <Navigation />
       <Header />
-      {/* <Features />
-      <Products />
+      <Features />
+      {/* <Products />
       <Services />
       <Companies />
       <ContactUs />
