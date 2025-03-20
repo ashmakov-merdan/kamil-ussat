@@ -13,8 +13,13 @@ const Clients: FC = () => {
       <div className="flex items-center justify-center">
         <Subheading text="Our clients" />
       </div>
-      <div className="flex justify-center items-center gap-x-3 max-w-sm:gap-x-6">
-        {clients.map((client, i) => <Image key={i} src={client} alt={`${client}-${i}`} />)}
+      <div className="flex flex-wrap justify-center items-center gap-x-3 max-w-sm:gap-x-6">
+        {clients.map((client, i) => <Image
+          className="w-20 lg:w-40"
+          key={i}
+          src={client}
+          alt={`${client}-${i}`}
+        />)}
       </div>
     </div>
   )
