@@ -7,9 +7,9 @@ export default function Home() {
       <Header />
       <Features />
       <Products />
-      {/* <Services />
+      <Services />
       <Companies />
-      <ContactUs />
+      {/* <ContactUs />
       <Footer /> */}
     </main>
   );

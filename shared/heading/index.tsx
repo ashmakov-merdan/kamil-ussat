@@ -3,7 +3,7 @@ import { FC } from "react";
 
 interface Props {
   text: string
-  isCentered: boolean
+  isCentered?: boolean
 }
 
 const Heading: FC<Props> = ({ text, isCentered = true }) => {
