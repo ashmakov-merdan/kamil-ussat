@@ -5,9 +5,9 @@ import { Shadow } from "@/shared";
 
 const Header: FC = () => {
   return (
-    <header className="mt-[72px] max-w-sm:mt-20 relative 2xl:container h-[90vh] xl:h-screen 2xl:mx-auto">
+    <header className="mt-16 lg:mt-20 relative 2xl:container h-[90vh] xl:h-screen 2xl:mx-auto">
       <Shadow />
-      <div className="max-lg:px-4 relative container mx-auto w-screen h-[60vh] sm:h-[65vh] border-y border-neutral-100/10 overflow-hidden">
+      <div className="max-lg:px-4 relative container mx-auto w-screen h-[60vh] sm:h-[65vh] border-y border-neutral-100 dark:border-neutral-100/10 overflow-hidden">
         <div className="w-full h-full flex flex-col justify-center items-center gap-y-12 z-[4]">
           <div className="flex flex-col items-center justify-center">
             <div className="py-1 pl-1 pr-1 sm:pr-2.5 flex flex-row items-center border border-[#D0D5DD] dark:border-[#333741] rounded-md gap-x-1 sm:gap-x-3">

@@ -10,10 +10,10 @@ const Navigation: FC = () => {
   const { user } = useAuthStore();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-white dark:bg-[#0C111D] py-5 z-[5]">
+    <nav className="fixed top-0 left-0 right-0 bg-white dark:bg-[#0C111D] py-3 lg:py-5 z-[5]">
       <div className="px-4 2xl:px-0 container mx-auto flex justify-between items-center gap-x-10">
-        <Link href={"/"} className="w-fit">
-          <Logo />
+        <Link href={"/"}>
+          <Logo className="w-32 lg:w-44" />
         </Link>
         <Links />
         <div className="max-sm:hidden inline-flex items-center gap-x-3">
