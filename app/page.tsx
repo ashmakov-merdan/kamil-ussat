@@ -6,8 +6,8 @@ export default function Home() {
       <Navigation />
       <Header />
       <Features />
-      {/* <Products />
-      <Services />
+      <Products />
+      {/* <Services />
       <Companies />
       <ContactUs />
       <Footer /> */}

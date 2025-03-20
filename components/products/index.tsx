@@ -6,16 +6,17 @@ import product2 from "@/assets/product-2.png";
 
 const Products: FC = () => {
   return (
-    <section id={"products"} className="container mx-auto py-24 space-y-16">
+    <section id={"products"} className="px-4 2xl:px-0 container mx-auto py-10 md:py-24 space-y-16">
       <div className="max-w-3xl space-y-5">
         <Title
           title="Products"
           desc="Our products"
+          isHeadingCentered={false}
           className="justify-start"
         />
-        <p className="text-xl font-normal text-[#94969C]">Get a deposit account, credit card, and spend management software — in one refreshingly easy solution. No fees or minimums.</p>
+        <p className="text-[18px] md:text-xl font-normal text-[#94969C]">Get a deposit account, credit card, and spend management software — in one refreshingly easy solution. No fees or minimums.</p>
       </div>
-      <div className="flex flex-row flex-nowrap items-center gap-x-12 overflow-x-scroll no-scrollbar">
+      <div className="flex flex-row flex-nowrap items-start gap-x-12 overflow-x-scroll no-scrollbar">
         <ProductCard
           priority={"01"}
           title="ERDU"

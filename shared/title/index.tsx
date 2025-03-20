@@ -6,17 +6,18 @@ import { cn } from "@/utils";
 interface Props {
   title: string
   desc: string
+  isHeadingCentered?: boolean
   className?: string
 }
 
-const Title: FC<Props> = ({ title, desc, className="justify-center items-center" }) => {
+const Title: FC<Props> = ({ title, desc, isHeadingCentered=true, className="justify-center items-center" }) => {
   return (
     <div className={cn(
       "flex flex-col gap-y-2",
       className
     )}>
       <Subheading text={title} />
-      <Heading text={desc} />
+      <Heading text={desc} isCentered={isHeadingCentered} />
     </div>
   )
 };
