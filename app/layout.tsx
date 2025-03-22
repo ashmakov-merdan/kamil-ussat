@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import inter from "@/styles/fonts";
+import { QueryProvider } from "@/providers";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "Kämil Ussat",
@@ -13,12 +15,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`no-scrollbar ${inter.variable}`}>
-      <body
-        className={`antialiased bg-white dark:bg-[#0C111D]`}
-      >
-        {children}
-      </body>
-    </html>
+    <QueryProvider>
+      <html lang="en" className={`no-scrollbar ${inter.variable}`}>
+        <body className={`antialiased bg-white dark:bg-[#0C111D]`}>
+          {children}
+          <Toaster position="bottom-center" />
+        </body>
+      </html>
+    </QueryProvider>
   );
 }

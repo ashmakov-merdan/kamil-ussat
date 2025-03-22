@@ -1,15 +1,26 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface AuthStore {
   user: IUser | null
-  login: (user: IUser) => void
-  logout: () => void
+  setUser: (user: IUser | null) => void
 }
 
-const useAuthStore = create<AuthStore>((set, get) => ({
-  user: null,
-  login: (user: IUser) => set({ user }),
-  logout: () => set({ user: null })
-}));
+const useAuthStore = create<AuthStore>()((
+  persist(
+    (set, get) => ({
+      user: null,
+      setUser: (user) => set(() => ({
+        user
+      }))
+    }),
+    {
+      name: "auth",
+      partialize: (state) => ({
+        user: state.user
+      })
+    }
+  )
+));
 
 export default useAuthStore;

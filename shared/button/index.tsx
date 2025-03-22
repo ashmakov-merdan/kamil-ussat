@@ -3,12 +3,13 @@ import { VariantProps } from "class-variance-authority";
 import { ButtonHTMLAttributes, FC, forwardRef } from "react";
 import variants from "./variant";
 import { cn } from "@/utils";
+import { Spinner } from "@/components/icons";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof variants> {
   className?: string
   loading?: boolean
   label?: string
-  onClick: () => void
+  onClick?: () => void
 }
 
 const Button: FC<ButtonProps> = forwardRef<HTMLButtonElement, ButtonProps>(({
@@ -25,7 +26,10 @@ const Button: FC<ButtonProps> = forwardRef<HTMLButtonElement, ButtonProps>(({
       onClick={onClick}
       className={cn(variants({ variant, className }))}
       {...args}
-    >{label}</button>
+    >
+      {loading && <Spinner />}
+      {label}
+    </button>
   )
 });
 

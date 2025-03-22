@@ -7,5 +7,8 @@ import Header from "./header";
 import Navigation from "./navigation";
 import Products from "./products";
 import Services from "./services";
+import Sidebar from "./sidebar";
+import Login from "./login"
+import Register from "./register";
 
-export { Clients, Companies, ContactUs, Features, Footer, Header, Navigation, Products, Services };
+export { Clients, Companies, ContactUs, Features, Footer, Header, Login, Navigation, Products, Services, Sidebar, Register };
