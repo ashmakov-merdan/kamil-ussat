@@ -1,3 +1,4 @@
 import usePagination from "./use-pagination";
+import useFilter from "./use-filter";
 
-export default usePagination;
+export { usePagination, useFilter };

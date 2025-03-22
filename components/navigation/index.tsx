@@ -1,5 +1,5 @@
 'use client'
-import { Avatar, Button, Logo } from "@/shared";
+import { Avatar, Button, LanguageDropdown, Logo } from "@/shared";
 import SwitchTheme from "@/shared/switch-theme";
 import { FC, Fragment, useMemo } from "react";
 import Links from "./links";
@@ -7,8 +7,10 @@ import Link from "next/link";
 import { useAuthStore } from "@/store";
 import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/utils";
+import { useTranslations } from "next-intl";
 
 const Navigation: FC = () => {
+  const t = useTranslations();
   const pathname = usePathname();
   const isAuthPage = useMemo(() => pathname === "/login" || pathname === "/register", [pathname]);
   const { user } = useAuthStore();
@@ -26,10 +28,11 @@ const Navigation: FC = () => {
         {!isAuthPage && <Links />}
         <div className="max-sm:hidden inline-flex items-center gap-x-3">
           {!isAuthPage && !user && <Fragment>
-            <Button label="Login" variant={"flat"} onClick={() => router.push("/login")} />
-            <Button label="Sign Up" onClick={() => console.log("Sign up")} />
+            <Button label={t("button.login")} variant={"flat"} onClick={() => router.push("/login")} />
+            <Button label={t("button.signup")} onClick={() => router.push("/register")} />
           </Fragment>}
-          <div className="max-lg:hidden">
+          <div className="max-sm:hidden flex gap-x-2">
+            <LanguageDropdown />
             <SwitchTheme />
           </div>
           {!isAuthPage && user && <Avatar />}

@@ -133,7 +133,6 @@ const Services: FC = () => {
     service: null
   });
 
-  // Set up sensors for drag and drop
   const sensors = useSensors(
     useSensor(PointerSensor)
   );
@@ -158,32 +157,25 @@ const Services: FC = () => {
       
       if (oldIndex === -1 || newIndex === -1) return items;
       
-      // Get services involved in the swap
       const draggedService = items[oldIndex];
       const targetService = items[newIndex];
       
-      // Directly swap priorities between the two services
       const draggedPriority = draggedService.priority;
       const targetPriority = targetService.priority;
       
-      console.log(`Swapping priorities: ${draggedService.name}(${draggedPriority}) ↔ ${targetService.name}(${targetPriority})`);
       
-      // Update the dragged service's priority
       reorderServices({
         id: draggedService.id,
         priority: targetPriority
       });
       
-      // Also update the target service's priority to ensure proper swapping
       reorderServices({
         id: targetService.id,
         priority: draggedPriority
       });
       
-      // Create a new array with the items in the correct visual order
       const newItems = arrayMove(items, oldIndex, newIndex);
       
-      // Create a copy with the swapped priorities for the UI
       return newItems.map(item => {
         if (item.id === draggedService.id) {
           return { ...item, priority: targetPriority };
@@ -204,20 +196,14 @@ const Services: FC = () => {
 
     const targetIndex = direction === 'up' ? index - 1 : index + 1;
     
-    // Get the services involved in the swap
     const currentService = orderedServices[index];
     const adjacentService = orderedServices[targetIndex];
     
-    // Get their priorities for swapping
     const currentPriority = currentService.priority;
     const adjacentPriority = adjacentService.priority;
-    
-    console.log(`Moving ${direction}: ${currentService.name}(${currentPriority}) ↔ ${adjacentService.name}(${adjacentPriority})`);
-    
-    // Create a new array with swapped positions
+  
     const newOrderedServices = arrayMove([...orderedServices], index, targetIndex);
     
-    // Update the local state with swapped priorities for immediate visual feedback
     setOrderedServices(
       newOrderedServices.map(service => {
         if (service.id === currentService.id) {
@@ -230,21 +216,17 @@ const Services: FC = () => {
       })
     );
     
-    // When moving down, we need to update both services to ensure the swap happens correctly
     if (direction === 'down') {
-      // Update the current service priority
       reorderServices({
         id: currentService.id,
         priority: adjacentPriority
       });
       
-      // Update the adjacent service priority
       reorderServices({
         id: adjacentService.id,
         priority: currentPriority
       });
     } else {
-      // For moving up, update the current service priority
       reorderServices({
         id: currentService.id,
         priority: adjacentPriority

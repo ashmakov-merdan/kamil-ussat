@@ -1,0 +1,25 @@
+{
+  "section": {
+    "features": "Aýratynlyklar",
+    "products": "Önümler",
+    "services": "Hyzmatlar",
+    "contact-us": "Habarlaşmak"
+  },
+  "theme": {
+    "dark": "Dark",
+    "light": "Light"
+  },
+  "header": {
+    "new-products": "Täze önümler",
+    "check-out": "Check out our new products",
+    "our-clients": "Müşderilerimiz"
+  },
+  "features": {
+    "heading": "Giň gerimli IT çözgütleri",
+    "subheading": "Programmalar, torlar, maglumat howpsuzlygy we kiberhowpsuzlygy üpjün edýän ygtybarly we ýokary öndürijilikli çözgütleri hödürleýäris"
+  },
+  "button": {
+    "login": "Giriş",
+    "signup": "Agza bol"
+  }
+}

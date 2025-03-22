@@ -1,0 +1,25 @@
+{
+  "section": {
+    "features": "Features",
+    "products": "Products",
+    "services": "Services",
+    "contact-us": "Contact us"
+  },
+  "theme": {
+    "dark": "Dark",
+    "light": "Light"
+  },
+  "header": {
+    "new-products": "New products",
+    "check-out": "Check out our new products",
+    "our-clients": "Our clients"
+  },
+  "features": {
+    "heading": "Comprehensive IT & Development Solutions",
+    "subheading": "Providing scalable, secure, and high-performance solutions for software, networking, and security needs"
+  },
+  "button": {
+    "login": "Login",
+    "signup": "Sign up"
+  }
+}

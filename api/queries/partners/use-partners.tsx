@@ -1,6 +1,6 @@
 "use client"
 import api from "@/api";
-import usePagination from "@/hooks";
+import { usePagination } from "@/hooks";
 import useFilter from "@/hooks/use-filter";
 import { clearEmpty } from "@/utils";
 import { useQuery } from "@tanstack/react-query";

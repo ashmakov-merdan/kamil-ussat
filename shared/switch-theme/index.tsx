@@ -1,50 +1,38 @@
 "use client"
-import { useEffect, useState } from "react";
-import Button from "../button";
+import { useCallback, useEffect } from "react";
+import { MoonIcon, SunIcon } from "@/components/icons";
+import useTheme from "@/store/use-theme";
 
 const SwitchTheme = () => {
-  const [isDark, setDark] = useState<boolean>(false);
+  const { isDark, switchTheme } = useTheme();
 
   useEffect(() => {
-    if (localStorage.theme === "dark" ||
-      (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)
-    ) {
-      toDark()
+    const html = document.querySelector("html");
+    if (!html) return;
+
+    if (isDark) {
+      html.classList.add("dark");
     } else {
-      toLight();
+      html.classList.remove("dark");
     }
-  }, []);
+  }, [isDark]);
 
-  const toDark = () => {
-    setDark(true);
-    const root = document.querySelector("html");
-    if (!root) return;
-    !root.classList.contains("dark") && root.classList.add("dark");
-    localStorage.theme = "dark";
-  };
+  const toggleTheme = useCallback(() => {
+    switchTheme(isDark ? "light" : "dark");
+  }, [isDark]);
 
-  const toLight = () => {
-    setDark(false);
-    const root = document.querySelector("html");
-    if (!root) return;
-    root.classList.remove("dark");
-    localStorage.theme = "light";
-  };
-
-  const toggleMode = () => {
-    if (localStorage.theme === "light") {
-      toDark();
-    } else {
-      toLight();
-    }
-  };
-
-  return <Button
-    label={isDark ? "Dark" : "Light"}
-    onClick={toggleMode}
-    variant={"light"}
-    size={"sm"}
-  />
+  return (
+    <button
+      onClick={toggleTheme}
+      className="bg-[#F2F4F7] hover:bg-[#F2F4F7]/80 dark:bg-[#1F242F] dark:hover:bg-[#1F242F]/50 px-3 py-2 rounded-lg transition-colors"
+      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+    >
+      {isDark ?
+        <MoonIcon className="text-[#94969C]" size={24} /> :
+        <SunIcon className="text-[#475467]" size={24} />
+      }
+    </button>
+  );
 };
 
 export default SwitchTheme;

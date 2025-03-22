@@ -1,12 +1,13 @@
 "use client"
+import { useLocale } from "next-intl";
 import { useState } from "react";
 
 const useFilter = () => {
+  const locale = useLocale();
   const [ filters, setFilters ] = useState<Record<string, unknown>>({
     order_direction: "asc",
-    order_by: "id",
-    is_active: false,
-    lang: "tk"
+    order_by: "priority",
+    lang: locale
   });
   
   const onSelectOrderDirection = (direction: "asc" | "desc") => {

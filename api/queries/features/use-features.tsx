@@ -1,6 +1,6 @@
 "use client"
 import api from "@/api";
-import usePagination from "@/hooks";
+import { usePagination } from "@/hooks";
 import useFilter from "@/hooks/use-filter";
 import { clearEmpty } from "@/utils";
 import { useQuery } from "@tanstack/react-query";
@@ -13,7 +13,7 @@ const useFeatures = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["features", page],
     queryFn: async () => {
-      const res = await api.get(`/manager/features`, { params: clearEmpty({ ...filters, page, limit})});
+      const res = await api.get(`/manager/features`, { params: clearEmpty({ ...filters, page, limit }) });
       return res.data;
     }
   });

@@ -55,7 +55,6 @@ const Uploader: FC = () => {
       const formData = new FormData();
       formData.append("file", file);
       
-      // Upload directly without state management
       upload(formData, {
         onSuccess: (data: FileUploadResponse) => {
           const { filePath, blurhash } = data.payload;

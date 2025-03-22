@@ -1,7 +1,9 @@
 "use client"
+import navigation from "@/constants/navigation";
 import { Logo } from "@/shared";
 import Image from "next/image";
 import { FC } from "react";
+import Links from "../navigation/links";
 
 const Footer: FC = () => {
   return (
@@ -11,12 +13,7 @@ const Footer: FC = () => {
           <Logo />
         </div>
         <div className="flex flex-col lg:flex-row justify-between gap-y-12 lg:items-center">
-          <div className="inline-flex  flex-wrap gap-8">
-            <a href={"#features"} className="text-[#94969C] font-semibold">Features</a>
-            <a href={"#products"} className="text-[#94969C] font-semibold">Products</a>
-            <a href={"#services"} className="text-[#94969C] font-semibold">Services</a>
-            <a href={"#contact-us"} className="text-[#94969C] font-semibold">Contact Us</a>
-          </div>
+          <Links />
           <div className="inline-flex gap-x-7 lg:gap-x-4">
             <a className="size-12 bg-[#F2F4F7] dark:bg-[#1F242F] rounded-full flex justify-center items-center">
               <Image
