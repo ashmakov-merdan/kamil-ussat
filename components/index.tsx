@@ -10,5 +10,6 @@ import Services from "./services";
 import Sidebar from "./sidebar";
 import Login from "./login"
 import Register from "./register";
+import MobileMenu from "./mobile-menu";
 
-export { Clients, Companies, ContactUs, Features, Footer, Header, Login, Navigation, Products, Services, Sidebar, Register };
+export { Clients, Companies, ContactUs, Features, Footer, Header, Login, Navigation, Products, Services, Sidebar, Register, MobileMenu };

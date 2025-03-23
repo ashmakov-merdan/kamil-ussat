@@ -7,10 +7,12 @@ import { useMutation } from "@tanstack/react-query";
 import api from "@/api";
 import toast from "react-hot-toast";
 import { useCallback } from "react";
+import { useTranslations } from "next-intl";
 
 const fields = new Fields();
 
 const useCreateService = () => {
+  const t = useTranslations();
   const router = useRouter();
 
   const methods = useForm<CreateServiceValidation>({
@@ -21,7 +23,7 @@ const useCreateService = () => {
       is_active: true
     }
   });
-  const { handleSubmit, setValue, watch } = methods;
+  const { handleSubmit } = methods;
 
   const { mutate: createService, isPending } = useMutation({
     mutationKey: ["create-service"],
@@ -30,7 +32,7 @@ const useCreateService = () => {
       return res.data;
     },
     onSuccess: () => {
-      toast.success("Service created successfully");
+      toast.success(t("alert.created"));
       router.push("/admin/services");
     },
     onError: (error: any) => {

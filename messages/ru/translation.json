@@ -3,6 +3,9 @@
     "features": "Особенности",
     "products": "Продукция",
     "services": "Услуги",
+    "clients": "Клиенты",
+    "partners": "Партнеры",
+    "users": "Пользователи",
     "contact-us": "Связаться с нами"
   },
   "theme": {
@@ -20,6 +23,53 @@
   },
   "button": {
     "login": "Войти",
-    "signup": "Зарегистрироваться"
+    "signup": "Зарегистрироваться",
+    "forgot": "Забыли пароль",
+    "save": "Сохранить",
+    "cancel": "Отмена",
+    "previous": "Предыдущий",
+    "next": "Следующий",
+    "add": "Добавить"
+  },
+  "fields": {
+    "name": "Название",
+    "name-tk": "Название (TK)",
+    "name-ru": "Название (RU)",
+    "name-en": "Название (EN)",
+    "description-tk": "Описание (TK)",
+    "description-ru": "Описание (RU)",
+    "description-en": "Описание (EN)",
+    "images": "Изображения",
+    "email": "Электронная почта",
+    "password": "Пароль",
+    "firstName": "Имя",
+    "lastName": "Фамилия",
+    "birthdate": "Дата рождения",
+    "verificationCode": "Проверочный код",
+    "logo": "Логотип"
+  },
+  "uploader": {
+    "click-to-upload": "Нажмите, чтобы загрузить",
+    "drag-n-drop": "или перетащите и отпустите",
+    "drop-your-files": "Перетащите ваши файлы сюда",
+    "uploaded-files": "Загруженные файлы"
+  },
+  "auth": {
+    "login-to-account": "Войдите в свой аккаунт",
+    "welcome-back": "Добро пожаловать! Пожалуйста, введите свои данные",
+    "dont-have-account": "Нет аккаунта?",
+    "have-account": "У вас уже есть аккаунт?"
+  },
+  "columns": {
+    "service": "Услуга",
+    "actions": "Действия",
+    "current-page": "Текущая страница"
+  },
+  "alert": {
+    "authorized": "Авторизован",
+    "invalid-credentials": "Неверные учетные данные",
+    "created": "Создано успешно",
+    "updated": "Обновлено успешно",
+    "deleted": "Удален успешно"
   }
 }

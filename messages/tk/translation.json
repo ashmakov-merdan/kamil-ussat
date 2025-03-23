@@ -3,6 +3,9 @@
     "features": "Aýratynlyklar",
     "products": "Önümler",
     "services": "Hyzmatlar",
+    "clients": "Müşderiler",
+    "partners": "Hyzmatdaşlar",
+    "users": "Ulanyjylar",
     "contact-us": "Habarlaşmak"
   },
   "theme": {
@@ -20,6 +23,53 @@
   },
   "button": {
     "login": "Giriş",
-    "signup": "Agza bol"
+    "signup": "Agza bol",
+    "forgot": "Açar sözüni unutdym",
+    "save": "Ýatda sakla",
+    "cancel": "Ýatyrmak",
+    "previous": "Öňki",
+    "next": "Indiki",
+    "add": "Goşmak"
+  },
+  "fields": {
+    "name": "Ady",
+    "name-tk": "Ady (TK)",
+    "name-ru": "Ady (RU)",
+    "name-en": "Ady (EN)",
+    "description-tk": "Maglumat (TK)",
+    "description-ru": "Maglumat (RU)",
+    "description-en": "Maglumat (EN)",
+    "images": "Suratlar",
+    "email": "E-poçta",
+    "password": "Açar sözi",
+    "firstName": "Ady",
+    "lastName": "Familýasy",
+    "birthdate": "Doglan senesi",
+    "verificationCode": "Tassyklaýyş kody",
+    "logo": "Logo"
+  },
+  "uploader": {
+    "click-to-upload": "Ýüklemek üçin basyň",
+    "drag-n-drop": "ýa-da süýräp getirip goýuň",
+    "drop-your-files": "Suratlaryňyzy şu ýere goýuň",
+    "uploaded-files": "Ýüklenen"
+  },
+  "auth": {
+    "login-to-account": "Hasabyňyz giriň",
+    "welcome-back": "Welcome back! Maglumatyňyzy giriziň",
+    "dont-have-account": "Hasabyňyz ýokmy?",
+    "have-account": "Hasabyňyz barmy?"
+  },
+  "columns": {
+    "service": "Hyzmat",
+    "actions": "Amallar",
+    "current-page": "Häzirki sahypa"
+  },
+  "alert": {
+    "authorized": "Hasaba girdiňiz",
+    "invalid-credentials": "Maglumatlar nädogry",
+    "created": "Döredildi",
+    "updated": "Täzelendi",
+    "deleted": "Pozuldy"
   }
 }

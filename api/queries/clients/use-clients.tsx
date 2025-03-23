@@ -1,45 +1,24 @@
 "use client"
 import api from "@/api";
+import { useFilter, usePagination } from "@/hooks";
+import { clearEmpty } from "@/utils";
 import { useQuery } from "@tanstack/react-query";
-import { useState, useCallback } from "react";
-
-interface IClient {
-  id: number;
-  name: string;
-  priority: number;
-  is_active: boolean;
-  slug: string;
-  files: {
-    path: string;
-    blurhash: string;
-  }[];
-}
+import { useMemo } from "react";
 
 const useClients = () => {
-  const [page, setPage] = useState(1);
+  const { limit, page, nextPage, prevPage } = usePagination();
+  const { filters } = useFilter();
 
   const { data, isLoading } = useQuery({
-    queryKey: ["clients", page],
+    queryKey: ["clients", page, limit, filters],
     queryFn: async () => {
-      const res = await api.get(`/manager/clients?page=${page}`);
+      const res = await api.get(`/manager/clients`, { params: clearEmpty({ ...filters, page, limit }) });
       return res.data;
     }
   });
 
-  const clients: IClient[] = data?.payload?.data || [];
-  const totalPages = data?.payload?.last_page || 1;
+  const clients = useMemo<IClient[]>(() => data ? data.payload : [], [data]);
 
-  const nextPage = useCallback(() => {
-    if (page < totalPages) {
-      setPage(prev => prev + 1);
-    }
-  }, [page, totalPages]);
-
-  const prevPage = useCallback(() => {
-    if (page > 1) {
-      setPage(prev => prev - 1);
-    }
-  }, [page]);
 
   return {
     clients,
@@ -47,7 +26,6 @@ const useClients = () => {
     nextPage,
     prevPage,
     page,
-    totalPages
   };
 };
 

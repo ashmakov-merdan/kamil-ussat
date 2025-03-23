@@ -2,11 +2,13 @@
 import { useCreateClient } from "@/api/queries/clients";
 import Uploader from "@/components/uploader";
 import { Button, Input } from "@/shared";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { FC } from "react";
 import { Controller, FormProvider } from "react-hook-form";
 
 const ClientAddPage: FC = () => {
+  const t = useTranslations();
   const router = useRouter();
   const { methods, onSubmit, isPending } = useCreateClient();
   const { control } = methods;
@@ -22,53 +24,19 @@ const ClientAddPage: FC = () => {
               render={({ field: { value, onChange }, fieldState: { invalid, error } }) => (
                 <Input
                   id="name"
-                  label="Name"
+                  label={t("fields.name")}
                   defaultValue={value}
                   onChange={onChange}
                   isInvalid={invalid}
                   errorMessage={error?.message ? error.message : ""}
                 />
-              )}
-            />
-            <Controller
-              control={control}
-              name="slug"
-              render={({ field: { value, onChange }, fieldState: { invalid, error } }) => (
-                <Input
-                  id="slug"
-                  label="Slug"
-                  defaultValue={value}
-                  onChange={onChange}
-                  isInvalid={invalid}
-                  errorMessage={error?.message ? error.message : ""}
-                />
-              )}
-            />
-          </div>
-          <div className="flex items-center space-x-2">
-            <Controller
-              control={control}
-              name="is_active"
-              render={({ field: { value, onChange } }) => (
-                <>
-                  <input
-                    type="checkbox"
-                    id="is_active"
-                    checked={value}
-                    onChange={onChange}
-                    className="h-4 w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500"
-                  />
-                  <label htmlFor="is_active" className="text-sm font-medium text-[#344054] dark:text-[#CECFD2]">
-                    Active
-                  </label>
-                </>
               )}
             />
           </div>
         </div>
 
         <div className="border-t border-[#EAECF0] dark:border-[#1F242F] pt-6">
-          <h3 className="text-base font-semibold mb-3 text-[#344054] dark:text-[#CECFD2]">Client Logo</h3>
+          <h3 className="text-base font-semibold mb-3 text-[#344054] dark:text-[#CECFD2]">{t("fields.logo")}</h3>
           <Uploader />
         </div>
 

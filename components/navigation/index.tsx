@@ -8,11 +8,13 @@ import { useAuthStore } from "@/store";
 import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/utils";
 import { useTranslations } from "next-intl";
+import MobileMenu from "../mobile-menu";
 
 const Navigation: FC = () => {
   const t = useTranslations();
   const pathname = usePathname();
   const isAuthPage = useMemo(() => pathname === "/login" || pathname === "/register", [pathname]);
+  const isAdminPage = useMemo(() => pathname.startsWith("/admin"), [pathname]);
   const { user } = useAuthStore();
   const router = useRouter();
 
@@ -25,17 +27,20 @@ const Navigation: FC = () => {
         {!isAuthPage && <Link href={"/"}>
           <Logo className="w-32 lg:w-44" />
         </Link>}
-        {!isAuthPage && <Links />}
-        <div className="max-sm:hidden inline-flex items-center gap-x-3">
-          {!isAuthPage && !user && <Fragment>
-            <Button label={t("button.login")} variant={"flat"} onClick={() => router.push("/login")} />
-            <Button label={t("button.signup")} onClick={() => router.push("/register")} />
-          </Fragment>}
-          <div className="max-sm:hidden flex gap-x-2">
-            <LanguageDropdown />
-            <SwitchTheme />
+        {(!isAuthPage && !isAdminPage) && <Links />}
+        <div className="flex items-center gap-x-3">
+          <div className="max-sm:hidden inline-flex items-center gap-x-3">
+            {!isAuthPage && !user && <Fragment>
+              <Button label={t("button.login")} variant={"flat"} onClick={() => router.push("/login")} />
+              <Button label={t("button.signup")} onClick={() => router.push("/register")} />
+            </Fragment>}
+            <div className="max-sm:hidden flex gap-x-2">
+              <LanguageDropdown />
+              <SwitchTheme />
+            </div>
           </div>
-          {!isAuthPage && user && <Avatar />}
+          <div className="max-sm:hidden">{!isAuthPage && user && <Avatar />}</div>
+          <MobileMenu />
         </div>
       </div>
     </nav>

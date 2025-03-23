@@ -137,7 +137,7 @@ const SortableItem = ({
 
 const ClientsPage: FC = () => {
   const router = useRouter();
-  const { clients, nextPage, prevPage, page, totalPages, isLoading } = useClients();
+  const { clients, nextPage, prevPage, page, isLoading } = useClients();
   const { reorderClients, isPending } = useReorderClients();
   const { deleteClient, isPending: isDeleting } = useDeleteClient();
   const [orderedClients, setOrderedClients] = useState<IClient[]>([]);
@@ -359,11 +359,10 @@ const ClientsPage: FC = () => {
           >
             Previous
           </button>
-          <p className="text-sm text-[#344054] dark:text-[#CECFD2] font-medium">Page {page} of {totalPages}</p>
+          <p className="text-sm text-[#344054] dark:text-[#CECFD2] font-medium">Page {page}</p>
           <button 
             type="button" 
-            onClick={nextPage} 
-            disabled={page >= totalPages}
+            onClick={nextPage}
             className="px-3 py-2 rounded-lg text-sm text-[#344054] dark:text-[#CECFD2] bg-[#FFFFFF] dark:bg-[#161B26] border border-[#D0D5DD] dark:border-[#333741] disabled:opacity-50"
           >
             Next
@@ -381,7 +380,6 @@ const ClientsPage: FC = () => {
     isDeleting,
     sensors, 
     page,
-    totalPages, 
     prevPage, 
     nextPage,
     isLoading

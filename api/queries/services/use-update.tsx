@@ -1,9 +1,10 @@
 "use client"
 import api from "@/api";
 import { Fields } from "@/constants/fields";
-import { createServiceValidation, CreateServiceValidation } from "@/validations/service";
+import { createServiceValidation, CreateServiceValidation, updateServiceValidation } from "@/validations/service";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { useParams, useRouter } from "next/navigation";
 import { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -17,20 +18,16 @@ interface UpdateServiceParams {
 const fields = new Fields();
 
 const useUpdate = () => {
+  const t = useTranslations();
   const params = useParams();
   const router = useRouter();
   const queryClient = useQueryClient();
   const serviceId = params?.id as string;
 
-  const methods = useForm<CreateServiceValidation>({
-    resolver: zodResolver(createServiceValidation),
-    defaultValues: {
-      priority: 1,
-      files: [],
-      is_active: true
-    }
+  const methods = useForm<Omit<CreateServiceValidation, "slug">>({
+    resolver: zodResolver(updateServiceValidation)
   });
-  
+
   const { handleSubmit, reset } = methods;
 
   // Fetch service data
@@ -50,7 +47,6 @@ const useUpdate = () => {
       reset({
         name: service.name,
         description: service.description,
-        slug: service.slug,
         priority: service.priority,
         is_active: service.is_active,
         files: service.files || []
@@ -58,35 +54,33 @@ const useUpdate = () => {
     }
   }, [serviceData, reset]);
 
-  // Update service mutation
   const { mutate: updateService, isPending } = useMutation({
     mutationFn: async ({ id, data }: UpdateServiceParams) => {
       const res = await api.patch(`/manager/services/${id}`, data);
       return res.data;
     },
     onSuccess: () => {
-      toast.success("Service updated successfully");
+      toast.success(t("alert.updated"));
       queryClient.invalidateQueries({ queryKey: ["services"] });
       queryClient.invalidateQueries({ queryKey: ["service", serviceId] });
       router.push("/admin/services");
     },
     onError: (error: any) => {
-      console.error(error);
       let errorMessage = "Failed to update service";
-      
+
       if (error.message) {
         errorMessage = error.message;
       } else if (error.response?.data?.message) {
         errorMessage = error.response.data.message;
       }
-      
+
       toast.error(errorMessage);
     }
   });
 
-  const onSubmit = useCallback((values: CreateServiceValidation) => {
+  const onSubmit = useCallback((values: Omit<CreateServiceValidation, "slug">) => {
     if (!serviceId) return;
-    
+
     updateService({
       id: parseInt(serviceId),
       data: values

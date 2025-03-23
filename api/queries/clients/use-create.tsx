@@ -21,11 +21,22 @@ const useCreateClient = () => {
     }
   });
   const { handleSubmit } = methods;
-  
+
   const { mutate, isPending } = useMutation({
     mutationKey: ["create-client"],
     mutationFn: async (values: ClientValues) => {
-      const res = await api.post("/manager/clients", values);
+      const { files, ...rest } = values;
+      const data = {
+        ...rest,
+        files: [
+          {
+            path: "public/2025-03/ea9b5cf6-1288-45aa-b15f-f9b5fdbf0b55.png",
+            blurhash: "UER:NZ.8NI?c_3fQj[ofIoofs.WB~qofWBfQ"
+          }
+        ]
+      };
+      
+      const res = await api.post("/manager/clients", data);
       return res.data;
     },
     onSuccess: () => {
@@ -36,20 +47,20 @@ const useCreateClient = () => {
     onError: (error: any) => {
       console.error(error);
       let errorMessage = "Failed to create client";
-      
+
       if (error.message) {
         errorMessage = error.message;
       } else if (error.response?.data?.message) {
         errorMessage = error.response.data.message;
       }
-      
+
       toast.error(errorMessage);
     }
   });
 
   const onSubmit = useCallback((values: ClientValues) => {
     mutate(values);
-  }, [mutate]);
+  }, []);
 
   return {
     methods,

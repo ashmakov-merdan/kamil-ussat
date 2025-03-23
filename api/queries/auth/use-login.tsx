@@ -8,6 +8,7 @@ import { useAuthStore } from "@/store";
 import { createSession } from "@/utils/session";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 type Response = {
   token: {
@@ -19,6 +20,7 @@ type Response = {
 } & IUser
 
 const useLogin = () => {
+  const t = useTranslations();
   const { setUser } = useAuthStore();
   const router = useRouter();
 
@@ -36,7 +38,7 @@ const useLogin = () => {
       const { token, ...user } = data.payload;
       setUser(user);
       createSession(token.access.token, token.refresh);
-      toast.success("Logged in");
+      toast.success(t("alert.authorized"));
       router.replace("/");
     },
     onError: (error: any) => {
@@ -45,7 +47,7 @@ const useLogin = () => {
         const message = error.response.data.message;
 
         if (message === "Username or password is invalid") {
-          toast.error("Invalid credentials");
+          toast.error(t("alert.invalid-credentials"));
         }
       }
     }

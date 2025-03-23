@@ -2,11 +2,14 @@
 import { useUpdate } from "@/api/queries/services";
 import Uploader from "@/components/uploader";
 import { Button, Input } from "@/shared";
+import Textarea from "@/shared/textarea";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { FC } from "react";
 import { Controller, FormProvider } from "react-hook-form";
 
 const UpdateServicePage: FC = () => {
+  const t = useTranslations();
   const router = useRouter();
   const { methods, onSubmit, fields, isPending, isLoading } = useUpdate();
   const { control } = methods;
@@ -38,7 +41,7 @@ const UpdateServicePage: FC = () => {
                     <div className="flex-1">
                       <Input
                         id={nameField.name}
-                        label={nameField.label}
+                        label={t(`fields.${nameField.label}`)}
                         defaultValue={value as string}
                         onChange={onChange}
                         isInvalid={invalid}
@@ -60,9 +63,9 @@ const UpdateServicePage: FC = () => {
                   name={descField.name as "description.tk" | "description.ru" | "description.en"}
                   render={({ field: { value, onChange }, fieldState: { invalid, error } }) => (
                     <div className="flex-1">
-                      <Input
+                      <Textarea
                         id={descField.name}
-                        label={descField.label}
+                        label={t(`fields.${descField.label}`)}
                         defaultValue={value}
                         onChange={onChange}
                         isInvalid={invalid}
@@ -74,60 +77,24 @@ const UpdateServicePage: FC = () => {
               ))
             ))}
           </div>
-
-          <div>
-            <Controller
-              control={control}
-              name="slug"
-              render={({ field: { value, onChange }, fieldState: { invalid, error } }) => (
-                <Input
-                  id="slug"
-                  label="Slug"
-                  defaultValue={value}
-                  onChange={onChange}
-                  isInvalid={invalid}
-                  errorMessage={error?.message ? error.message : ""}
-                />
-              )}
-            />
-          </div>
-
-          <div className="flex items-center space-x-2">
-            <Controller
-              control={control}
-              name="is_active"
-              render={({ field: { value, onChange } }) => (
-                <>
-                  <input
-                    type="checkbox"
-                    id="is_active"
-                    checked={value}
-                    onChange={onChange}
-                    className="h-4 w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500"
-                  />
-                  <label htmlFor="is_active" className="text-sm font-medium text-[#344054] dark:text-[#CECFD2]">
-                    Active
-                  </label>
-                </>
-              )}
-            />
-          </div>
         </div>
 
         <div className="border-t border-[#EAECF0] dark:border-[#1F242F] pt-6">
-          <h3 className="text-base font-semibold mb-3 text-[#344054] dark:text-[#CECFD2]">Service Images</h3>
+          <h3 className="text-base font-semibold mb-3 text-[#344054] dark:text-[#CECFD2]">{t('fields.images')}</h3>
           <Uploader />
         </div>
 
         <div className="flex justify-end gap-3">
           <Button
-            label="Cancel"
+            label={t("button.cancel")}
             variant={"light"}
+            type={"button"}
             onClick={() => router.back()}
           />
           <Button
-            label={isPending ? "Saving..." : "Save Changes"}
+            label={t("button.save")}
             type="submit"
+            loading={isPending}
             disabled={isPending}
           />
         </div>

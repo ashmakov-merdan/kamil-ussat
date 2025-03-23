@@ -12,7 +12,7 @@ interface Props {
   type?: string
 }
 
-const Input: FC<Props> = ({ defaultValue, id, label, type="text", length=32, onChange, errorMessage="", isInvalid=false }) => {
+const Input: FC<Props> = ({ defaultValue, id, label, type="text", length=100, onChange, errorMessage="", isInvalid=false }) => {
   return (
     <div className="w-full flex flex-col gap-y-1.5">
       <label htmlFor={id} className="text-sm text-[#344054] dark:text-[#CECFD2] font-medium">{label}</label>

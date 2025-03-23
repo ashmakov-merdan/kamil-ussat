@@ -3,6 +3,9 @@
     "features": "Features",
     "products": "Products",
     "services": "Services",
+    "clients": "Clients",
+    "partners": "Partners",
+    "users": "Users",
     "contact-us": "Contact us"
   },
   "theme": {
@@ -20,6 +23,53 @@
   },
   "button": {
     "login": "Login",
-    "signup": "Sign up"
+    "signup": "Sign up",
+    "forgot": "Forgot password",
+    "save": "Save",
+    "cancel": "Cancel",
+    "previous": "Previous",
+    "next": "Next",
+    "add": "Add"
+  },
+  "fields": {
+    "name": "Name",
+    "name-tk": "Name (TK)",
+    "name-ru": "Name (RU)",
+    "name-en": "Name (EN)",
+    "description-tk": "Description (TK)",
+    "description-ru": "Description (RU)",
+    "description-en": "Description (EN)",
+    "images": "Images",
+    "email": "Email",
+    "password": "Password",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "birthdate": "Birth date",
+    "verificationCode": "Verification code",
+    "logo": "Logo"
+  },
+  "uploader": {
+    "click-to-upload": "Click to upload",
+    "drag-n-drop": "or drag and drop",
+    "drop-your-files": "Drop your files here",
+    "uploaded-files": "Uploaded files"
+  },
+  "auth": {
+    "login-to-account": "Log in to your account",
+    "welcome-back": "Welcome back! Please enter your details",
+    "dont-have-account": "Don't have an account?",
+    "have-account": "Already have an account?"
+  },
+  "columns": {
+    "service": "Service",
+    "actions": "Actions",
+    "current-page": "Current page"
+  },
+  "alert": {
+    "authorized": "Authorized",
+    "invalid-credentials": "Invalid credentials",
+    "created": "Created successfully",
+    "updated": "Updated successfully",
+    "deleted": "Deleted successfully"
   }
 }
