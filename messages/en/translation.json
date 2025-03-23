@@ -24,9 +24,11 @@
   "button": {
     "login": "Login",
     "signup": "Sign up",
+    "logout": "Logout",
     "forgot": "Forgot password",
     "save": "Save",
     "cancel": "Cancel",
+    "dashboard": "Dashboard",
     "previous": "Previous",
     "next": "Next",
     "add": "Add"
@@ -62,6 +64,10 @@
   },
   "columns": {
     "service": "Service",
+    "feature": "Feature",
+    "partner": "Partner",
+    "client": "Client",
+    "user": "User",
     "actions": "Actions",
     "current-page": "Current page"
   },
@@ -71,5 +77,11 @@
     "created": "Created successfully",
     "updated": "Updated successfully",
     "deleted": "Deleted successfully"
+  },
+  "placeholder": {
+    "no-features": "No features found. Add your first feature.",
+    "no-services": "No services found. Add your first services.",
+    "no-partners": "No partners found. Add your first partner.",
+    "no-clients": "No clients found. Add your first client."
   }
 }

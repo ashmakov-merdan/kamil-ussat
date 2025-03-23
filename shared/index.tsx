@@ -10,5 +10,7 @@ import Subheading from "./subheading";
 import Tag from "./tag";
 import Title from "./title";
 import LanguageDropdown from "./language-dropdown";
+import Pagination from "./pagination";
+import Toggle from "./toggle";
 
-export { Avatar, Button, FeatureCard, Input, Heading, Logo, Shadow, ServiceCard, Subheading, Tag, Title, LanguageDropdown };
+export { Avatar, Button, FeatureCard, Input, Heading, Logo, Shadow, ServiceCard, Subheading, Tag, Title, LanguageDropdown, Pagination, Toggle };

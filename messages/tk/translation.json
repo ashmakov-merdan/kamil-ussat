@@ -24,9 +24,11 @@
   "button": {
     "login": "Giriş",
     "signup": "Agza bol",
+    "logout": "Hasapdan çykmak",
     "forgot": "Açar sözüni unutdym",
     "save": "Ýatda sakla",
     "cancel": "Ýatyrmak",
+    "dashboard": "Dolandyryş paneli",
     "previous": "Öňki",
     "next": "Indiki",
     "add": "Goşmak"
@@ -62,6 +64,10 @@
   },
   "columns": {
     "service": "Hyzmat",
+    "feature": "Aýratynlyk",
+    "partner": "Hyzmatdaş",
+    "client": "Müşderi",
+    "user": "Ulanyjy",
     "actions": "Amallar",
     "current-page": "Häzirki sahypa"
   },
@@ -71,5 +77,11 @@
     "created": "Döredildi",
     "updated": "Täzelendi",
     "deleted": "Pozuldy"
+  },
+  "placeholder": {
+    "no-features": "Hiç hili aýratynlyk goşulmady",
+    "no-services": "Hiç hili hyzmat goşulmady.",
+    "no-partners": "Hiç hili hyzmatdaş ýok.",
+    "no-clients": "Hiç hili müşderi ýok."
   }
 }

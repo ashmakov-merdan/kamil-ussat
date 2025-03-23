@@ -56,6 +56,7 @@ const UpdateClientPage: FC = () => {
           <Button
             label={t("button.cancel")}
             variant={"light"}
+            type={"button"}
             onClick={() => router.back()}
           />
           <Button

@@ -6,7 +6,8 @@ import { useTranslations } from "next-intl";
 import SwitchTheme from "@/shared/switch-theme";
 import { Avatar, Button } from "@/shared";
 import { useAuthStore } from "@/store";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useLogout } from "@/api/queries/auth";
 
 interface NavLink {
   label: string;
@@ -20,8 +21,20 @@ const navLinks: NavLink[] = [
   { label: "contact-us", href: "#contact-us" }
 ];
 
+const adminLinks: NavLink[] = [
+  { label: "users", href: "/admin/users" },
+  { label: "features", href: "/admin/services" },
+  { label: "services", href: "/admin/features" },
+  { label: "clients", href: "/admin/clients" },
+  { label: "partners", href: "/admin/partners" }
+];
+
 const MobileMenu: FC = () => {
   const router = useRouter();
+  const pathname = usePathname();
+  const isAuthPage = pathname.includes("/login") || pathname.includes("/register");
+  const isAdminPage = pathname.startsWith("/admin");
+  const { onSubmit } = useLogout();
   const { user } = useAuthStore();
   const t = useTranslations();
   const [isOpen, setIsOpen] = useState(false);
@@ -80,17 +93,47 @@ const MobileMenu: FC = () => {
         </div>
 
         <div className="flex flex-col px-8 py-6 space-y-8">
-          {navLinks.map((link) => (
-            <a
-              href={link.href}
-              key={link.href}
-              className="text-xl font-medium text-gray-800 hover:text-gray-600 dark:text-white dark:hover:text-gray-300"
-              onClick={toggleMenu}
-            >
-              {t(`section.${link.label}`)}
-            </a>
-          ))}
-
+          {isAdminPage ? (
+            adminLinks.map((link) => (
+              <Link
+                href={link.href}
+                key={link.href}
+                className="text-lg font-medium text-gray-800 hover:text-gray-600 dark:text-white dark:hover:text-gray-300"
+                onClick={toggleMenu}
+              >
+                {t(`section.${link.label}`)}
+              </Link>
+            ))
+          ) : (
+            navLinks.map((link) => (
+              <Link
+                href={isAuthPage ? "/" : link.href}
+                key={link.href}
+                className="text-lg font-medium text-gray-800 hover:text-gray-600 dark:text-white dark:hover:text-gray-300"
+                onClick={toggleMenu}
+              >
+                {t(`section.${link.label}`)}
+              </Link>
+            ))
+          )}
+          <div className="space-y-3">
+            {(user && user.role === "admin") && !pathname.includes("/admin") && <div>
+              <Button
+                variant={"primary"}
+                className="w-full"
+                label={t("button.dashboard")}
+                onClick={() => router.push("/admin")}
+              />
+            </div>}
+            {user && <div className="w-full">
+              <Button
+                variant={"light"}
+                className="w-full"
+                label={t("button.logout")}
+                onClick={onSubmit}
+              />
+            </div>}
+          </div>
           <div className="mt-6">
             <LanguageDropdown />
           </div>

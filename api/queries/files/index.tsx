@@ -28,7 +28,11 @@ const useFiles = () => {
   const { mutate, isPending } = useMutation({
     mutationKey: ["upload-files"],
     mutationFn: async (data: FormData): Promise<FileUploadResponse> => {
-      const res = await api.post('/manager/files', data);
+      const res = await api.post('/manager/files', data, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
       return res.data;
     },
     onSuccess: (data) => {
@@ -49,22 +53,8 @@ const useFiles = () => {
     }
   });
 
-  // Enhanced upload function that accepts callbacks
-  const upload = (formData: FormData, callbacks?: UploadCallbacks) => {
-    mutate(formData, {
-      onSuccess: (data) => {
-        // Call custom success callback if provided
-        if (callbacks?.onSuccess) {
-          callbacks.onSuccess(data);
-        }
-      },
-      onError: (error) => {
-        // Call custom error callback if provided
-        if (callbacks?.onError) {
-          callbacks.onError(error);
-        }
-      }
-    });
+  const upload = (formData: FormData) => {
+    mutate(formData);
   };
 
   return {

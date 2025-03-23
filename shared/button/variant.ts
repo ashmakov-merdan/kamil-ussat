@@ -1,7 +1,7 @@
 import { cva } from "class-variance-authority";
 
 const variants = cva(
-  "px-[18px] py-2 flex justify-center items-center gap-2 rounded-lg transition-colors text-[16px] font-semibold",
+  "px-[18px] py-2 flex justify-center items-center gap-2 rounded-lg transition-colors text-[16px] text-black dark:text-white font-semibold",
   {
     variants: {
       variant: {

@@ -5,9 +5,11 @@ import { DndContext, PointerSensor, useSensor, useSensors, DragEndEvent } from '
 import { arrayMove, SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { ArrowUp, ArrowDown, GripVertical, Trash2, Edit } from "lucide-react";
-import { Button } from "@/shared";
+import { Button, Pagination } from "@/shared";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { AdminPage } from "@/components";
 
 // Feature interface
 interface IFeature {
@@ -65,7 +67,7 @@ const SortableItem = ({
     <div 
       ref={setNodeRef} 
       style={style}
-      className={`grid grid-cols-12 items-center hover:bg-gray-50 dark:hover:bg-[#161B26] ${
+      className={`grid grid-cols-6 md:grid-cols-12 items-center hover:bg-gray-50 dark:hover:bg-[#161B26] ${
         isDragging ? 'opacity-50 bg-gray-100 dark:bg-[#161B26]' : ''
       }`}
     >
@@ -74,16 +76,16 @@ const SortableItem = ({
         {...listeners}
         className="p-3 col-span-1 flex justify-center cursor-grab"
       >
-        <GripVertical size={18} className="text-[#344054] dark:text-[#CECFD2]" />
+        <GripVertical size={16} className="md:w-[18px] md:h-[18px] text-[#344054] dark:text-[#CECFD2]" />
       </div>
-      <div className="p-3 col-span-5">
-        <h2 className="text-[#344054] dark:text-[#CECFD2]">{feature.name}</h2>
+      <div className="p-3 col-span-5 md:col-span-5">
+        <h2 className="text-[#344054] dark:text-[#CECFD2] text-sm md:text-base truncate">{feature.name}</h2>
       </div>
-      <div className="p-3 col-span-6 flex items-center space-x-4">
+      <div className="p-1 md:p-3 col-span-6 flex items-center justify-end md:justify-start space-x-1 md:space-x-4">
         <button
           onClick={() => onToggle(feature)}
           disabled={isPending || isDeleting}
-          className="relative inline-flex h-6 w-11 items-center rounded-full focus:outline-none"
+          className="relative inline-flex h-5 md:h-6 w-10 md:w-11 items-center rounded-full focus:outline-none"
           aria-pressed={feature.is_active}
         >
           <span
@@ -94,9 +96,9 @@ const SortableItem = ({
           />
           <span
             className={`${feature.is_active
-              ? 'translate-x-6'
+              ? 'translate-x-5 md:translate-x-6'
               : 'translate-x-1'
-              } inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200 ease-in-out`}
+              } inline-block h-3 md:h-4 w-3 md:w-4 transform rounded-full bg-white transition-transform duration-200 ease-in-out`}
           />
         </button>
         <Link 
@@ -104,7 +106,7 @@ const SortableItem = ({
           className="p-1 rounded-md hover:bg-blue-100 dark:hover:bg-blue-900 text-blue-500 dark:text-blue-400"
           aria-label="Edit feature"
         >
-          <Edit size={18} />
+          <Edit size={16} className="md:w-[18px] md:h-[18px]" />
         </Link>
         <button
           onClick={() => onMoveUp(index)}
@@ -112,7 +114,7 @@ const SortableItem = ({
           className="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-[#161B26] disabled:opacity-50"
           aria-label="Move up"
         >
-          <ArrowUp size={18} className="text-[#344054] dark:text-[#CECFD2]" />
+          <ArrowUp size={16} className="md:w-[18px] md:h-[18px] text-[#344054] dark:text-[#CECFD2]" />
         </button>
         <button
           onClick={() => onMoveDown(index)}
@@ -120,7 +122,7 @@ const SortableItem = ({
           className="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-[#161B26] disabled:opacity-50"
           aria-label="Move down"
         >
-          <ArrowDown size={18} className="text-[#344054] dark:text-[#CECFD2]" />
+          <ArrowDown size={16} className="md:w-[18px] md:h-[18px] text-[#344054] dark:text-[#CECFD2]" />
         </button>
         <button
           onClick={() => onDelete(feature)}
@@ -128,7 +130,7 @@ const SortableItem = ({
           className="p-1 rounded-md hover:bg-red-100 dark:hover:bg-red-900 text-red-500 dark:text-red-400 disabled:opacity-50"
           aria-label="Delete feature"
         >
-          <Trash2 size={18} />
+          <Trash2 size={16} className="md:w-[18px] md:h-[18px]" />
         </button>
       </div>
     </div>
@@ -137,7 +139,8 @@ const SortableItem = ({
 
 const FeaturesPage: FC = () => {
   const router = useRouter();
-  const { features, nextPage, prevPage, page, totalPages, isLoading } = useFeatures();
+  const t = useTranslations();
+  const { features, nextPage, prevPage, page, isLoading } = useFeatures();
   const { reorderFeatures, isPending } = useReorderFeatures();
   const { deleteFeature, isPending: isDeleting } = useDeleteFeature();
   const [orderedFeatures, setOrderedFeatures] = useState<IFeature[]>([]);
@@ -303,75 +306,90 @@ const FeaturesPage: FC = () => {
     if (orderedFeatures.length === 0) {
       return (
         <div className="p-6 text-center border dark:border-[#1F242F] rounded-lg">
-          <p className="text-gray-500 dark:text-gray-400">No features found. Add your first feature.</p>
+          <p className="text-gray-500 dark:text-gray-400">{t("placeholder.no-services")}</p>
         </div>
       );
     }
 
     return (
-      <div className="border dark:border-[#1F242F] rounded-lg divide-y-[1px] divide-[#EAECF0] dark:divide-[#1F242F] overflow-hidden">
-        <div className="grid grid-cols-12 dark:bg-[#161B26]">
-          <div className="p-3 col-span-1">
-            <h2 className="text-[#344054] dark:text-[#CECFD2]">#</h2>
-          </div>
-          <div className="p-3 col-span-5">
-            <h2 className="text-[#344054] dark:text-[#CECFD2]">Feature</h2>
-          </div>
-          <div className="p-3 col-span-6">
-            <h2 className="text-[#344054] dark:text-[#CECFD2]">Actions</h2>
-          </div>
-        </div>
-        
-        <DndContext 
-          sensors={sensors}
-          onDragEnd={handleDragEnd}
+      <section className="flex flex-col">
+        <AdminPage
+          title={t("section.features")}
+          addButtonLabel={t("button.add-feature")}
+          addButtonLink="/admin/features/add"
         >
-          <SortableContext 
-            items={orderedFeatures.map(feature => feature.id.toString())} 
-            strategy={verticalListSortingStrategy}
-          >
-            <div className="divide-y divide-[#EAECF0] dark:divide-[#1F242F]">
-              {orderedFeatures.map((feature, index) => (
-                <SortableItem 
-                  key={feature.id.toString()}
-                  feature={feature}
-                  index={index}
-                  onMoveUp={(idx) => moveFeature(idx, 'up')}
-                  onMoveDown={(idx) => moveFeature(idx, 'down')}
-                  onToggle={toggleFeatureActive}
-                  onDelete={handleDeleteFeature}
-                  isFirst={index === 0}
-                  isLast={index === orderedFeatures.length - 1}
-                  isPending={isPending}
-                  isDeleting={isDeleting}
-                />
-              ))}
+          <div className="grid grid-cols-6 md:grid-cols-12 bg-gray-50 dark:bg-[#161B26]">
+            <div className="p-3 col-span-1 text-center font-medium text-[#344054] dark:text-[#CECFD2]">
+              #
             </div>
-          </SortableContext>
-        </DndContext>
-        
-        <div className="p-3 flex justify-between items-center">
-          <button 
-            type="button" 
-            onClick={prevPage} 
-            disabled={page <= 1}
-            className="px-3 py-2 rounded-lg text-sm text-[#344054] dark:text-[#CECFD2] bg-[#FFFFFF] dark:bg-[#161B26] border border-[#D0D5DD] dark:border-[#333741] disabled:opacity-50"
-          >
-            Previous
-          </button>
-          <p className="text-sm text-[#344054] dark:text-[#CECFD2] font-medium">Page {page} of {totalPages}</p>
-          <button 
-            type="button" 
-            onClick={nextPage} 
-            disabled={page >= totalPages}
-            className="px-3 py-2 rounded-lg text-sm text-[#344054] dark:text-[#CECFD2] bg-[#FFFFFF] dark:bg-[#161B26] border border-[#D0D5DD] dark:border-[#333741] disabled:opacity-50"
-          >
-            Next
-          </button>
-        </div>
-      </div>
+            <div className="p-3 col-span-5 md:col-span-5 font-medium text-[#344054] dark:text-[#CECFD2]">
+              {t("label.name")}
+            </div>
+            <div className="p-3 hidden md:block md:col-span-6 font-medium text-[#344054] dark:text-[#CECFD2]">
+              {t("label.actions")}
+            </div>
+          </div>
+
+          <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+            <SortableContext items={orderedFeatures.map(feature => feature.id.toString())} strategy={verticalListSortingStrategy}>
+              <div className="divide-y divide-gray-200 dark:divide-gray-700">
+                {orderedFeatures.map((feature, index) => (
+                  <SortableItem
+                    key={feature.id}
+                    feature={feature}
+                    index={index}
+                    onMoveUp={(idx) => moveFeature(idx, 'up')}
+                    onMoveDown={(idx) => moveFeature(idx, 'down')}
+                    onToggle={toggleFeatureActive}
+                    onDelete={handleDeleteFeature}
+                    isFirst={index === 0}
+                    isLast={index === orderedFeatures.length - 1}
+                    isPending={isPending}
+                    isDeleting={isDeleting}
+                  />
+                ))}
+              </div>
+            </SortableContext>
+          </DndContext>
+
+          <div className="flex justify-center mt-4">
+            <Pagination
+              currentPage={page}
+              nextPage={nextPage}
+              prevPage={prevPage}
+              length={features?.length || 0}
+            />
+          </div>
+        </AdminPage>
+
+        {confirmDelete.show && confirmDelete.feature && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white dark:bg-[#161B26] rounded-lg p-6 max-w-md w-full mx-4">
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Confirm Delete</h2>
+              <p className="text-gray-600 dark:text-gray-300 mb-6">
+                Are you sure you want to delete the feature "{confirmDelete.feature.name}"? This action cannot be undone.
+              </p>
+              <div className="flex justify-end space-x-3">
+                <button
+                  onClick={cancelDelete}
+                  className="px-4 py-2 rounded-lg text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={confirmDeleteFeature}
+                  className="px-4 py-2 rounded-lg text-white bg-red-600 hover:bg-red-700"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </section>
     );
   }, [
+    t,
     orderedFeatures, 
     handleDragEnd, 
     moveFeature, 
@@ -381,7 +399,7 @@ const FeaturesPage: FC = () => {
     isDeleting,
     sensors, 
     page,
-    totalPages, 
+    features,
     prevPage, 
     nextPage,
     isLoading
@@ -390,36 +408,10 @@ const FeaturesPage: FC = () => {
   return (
     <section id={"features"} className="space-y-6">
       <div className="px-4 py-3 bg-[#F9FAFB] dark:bg-[#161B26] w-full inline-flex justify-between items-center gap-4 rounded-lg">
-        <h2 className="text-xl text-black dark:text-white font-semibold">Features</h2>
-        <Button label="Add feature" onClick={() => router.push("/admin/features/add")} />
+        <h2 className="text-xl text-black dark:text-white font-semibold">{t("section.services")}</h2>
+        <Button label={t("button.add")} onClick={() => router.push("/admin/features/add")} />
       </div>
       <div className="grid">{renderFeatures}</div>
-
-      {/* Delete Confirmation Modal */}
-      {confirmDelete.show && confirmDelete.feature && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-[#161B26] rounded-lg p-6 max-w-md w-full">
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Confirm Delete</h2>
-            <p className="text-gray-600 dark:text-gray-300 mb-6">
-              Are you sure you want to delete the feature "{confirmDelete.feature.name}"? This action cannot be undone.
-            </p>
-            <div className="flex justify-end space-x-3">
-              <button
-                onClick={cancelDelete}
-                className="px-4 py-2 rounded-lg text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={confirmDeleteFeature}
-                className="px-4 py-2 rounded-lg text-white bg-red-600 hover:bg-red-700"
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   );
 };

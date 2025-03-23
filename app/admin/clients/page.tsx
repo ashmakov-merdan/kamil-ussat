@@ -5,24 +5,11 @@ import { DndContext, PointerSensor, useSensor, useSensors, DragEndEvent } from '
 import { arrayMove, SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { ArrowUp, ArrowDown, GripVertical, Trash2, Edit } from "lucide-react";
-import { Button } from "@/shared";
-import { useRouter } from "next/navigation";
+import { Pagination, Toggle } from "@/shared";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { AdminPage } from "@/components";
 
-// Client interface
-interface IClient {
-  id: number;
-  name: string;
-  priority: number;
-  is_active: boolean;
-  slug: string;
-  files: {
-    path: string;
-    blurhash: string;
-  }[];
-}
-
-// Sortable item component
 const SortableItem = ({ 
   client, 
   index, 
@@ -65,7 +52,7 @@ const SortableItem = ({
     <div 
       ref={setNodeRef} 
       style={style}
-      className={`grid grid-cols-12 items-center hover:bg-gray-50 dark:hover:bg-[#161B26] ${
+      className={`grid grid-cols-6 md:grid-cols-12 items-center hover:bg-gray-50 dark:hover:bg-[#161B26] ${
         isDragging ? 'opacity-50 bg-gray-100 dark:bg-[#161B26]' : ''
       }`}
     >
@@ -74,53 +61,39 @@ const SortableItem = ({
         {...listeners}
         className="p-3 col-span-1 flex justify-center cursor-grab"
       >
-        <GripVertical size={18} className="text-[#344054] dark:text-[#CECFD2]" />
+        <GripVertical size={16} className="md:w-[18px] md:h-[18px] text-[#344054] dark:text-[#CECFD2]" />
       </div>
-      <div className="p-3 col-span-5">
-        <h2 className="text-[#344054] dark:text-[#CECFD2]">{client.name}</h2>
+      <div className="p-3 col-span-2 md:col-span-5">
+        <h2 className="text-[#344054] dark:text-[#CECFD2] text-sm md:text-base truncate">{client.name}</h2>
       </div>
-      <div className="p-3 col-span-6 flex items-center space-x-4">
-        <button
+      <div className="p-1 md:p-3 col-span-3 md:col-span-6 flex items-center justify-end md:justify-start space-x-1 md:space-x-4">
+        <Toggle 
           onClick={() => onToggle(client)}
-          disabled={isPending || isDeleting}
-          className="relative inline-flex h-6 w-11 items-center rounded-full focus:outline-none"
-          aria-pressed={client.is_active}
-        >
-          <span
-            className={`${client.is_active
-              ? 'bg-green-600 dark:bg-green-500'
-              : 'bg-gray-200 dark:bg-gray-700'
-              } absolute inset-0 rounded-full transition-colors duration-200 ease-in-out`}
-          />
-          <span
-            className={`${client.is_active
-              ? 'translate-x-6'
-              : 'translate-x-1'
-              } inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200 ease-in-out`}
-          />
-        </button>
+          isDisabled={isPending || isDeleting}
+          isActive={client.is_active}
+        />
         <Link 
           href={`/admin/clients/${client.id}`} 
           className="p-1 rounded-md hover:bg-blue-100 dark:hover:bg-blue-900 text-blue-500 dark:text-blue-400"
           aria-label="Edit client"
         >
-          <Edit size={18} />
+          <Edit size={16} className="md:w-[18px] md:h-[18px]" />
         </Link>
         <button
           onClick={() => onMoveUp(index)}
           disabled={isFirst || isPending || isDeleting}
-          className="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-[#161B26] disabled:opacity-50"
+          className="p-1 hidden sm:block rounded-md hover:bg-gray-100 dark:hover:bg-[#161B26] disabled:opacity-50"
           aria-label="Move up"
         >
-          <ArrowUp size={18} className="text-[#344054] dark:text-[#CECFD2]" />
+          <ArrowUp size={16} className="md:w-[18px] md:h-[18px] text-[#344054] dark:text-[#CECFD2]" />
         </button>
         <button
           onClick={() => onMoveDown(index)}
           disabled={isLast || isPending || isDeleting}
-          className="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-[#161B26] disabled:opacity-50"
+          className="p-1 hidden sm:block rounded-md hover:bg-gray-100 dark:hover:bg-[#161B26] disabled:opacity-50"
           aria-label="Move down"
         >
-          <ArrowDown size={18} className="text-[#344054] dark:text-[#CECFD2]" />
+          <ArrowDown size={16} className="md:w-[18px] md:h-[18px] text-[#344054] dark:text-[#CECFD2]" />
         </button>
         <button
           onClick={() => onDelete(client)}
@@ -128,7 +101,7 @@ const SortableItem = ({
           className="p-1 rounded-md hover:bg-red-100 dark:hover:bg-red-900 text-red-500 dark:text-red-400 disabled:opacity-50"
           aria-label="Delete client"
         >
-          <Trash2 size={18} />
+          <Trash2 size={16} className="md:w-[18px] md:h-[18px]" />
         </button>
       </div>
     </div>
@@ -136,8 +109,8 @@ const SortableItem = ({
 };
 
 const ClientsPage: FC = () => {
-  const router = useRouter();
-  const { clients, nextPage, prevPage, page, isLoading } = useClients();
+  const t = useTranslations();
+  const { clients, nextPage, prevPage, page } = useClients();
   const { reorderClients, isPending } = useReorderClients();
   const { deleteClient, isPending: isDeleting } = useDeleteClient();
   const [orderedClients, setOrderedClients] = useState<IClient[]>([]);
@@ -178,9 +151,7 @@ const ClientsPage: FC = () => {
       // Directly swap priorities between the two clients
       const draggedPriority = draggedClient.priority;
       const targetPriority = targetClient.priority;
-      
-      console.log(`Swapping priorities: ${draggedClient.name}(${draggedPriority}) ↔ ${targetClient.name}(${targetPriority})`);
-      
+    
       // Update the dragged client's priority
       reorderClients({
         id: draggedClient.id,
@@ -224,8 +195,6 @@ const ClientsPage: FC = () => {
     // Get their priorities for swapping
     const currentPriority = currentClient.priority;
     const adjacentPriority = adjacentClient.priority;
-    
-    console.log(`Moving ${direction}: ${currentClient.name}(${currentPriority}) ↔ ${adjacentClient.name}(${adjacentPriority})`);
     
     // Create a new array with swapped positions
     const newOrderedClients = arrayMove([...orderedClients], index, targetIndex);
@@ -287,53 +256,31 @@ const ClientsPage: FC = () => {
     setConfirmDelete({ show: false, client: null });
   }, []);
 
-  const renderClients = useMemo(() => {
-    if (isLoading) {
-      return (
-        <div className="p-6 space-y-4 border dark:border-[#1F242F] rounded-lg">
-          <div className="animate-pulse space-y-4">
-            <div className="h-10 bg-gray-200 dark:bg-gray-700 rounded"></div>
-            <div className="h-10 bg-gray-200 dark:bg-gray-700 rounded"></div>
-            <div className="h-10 bg-gray-200 dark:bg-gray-700 rounded"></div>
+  return (
+    <section className="flex flex-col">
+      <AdminPage
+        title={t("section.clients")}
+        addButtonLabel={t("button.add")}
+        addButtonLink="/admin/clients/add"
+      >
+        <div className="grid grid-cols-6 md:grid-cols-12 bg-gray-50 dark:bg-[#161B26]">
+          <div className="p-3 col-span-1 text-center font-medium text-[#344054] dark:text-[#CECFD2]">
+            #
+          </div>
+          <div className="p-3 col-span-5 md:col-span-5 font-medium text-[#344054] dark:text-[#CECFD2]">
+            {t("columns.client")}
+          </div>
+          <div className="p-3 hidden md:block md:col-span-6 font-medium text-[#344054] dark:text-[#CECFD2]">
+            {t("columns.actions")}
           </div>
         </div>
-      );
-    }
 
-    if (orderedClients.length === 0) {
-      return (
-        <div className="p-6 text-center border dark:border-[#1F242F] rounded-lg">
-          <p className="text-gray-500 dark:text-gray-400">No clients found. Add your first client.</p>
-        </div>
-      );
-    }
-
-    return (
-      <div className="border dark:border-[#1F242F] rounded-lg divide-y-[1px] divide-[#EAECF0] dark:divide-[#1F242F] overflow-hidden">
-        <div className="grid grid-cols-12 dark:bg-[#161B26]">
-          <div className="p-3 col-span-1">
-            <h2 className="text-[#344054] dark:text-[#CECFD2]">#</h2>
-          </div>
-          <div className="p-3 col-span-5">
-            <h2 className="text-[#344054] dark:text-[#CECFD2]">Client</h2>
-          </div>
-          <div className="p-3 col-span-6">
-            <h2 className="text-[#344054] dark:text-[#CECFD2]">Actions</h2>
-          </div>
-        </div>
-        
-        <DndContext 
-          sensors={sensors}
-          onDragEnd={handleDragEnd}
-        >
-          <SortableContext 
-            items={orderedClients.map(client => client.id.toString())} 
-            strategy={verticalListSortingStrategy}
-          >
-            <div className="divide-y divide-[#EAECF0] dark:divide-[#1F242F]">
+        <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+          <SortableContext items={orderedClients.map(client => client.id.toString())} strategy={verticalListSortingStrategy}>
+            <div className="divide-y divide-gray-200 dark:divide-gray-700">
               {orderedClients.map((client, index) => (
-                <SortableItem 
-                  key={client.id.toString()}
+                <SortableItem
+                  key={client.id}
                   client={client}
                   index={index}
                   onMoveUp={(idx) => moveClient(idx, 'up')}
@@ -349,54 +296,20 @@ const ClientsPage: FC = () => {
             </div>
           </SortableContext>
         </DndContext>
-        
-        <div className="p-3 flex justify-between items-center">
-          <button 
-            type="button" 
-            onClick={prevPage} 
-            disabled={page <= 1}
-            className="px-3 py-2 rounded-lg text-sm text-[#344054] dark:text-[#CECFD2] bg-[#FFFFFF] dark:bg-[#161B26] border border-[#D0D5DD] dark:border-[#333741] disabled:opacity-50"
-          >
-            Previous
-          </button>
-          <p className="text-sm text-[#344054] dark:text-[#CECFD2] font-medium">Page {page}</p>
-          <button 
-            type="button" 
-            onClick={nextPage}
-            className="px-3 py-2 rounded-lg text-sm text-[#344054] dark:text-[#CECFD2] bg-[#FFFFFF] dark:bg-[#161B26] border border-[#D0D5DD] dark:border-[#333741] disabled:opacity-50"
-          >
-            Next
-          </button>
+
+        <div className="flex justify-center mt-4">
+          <Pagination
+            currentPage={page}
+            nextPage={nextPage}
+            prevPage={prevPage}
+            length={clients?.length || 0}
+          />
         </div>
-      </div>
-    );
-  }, [
-    orderedClients, 
-    handleDragEnd, 
-    moveClient, 
-    toggleClientActive, 
-    handleDeleteClient,
-    isPending, 
-    isDeleting,
-    sensors, 
-    page,
-    prevPage, 
-    nextPage,
-    isLoading
-  ]);
+      </AdminPage>
 
-  return (
-    <section id={"clients"} className="space-y-6">
-      <div className="px-4 py-3 bg-[#F9FAFB] dark:bg-[#161B26] w-full inline-flex justify-between items-center gap-4 rounded-lg">
-        <h2 className="text-xl text-black dark:text-white font-semibold">Clients</h2>
-        <Button label="Add client" onClick={() => router.push("/admin/clients/add")} />
-      </div>
-      <div className="grid">{renderClients}</div>
-
-      {/* Delete Confirmation Modal */}
       {confirmDelete.show && confirmDelete.client && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-[#161B26] rounded-lg p-6 max-w-md w-full">
+          <div className="bg-white dark:bg-[#161B26] rounded-lg p-6 max-w-md w-full mx-4">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Confirm Delete</h2>
             <p className="text-gray-600 dark:text-gray-300 mb-6">
               Are you sure you want to delete the client "{confirmDelete.client.name}"? This action cannot be undone.

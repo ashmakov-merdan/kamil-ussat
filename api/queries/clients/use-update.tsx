@@ -4,6 +4,7 @@ import { Fields } from "@/constants/fields";
 import { clientValidation, ClientValues } from "@/validations/client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { useParams, useRouter } from "next/navigation";
 import { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -15,6 +16,7 @@ interface UpdateClientParams {
 }
 
 const useUpdate = () => {
+  const t = useTranslations();
   const params = useParams();
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -31,7 +33,6 @@ const useUpdate = () => {
   
   const { handleSubmit, reset } = methods;
 
-  // Fetch client data
   const { data: clientData, isLoading } = useQuery({
     queryKey: ["client", clientId],
     queryFn: async () => {
@@ -41,13 +42,11 @@ const useUpdate = () => {
     enabled: !!clientId
   });
 
-  // Update form with fetched data
   useEffect(() => {
     if (clientData?.payload) {
       const client = clientData.payload;
       reset({
         name: client.name,
-        slug: client.slug,
         priority: client.priority,
         is_active: client.is_active,
         files: client.files || []
@@ -55,14 +54,13 @@ const useUpdate = () => {
     }
   }, [clientData, reset]);
 
-  // Update client mutation
   const { mutate: updateClient, isPending } = useMutation({
     mutationFn: async ({ id, data }: UpdateClientParams) => {
       const res = await api.patch(`/manager/clients/${id}`, data);
       return res.data;
     },
     onSuccess: () => {
-      toast.success("Client updated successfully");
+      toast.success(t("alert.updated"));
       queryClient.invalidateQueries({ queryKey: ["clients"] });
       queryClient.invalidateQueries({ queryKey: ["client", clientId] });
       router.push("/admin/clients");

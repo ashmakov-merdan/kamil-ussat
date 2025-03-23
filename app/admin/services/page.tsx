@@ -5,10 +5,11 @@ import { DndContext, PointerSensor, useSensor, useSensors, DragEndEvent } from '
 import { arrayMove, SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { ArrowUp, ArrowDown, GripVertical, Trash2, Edit } from "lucide-react";
-import { Button } from "@/shared";
+import { Button, Pagination, Toggle } from "@/shared";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { AdminPage } from "@/components";
 
 // Sortable item component
 const SortableItem = ({
@@ -53,7 +54,7 @@ const SortableItem = ({
     <div
       ref={setNodeRef}
       style={style}
-      className={`grid grid-cols-12 items-center hover:bg-gray-50 dark:hover:bg-[#161B26] ${isDragging ? 'opacity-50 bg-gray-100 dark:bg-[#161B26]' : ''
+      className={`grid grid-cols-6 md:grid-cols-12 items-center hover:bg-gray-50 dark:hover:bg-[#161B26] ${isDragging ? 'opacity-50 bg-gray-100 dark:bg-[#161B26]' : ''
         }`}
     >
       <div
@@ -63,51 +64,37 @@ const SortableItem = ({
       >
         <GripVertical size={18} className="text-[#344054] dark:text-[#CECFD2]" />
       </div>
-      <div className="p-3 col-span-5">
-        <h2 className="text-[#344054] dark:text-[#CECFD2]">{service.name}</h2>
+      <div className="p-3 col-span-2 md:col-span-5">
+        <h2 className="text-[#344054] dark:text-[#CECFD2] text-sm md:text-base truncate">{service.name}</h2>
       </div>
-      <div className="p-3 col-span-6 flex items-center space-x-4">
-        <button
+      <div className="p-1 md:p-3 col-span-3 md:col-span-6 flex items-center justify-end md:justify-start space-x-1 md:space-x-4">
+        <Toggle 
           onClick={() => onToggle(service)}
-          disabled={isPending || isDeleting}
-          className="relative inline-flex h-6 w-11 items-center rounded-full focus:outline-none"
-          aria-pressed={service.is_active}
-        >
-          <span
-            className={`${service.is_active
-              ? 'bg-green-600 dark:bg-green-500'
-              : 'bg-gray-200 dark:bg-gray-700'
-              } absolute inset-0 rounded-full transition-colors duration-200 ease-in-out`}
-          />
-          <span
-            className={`${service.is_active
-              ? 'translate-x-6'
-              : 'translate-x-1'
-              } inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200 ease-in-out`}
-          />
-        </button>
+          isDisabled={isPending || isDeleting}
+          isActive={service.is_active}
+        />
         <Link
           href={`/admin/services/${service.id}`}
           className="p-1 rounded-md hover:bg-blue-100 dark:hover:bg-blue-900 text-blue-500 dark:text-blue-400"
           aria-label="Edit service"
         >
-          <Edit size={18} />
+          <Edit size={16} className="md:w-[18px] md:h-[18px]" />
         </Link>
         <button
           onClick={() => onMoveUp(index)}
           disabled={isFirst || isPending || isDeleting}
-          className="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-[#161B26] disabled:opacity-50"
+          className="p-1 hidden sm:block rounded-md hover:bg-gray-100 dark:hover:bg-[#161B26] disabled:opacity-50"
           aria-label="Move up"
         >
-          <ArrowUp size={18} className="text-[#344054] dark:text-[#CECFD2]" />
+          <ArrowUp size={16} className="md:w-[18px] md:h-[18px] text-[#344054] dark:text-[#CECFD2]" />
         </button>
         <button
           onClick={() => onMoveDown(index)}
           disabled={isLast || isPending || isDeleting}
-          className="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-[#161B26] disabled:opacity-50"
+          className="p-1 hidden sm:block rounded-md hover:bg-gray-100 dark:hover:bg-[#161B26] disabled:opacity-50"
           aria-label="Move down"
         >
-          <ArrowDown size={18} className="text-[#344054] dark:text-[#CECFD2]" />
+          <ArrowDown size={16} className="md:w-[18px] md:h-[18px] text-[#344054] dark:text-[#CECFD2]" />
         </button>
         <button
           onClick={() => onDelete(service)}
@@ -115,7 +102,7 @@ const SortableItem = ({
           className="p-1 rounded-md hover:bg-red-100 dark:hover:bg-red-900 text-red-500 dark:text-red-400 disabled:opacity-50"
           aria-label="Delete service"
         >
-          <Trash2 size={18} />
+          <Trash2 size={16} className="md:w-[18px] md:h-[18px]" />
         </button>
       </div>
     </div>
@@ -264,89 +251,57 @@ const Services: FC = () => {
     setConfirmDelete({ show: false, service: null });
   }, []);
 
-  const renderServices = useMemo(() => {
-    return (
-      <div className="border dark:border-[#1F242F] rounded-lg divide-y-[1px] divide-[#EAECF0] dark:divide-[#1F242F] overflow-hidden">
-        <div className="grid grid-cols-12 dark:bg-[#161B26]">
-          <div className="p-3 col-span-1">
-            <h2 className="text-[#344054] dark:text-[#CECFD2]">#</h2>
-          </div>
-          <div className="p-3 col-span-5">
-            <h2 className="text-[#344054] dark:text-[#CECFD2]">{t("columns.service")}</h2>
-          </div>
-          <div className="p-3 col-span-6">
-            <h2 className="text-[#344054] dark:text-[#CECFD2]">{t("columns.actions")}</h2>
-          </div>
-        </div>
-
-        {orderedServices.length > 0 && (
-          <DndContext
-            sensors={sensors}
-            onDragEnd={handleDragEnd}
-          >
-            <SortableContext
-              items={orderedServices.map(service => service.id.toString())}
-              strategy={verticalListSortingStrategy}
-            >
-              <div className="divide-y divide-[#EAECF0] dark:divide-[#1F242F]">
-                {orderedServices.map((service, index) => (
-                  <SortableItem
-                    key={service.id.toString()}
-                    service={service}
-                    index={index}
-                    onMoveUp={(idx) => moveService(idx, 'up')}
-                    onMoveDown={(idx) => moveService(idx, 'down')}
-                    onToggle={toggleServiceActive}
-                    onDelete={handleDeleteService}
-                    isFirst={index === 0}
-                    isLast={index === orderedServices.length - 1}
-                    isPending={isPending}
-                    isDeleting={isDeleting}
-                  />
-                ))}
-              </div>
-            </SortableContext>
-          </DndContext>
-        )}
-
-        <div className="p-3 flex justify-between items-center">
-          <button
-            type="button"
-            onClick={prevPage}
-            className="px-3 py-2 rounded-lg text-sm text-[#344054] dark:text-[#CECFD2] bg-[#FFFFFF] dark:bg-[#161B26] border border-[#D0D5DD] dark:border-[#333741]"
-          >{t("button.previous")}</button>
-          <p className="text-sm text-[#344054] dark:text-[#CECFD2] font-medium">{t("columns.current-page")}: {page}</p>
-          <button
-            type="button"
-            onClick={nextPage}
-            className="px-3 py-2 rounded-lg text-sm text-[#344054] dark:text-[#CECFD2] bg-[#FFFFFF] dark:bg-[#161B26] border border-[#D0D5DD] dark:border-[#333741]"
-          >{t("button.next")}</button>
-        </div>
-      </div>
-    )
-  }, [
-    orderedServices,
-    handleDragEnd,
-    moveService,
-    toggleServiceActive,
-    handleDeleteService,
-    isPending,
-    isDeleting,
-    sensors,
-    page,
-    prevPage,
-    nextPage
-  ]);
-
   return (
-    <section id={"services"} className="space-y-6">
-      <div className="px-4 py-3 bg-[#F9FAFB] dark:bg-[#161B26] w-full inline-flex justify-between items-center gap-4 rounded-lg">
-        <h2 className="text-xl text-black dark:text-white font-semibold">{t("section.services")}</h2>
-        <Button label={t("button.add")} onClick={() => router.push("/admin/services/add")} />
-      </div>
-      <div className="grid">{renderServices}</div>
+    <section className="flex flex-col">
+      <AdminPage
+        title={t("section.services")}
+        addButtonLabel={t("button.add")}
+        addButtonLink="/admin/services/add"
+      >
+        <div className="grid grid-cols-6 md:grid-cols-12 bg-gray-50 dark:bg-[#161B26]">
+          <div className="p-3 col-span-1 text-center font-medium text-[#344054] dark:text-[#CECFD2]">
+            #
+          </div>
+          <div className="p-3 col-span-5 md:col-span-5 font-medium text-[#344054] dark:text-[#CECFD2]">
+            {t("columns.service")}
+          </div>
+          <div className="p-3 hidden md:block md:col-span-6 font-medium text-[#344054] dark:text-[#CECFD2]">
+            {t("columns.actions")}
+          </div>
+        </div>
 
-      {/* Delete Confirmation Modal */}
+        <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+          <SortableContext items={orderedServices.map(service => service.id.toString())} strategy={verticalListSortingStrategy}>
+            <div className="divide-y divide-gray-200 dark:divide-gray-700">
+              {orderedServices.map((service, index) => (
+                <SortableItem
+                  key={service.id}
+                  service={service}
+                  index={index}
+                  onMoveUp={(idx) => moveService(idx, 'up')}
+                  onMoveDown={(idx) => moveService(idx, 'down')}
+                  onToggle={toggleServiceActive}
+                  onDelete={handleDeleteService}
+                  isFirst={index === 0}
+                  isLast={index === orderedServices.length - 1}
+                  isPending={isPending}
+                  isDeleting={isDeleting}
+                />
+              ))}
+            </div>
+          </SortableContext>
+        </DndContext>
+
+        <div className="flex justify-center mt-4">
+          <Pagination
+            currentPage={page}
+            nextPage={nextPage}
+            prevPage={prevPage}
+            length={services?.length || 0}
+          />
+        </div>
+      </AdminPage>
+
       {confirmDelete.show && confirmDelete.service && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white dark:bg-[#161B26] rounded-lg p-6 max-w-md w-full">
@@ -372,7 +327,7 @@ const Services: FC = () => {
         </div>
       )}
     </section>
-  )
+  );
 };
 
 export default Services;

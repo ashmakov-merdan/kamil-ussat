@@ -1,10 +1,13 @@
 "use client"
+import api from "@/api";
 import { useCreateClient } from "@/api/queries/clients";
+import useFiles from "@/api/queries/files";
 import Uploader from "@/components/uploader";
 import { Button, Input } from "@/shared";
+import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { FC } from "react";
+import { ChangeEvent, FC } from "react";
 import { Controller, FormProvider } from "react-hook-form";
 
 const ClientAddPage: FC = () => {
@@ -42,13 +45,15 @@ const ClientAddPage: FC = () => {
 
         <div className="flex justify-end gap-3">
           <Button
-            label="Cancel"
+            label={t("button.cancel")}
             variant={"light"}
+            type={"button"}
             onClick={() => router.back()}
           />
           <Button
-            label={isPending ? "Saving..." : "Save"}
+            label={t("button.save")}
             type="submit"
+            loading={isPending}
             disabled={isPending}
           />
         </div>

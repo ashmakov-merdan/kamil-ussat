@@ -13,13 +13,13 @@ const Avatar: FC = () => {
     <Menu>
       <MenuButton>
         <div className="size-10 rounded-full border border-white/10 bg-red-500 grid place-items-center z-50">
-          <p>M</p>
+          <p className="text-white">M</p>
         </div>
       </MenuButton>
       <MenuItems
         transition
         anchor="bottom end"
-        className={"w-36 origin-top-left rounded-xl border border-white/5 bg-[#F2F4F7] dark:bg-white/20 p-1 text-sm/6  dark:text-white transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0 z-50"}
+        className={"hidden xl:block w-36 origin-top-left rounded-xl border border-white/5 bg-[#F2F4F7] dark:bg-white/20 p-1 text-sm/6  dark:text-white transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0 z-50"}
       >
         {user?.is_super_user && <MenuItem>
           <div className="w-full">

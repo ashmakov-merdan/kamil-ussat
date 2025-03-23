@@ -1,6 +1,7 @@
 "use client"
 import api from "@/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import toast from "react-hot-toast";
 
 interface DeleteClientParams {
@@ -8,6 +9,7 @@ interface DeleteClientParams {
 }
 
 const useDeleteClient = () => {
+  const t = useTranslations();
   const queryClient = useQueryClient();
 
   const { mutate: deleteClient, isPending } = useMutation({
@@ -17,7 +19,7 @@ const useDeleteClient = () => {
       return res.data;
     },
     onSuccess: () => {
-      toast.success("Client deleted successfully");
+      toast.success(t("alert.deleted"));
       queryClient.invalidateQueries({ queryKey: ["clients"] });
     },
     onError: (error: any) => {

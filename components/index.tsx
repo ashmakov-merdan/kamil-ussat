@@ -11,5 +11,6 @@ import Sidebar from "./sidebar";
 import Login from "./login"
 import Register from "./register";
 import MobileMenu from "./mobile-menu";
+import AdminPage from "./admin-page";
 
-export { Clients, Companies, ContactUs, Features, Footer, Header, Login, Navigation, Products, Services, Sidebar, Register, MobileMenu };
+export { Clients, Companies, ContactUs, Features, Footer, Header, Login, Navigation, Products, Services, Sidebar, Register, MobileMenu, AdminPage };

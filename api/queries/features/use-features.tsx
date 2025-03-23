@@ -11,7 +11,7 @@ const useFeatures = () => {
   const { filters } = useFilter();
 
   const { data, isLoading } = useQuery({
-    queryKey: ["features", page],
+    queryKey: ["features", page, limit, filters],
     queryFn: async () => {
       const res = await api.get(`/manager/features`, { params: clearEmpty({ ...filters, page, limit }) });
       return res.data;
