@@ -5,8 +5,7 @@ import { DndContext, PointerSensor, useSensor, useSensors, DragEndEvent } from '
 import { arrayMove, SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { ArrowUp, ArrowDown, GripVertical, Trash2, Edit } from "lucide-react";
-import { Button, Pagination, Toggle } from "@/shared";
-import { useRouter } from "next/navigation";
+import { Pagination, Toggle } from "@/shared";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { AdminPage } from "@/components";
@@ -25,16 +24,16 @@ interface IFeature {
 }
 
 // Sortable item component
-const SortableItem = ({ 
-  feature, 
-  index, 
-  onMoveUp, 
-  onMoveDown, 
-  onToggle, 
+const SortableItem = ({
+  feature,
+  index,
+  onMoveUp,
+  onMoveDown,
+  onToggle,
   onDelete,
-  isFirst, 
-  isLast, 
-  isPending, 
+  isFirst,
+  isLast,
+  isPending,
   isDeleting
 }: {
   feature: IFeature;
@@ -48,31 +47,30 @@ const SortableItem = ({
   isPending: boolean;
   isDeleting: boolean;
 }) => {
-  const { 
-    attributes, 
-    listeners, 
-    setNodeRef, 
-    transform, 
-    transition, 
-    isDragging 
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging
   } = useSortable({ id: feature.id.toString() });
-  
+
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
     zIndex: isDragging ? 10 : 1,
   };
-  
+
   return (
-    <div 
-      ref={setNodeRef} 
+    <div
+      ref={setNodeRef}
       style={style}
-      className={`grid grid-cols-6 md:grid-cols-12 items-center hover:bg-gray-50 dark:hover:bg-[#161B26] ${
-        isDragging ? 'opacity-50 bg-gray-100 dark:bg-[#161B26]' : ''
-      }`}
+      className={`grid grid-cols-6 md:grid-cols-12 items-center hover:bg-gray-50 dark:hover:bg-[#161B26] ${isDragging ? 'opacity-50 bg-gray-100 dark:bg-[#161B26]' : ''
+        }`}
     >
-      <div 
-        {...attributes} 
+      <div
+        {...attributes}
         {...listeners}
         className="p-3 col-span-1 flex justify-center cursor-grab"
       >
@@ -87,8 +85,8 @@ const SortableItem = ({
           isDisabled={isPending || isDeleting}
           isActive={feature.is_active}
         />
-        <Link 
-          href={`/admin/features/${feature.id}`} 
+        <Link
+          href={`/admin/features/${feature.id}`}
           className="p-1 rounded-md hover:bg-blue-100 dark:hover:bg-blue-900 text-blue-500 dark:text-blue-400"
           aria-label="Edit feature"
         >
@@ -148,40 +146,40 @@ const FeaturesPage: FC = () => {
 
   const handleDragEnd = useCallback((event: DragEndEvent) => {
     const { active, over } = event;
-    
+
     if (!over || active.id === over.id) {
       return;
     }
-    
+
     setOrderedFeatures((items) => {
       const oldIndex = items.findIndex((item) => item.id.toString() === active.id);
       const newIndex = items.findIndex((item) => item.id.toString() === over.id);
-      
+
       if (oldIndex === -1 || newIndex === -1) return items;
-      
+
       // Get features involved in the swap
       const draggedFeature = items[oldIndex];
       const targetFeature = items[newIndex];
-      
+
       // Directly swap priorities between the two features
       const draggedPriority = draggedFeature.priority;
       const targetPriority = targetFeature.priority;
-      
+
       // Update the dragged feature's priority
       reorderFeatures({
         id: draggedFeature.id,
         priority: targetPriority
       });
-      
+
       // Also update the target feature's priority to ensure proper swapping
       reorderFeatures({
         id: targetFeature.id,
         priority: draggedPriority
       });
-      
+
       // Create a new array with the items in the correct visual order
       const newItems = arrayMove(items, oldIndex, newIndex);
-      
+
       // Create a copy with the swapped priorities for the UI
       return newItems.map(item => {
         if (item.id === draggedFeature.id) {
@@ -202,18 +200,18 @@ const FeaturesPage: FC = () => {
     }
 
     const targetIndex = direction === 'up' ? index - 1 : index + 1;
-    
+
     // Get the features involved in the swap
     const currentFeature = orderedFeatures[index];
     const adjacentFeature = orderedFeatures[targetIndex];
-    
+
     // Get their priorities for swapping
     const currentPriority = currentFeature.priority;
     const adjacentPriority = adjacentFeature.priority;
-    
+
     // Create a new array with swapped positions
     const newOrderedFeatures = arrayMove([...orderedFeatures], index, targetIndex);
-    
+
     // Update the local state with swapped priorities for immediate visual feedback
     setOrderedFeatures(
       newOrderedFeatures.map(feature => {
@@ -226,13 +224,13 @@ const FeaturesPage: FC = () => {
         return feature;
       })
     );
-    
+
     // When moving down or up, update both features to ensure the swap happens correctly
     reorderFeatures({
       id: currentFeature.id,
       priority: adjacentPriority
     });
-    
+
     reorderFeatures({
       id: adjacentFeature.id,
       priority: currentPriority
@@ -348,7 +346,7 @@ const FeaturesPage: FC = () => {
             <div className="bg-white dark:bg-[#161B26] rounded-lg p-6 max-w-md w-full mx-4">
               <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Confirm Delete</h2>
               <p className="text-gray-600 dark:text-gray-300 mb-6">
-                Are you sure you want to delete the feature "{confirmDelete.feature.name}"? This action cannot be undone.
+                {`Are you sure you want to delete the feature "${confirmDelete.feature.name}"? This action cannot be undone.`}
               </p>
               <div className="flex justify-end space-x-3">
                 <button
@@ -371,19 +369,22 @@ const FeaturesPage: FC = () => {
     );
   }, [
     t,
-    orderedFeatures, 
-    handleDragEnd, 
-    moveFeature, 
-    toggleFeatureActive, 
+    cancelDelete,
+    orderedFeatures,
+    handleDragEnd,
+    moveFeature,
+    toggleFeatureActive,
     handleDeleteFeature,
-    isPending, 
+    isPending,
     isDeleting,
-    sensors, 
+    sensors,
     page,
     features,
-    prevPage, 
+    prevPage,
     nextPage,
-    isLoading
+    isLoading,
+    confirmDelete,
+    confirmDeleteFeature
   ]);
 
   return (

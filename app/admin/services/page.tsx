@@ -1,12 +1,11 @@
 "use client"
 import { useDeleteService, useReorderServices, useServices } from "@/api/queries/services";
-import { FC, useCallback, useEffect, useMemo, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import { DndContext, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core';
 import { arrayMove, SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { ArrowUp, ArrowDown, GripVertical, Trash2, Edit } from "lucide-react";
-import { Button, Pagination, Toggle } from "@/shared";
-import { useRouter } from "next/navigation";
+import { Pagination, Toggle } from "@/shared";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { AdminPage } from "@/components";
@@ -68,7 +67,7 @@ const SortableItem = ({
         <h2 className="text-[#344054] dark:text-[#CECFD2] text-sm md:text-base truncate">{service.name}</h2>
       </div>
       <div className="p-1 md:p-3 col-span-3 md:col-span-6 flex items-center justify-end md:justify-start space-x-1 md:space-x-4">
-        <Toggle 
+        <Toggle
           onClick={() => onToggle(service)}
           isDisabled={isPending || isDeleting}
           isActive={service.is_active}
@@ -111,7 +110,6 @@ const SortableItem = ({
 
 const Services: FC = () => {
   const t = useTranslations();
-  const router = useRouter();
   const { services, nextPage, prevPage, page } = useServices();
   const { reorderServices, isPending } = useReorderServices();
   const { deleteService, isPending: isDeleting } = useDeleteService();
@@ -307,7 +305,7 @@ const Services: FC = () => {
           <div className="bg-white dark:bg-[#161B26] rounded-lg p-6 max-w-md w-full">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Confirm Delete</h2>
             <p className="text-gray-600 dark:text-gray-300 mb-6">
-              Are you sure you want to delete the service "{confirmDelete.service.name}"? This action cannot be undone.
+              {`Are you sure you want to delete the service "${confirmDelete.service.name}"? This action cannot be undone.`}
             </p>
             <div className="flex justify-end space-x-3">
               <button

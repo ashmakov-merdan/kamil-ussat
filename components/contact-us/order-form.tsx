@@ -1,6 +1,6 @@
 "use client"
 import { useCreate } from "@/api/queries/orders";
-import { Heading, Input, Tag } from "@/shared";
+import { Heading, Input } from "@/shared";
 import Textarea from "@/shared/textarea";
 import { cn } from "@/utils";
 import { FC } from "react";

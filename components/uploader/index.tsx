@@ -5,22 +5,16 @@ import { useFormContext } from "react-hook-form";
 import useFiles from "@/api/queries/files";
 import { useTranslations } from "next-intl";
 import { toast } from "react-hot-toast";
+import Image from "next/image";
 
 interface UploadedFile {
   path: string;
   blurhash: string;
 }
 
-interface FileUploadResponse {
-  payload: {
-    filePath: string;
-    blurhash: string;
-  }
-}
-
 const Uploader: FC = () => {
   const t = useTranslations("uploader");
-  const { setValue, watch } = useFormContext<any>();
+  const { setValue, watch } = useFormContext();
   const formFiles = watch("files") || [] as UploadedFile[];
   const { upload, isUploading, uploadedFiles } = useFiles();
 
@@ -31,9 +25,9 @@ const Uploader: FC = () => {
   useEffect(() => {
     if (uploadedFiles.length > 0) {
       const lastUploadedFile = uploadedFiles[uploadedFiles.length - 1];
-      
+
       const fileExists = formFiles.some((file: UploadedFile) => file.path === lastUploadedFile.path);
-      
+
       if (!fileExists) {
         setValue("files", [...formFiles, lastUploadedFile]);
       }
@@ -61,18 +55,18 @@ const Uploader: FC = () => {
 
   const uploadFiles = (filesToUpload: File[]) => {
     if (filesToUpload.length === 0) return;
-    
+
     const file = filesToUpload[0];
     const allowedTypes = ['image/png', 'image/gif', 'image/svg+xml'];
-    
+
     if (!allowedTypes.includes(file.type)) {
       toast.error(t("alert.invalid-file-type"));
       return;
     }
-    
+
     const formData = new FormData();
     formData.append("file", file, file.name);
-    
+
     upload(formData);
   };
 
@@ -167,7 +161,9 @@ const Uploader: FC = () => {
               >
                 <div className="size-8 md:size-10 mr-2 md:mr-3 flex-shrink-0 overflow-hidden rounded-md border border-[#EAECF0] dark:border-[#333741]">
                   {file.path ? (
-                    <img
+                    <Image
+                      width={32}
+                      height={32}
                       src={file.path}
                       alt="Uploaded file"
                       className="h-full w-full object-cover"

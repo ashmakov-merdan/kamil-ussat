@@ -1,7 +1,7 @@
 "use client"
 import api from "@/api";
 import { Fields } from "@/constants/fields";
-import { createToolValidation, ToolValues } from "@/validations/tools";
+import { createToolValidation, ToolValues, updateToolValidation } from "@/validations/tools";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
@@ -25,7 +25,7 @@ const useUpdateTool = () => {
   const toolId = params?.id as string;
 
   const methods = useForm<Omit<ToolValues, "slug">>({
-    resolver: zodResolver(createToolValidation)
+    resolver: zodResolver(updateToolValidation)
   });
 
   const { handleSubmit, reset } = methods;

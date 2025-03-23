@@ -1,6 +1,6 @@
 "use client"
 import { useDeleteClient, useClients, useReorderClients } from "@/api/queries/clients";
-import { FC, useCallback, useEffect, useMemo, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import { DndContext, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core';
 import { arrayMove, SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
@@ -10,16 +10,16 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { AdminPage } from "@/components";
 
-const SortableItem = ({ 
-  client, 
-  index, 
-  onMoveUp, 
-  onMoveDown, 
-  onToggle, 
+const SortableItem = ({
+  client,
+  index,
+  onMoveUp,
+  onMoveDown,
+  onToggle,
   onDelete,
-  isFirst, 
-  isLast, 
-  isPending, 
+  isFirst,
+  isLast,
+  isPending,
   isDeleting
 }: {
   client: IClient;
@@ -33,31 +33,30 @@ const SortableItem = ({
   isPending: boolean;
   isDeleting: boolean;
 }) => {
-  const { 
-    attributes, 
-    listeners, 
-    setNodeRef, 
-    transform, 
-    transition, 
-    isDragging 
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging
   } = useSortable({ id: client.id.toString() });
-  
+
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
     zIndex: isDragging ? 10 : 1,
   };
-  
+
   return (
-    <div 
-      ref={setNodeRef} 
+    <div
+      ref={setNodeRef}
       style={style}
-      className={`grid grid-cols-6 md:grid-cols-12 items-center hover:bg-gray-50 dark:hover:bg-[#161B26] ${
-        isDragging ? 'opacity-50 bg-gray-100 dark:bg-[#161B26]' : ''
-      }`}
+      className={`grid grid-cols-6 md:grid-cols-12 items-center hover:bg-gray-50 dark:hover:bg-[#161B26] ${isDragging ? 'opacity-50 bg-gray-100 dark:bg-[#161B26]' : ''
+        }`}
     >
-      <div 
-        {...attributes} 
+      <div
+        {...attributes}
         {...listeners}
         className="p-3 col-span-1 flex justify-center cursor-grab"
       >
@@ -67,13 +66,13 @@ const SortableItem = ({
         <h2 className="text-[#344054] dark:text-[#CECFD2] text-sm md:text-base truncate">{client.name}</h2>
       </div>
       <div className="p-1 md:p-3 col-span-3 md:col-span-6 flex items-center justify-end md:justify-start space-x-1 md:space-x-4">
-        <Toggle 
+        <Toggle
           onClick={() => onToggle(client)}
           isDisabled={isPending || isDeleting}
           isActive={client.is_active}
         />
-        <Link 
-          href={`/admin/clients/${client.id}`} 
+        <Link
+          href={`/admin/clients/${client.id}`}
           className="p-1 rounded-md hover:bg-blue-100 dark:hover:bg-blue-900 text-blue-500 dark:text-blue-400"
           aria-label="Edit client"
         >
@@ -133,40 +132,40 @@ const ClientsPage: FC = () => {
 
   const handleDragEnd = useCallback((event: DragEndEvent) => {
     const { active, over } = event;
-    
+
     if (!over || active.id === over.id) {
       return;
     }
-    
+
     setOrderedClients((items) => {
       const oldIndex = items.findIndex((item) => item.id.toString() === active.id);
       const newIndex = items.findIndex((item) => item.id.toString() === over.id);
-      
+
       if (oldIndex === -1 || newIndex === -1) return items;
-      
+
       // Get clients involved in the swap
       const draggedClient = items[oldIndex];
       const targetClient = items[newIndex];
-      
+
       // Directly swap priorities between the two clients
       const draggedPriority = draggedClient.priority;
       const targetPriority = targetClient.priority;
-    
+
       // Update the dragged client's priority
       reorderClients({
         id: draggedClient.id,
         priority: targetPriority
       });
-      
+
       // Also update the target client's priority to ensure proper swapping
       reorderClients({
         id: targetClient.id,
         priority: draggedPriority
       });
-      
+
       // Create a new array with the items in the correct visual order
       const newItems = arrayMove(items, oldIndex, newIndex);
-      
+
       // Create a copy with the swapped priorities for the UI
       return newItems.map(item => {
         if (item.id === draggedClient.id) {
@@ -187,18 +186,18 @@ const ClientsPage: FC = () => {
     }
 
     const targetIndex = direction === 'up' ? index - 1 : index + 1;
-    
+
     // Get the clients involved in the swap
     const currentClient = orderedClients[index];
     const adjacentClient = orderedClients[targetIndex];
-    
+
     // Get their priorities for swapping
     const currentPriority = currentClient.priority;
     const adjacentPriority = adjacentClient.priority;
-    
+
     // Create a new array with swapped positions
     const newOrderedClients = arrayMove([...orderedClients], index, targetIndex);
-    
+
     // Update the local state with swapped priorities for immediate visual feedback
     setOrderedClients(
       newOrderedClients.map(client => {
@@ -211,13 +210,13 @@ const ClientsPage: FC = () => {
         return client;
       })
     );
-    
+
     // When moving down or up, update both clients to ensure the swap happens correctly
     reorderClients({
       id: currentClient.id,
       priority: adjacentPriority
     });
-    
+
     reorderClients({
       id: adjacentClient.id,
       priority: currentPriority
@@ -312,7 +311,7 @@ const ClientsPage: FC = () => {
           <div className="bg-white dark:bg-[#161B26] rounded-lg p-6 max-w-md w-full mx-4">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Confirm Delete</h2>
             <p className="text-gray-600 dark:text-gray-300 mb-6">
-              Are you sure you want to delete the client "{confirmDelete.client.name}"? This action cannot be undone.
+              {`Are you sure you want to delete the client "${confirmDelete.client.name}"? This action cannot be undone.`}
             </p>
             <div className="flex justify-end space-x-3">
               <button

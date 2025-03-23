@@ -16,7 +16,6 @@ interface StatusDropdownProps {
 const StatusDropdown: FC<StatusDropdownProps> = ({ status, onChangeStatus }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const t = useTranslations();
 
   const statusOptions: { label: string; value: StatusType; color: string }[] = [
     { label: "Active", value: 'active', color: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' },
@@ -77,7 +76,6 @@ const StatusDropdown: FC<StatusDropdownProps> = ({ status, onChangeStatus }) => 
 };
 
 const UserItem: FC<{ user: IUser }> = ({ user }) => {
-  const t = useTranslations();
   const isAdmin = user.role === 'admin';
 
   return (
@@ -110,9 +108,9 @@ const UsersPage: FC = () => {
     <section id={"users"}>
       <AdminPage title={t("section.users")}>
         <div className="flex justify-end p-3 bg-gray-50 dark:bg-[#161B26]">
-          <StatusDropdown 
-            status={status} 
-            onChangeStatus={onChangeStatus} 
+          <StatusDropdown
+            status={status}
+            onChangeStatus={onChangeStatus}
           />
         </div>
         <div className="grid grid-cols-6 md:grid-cols-12 bg-gray-50 dark:bg-[#161B26]">
@@ -132,9 +130,9 @@ const UsersPage: FC = () => {
 
         <div className="divide-y divide-gray-200 dark:divide-gray-700">
           {users.map((user) => (
-            <UserItem 
-              key={user.id} 
-              user={user} 
+            <UserItem
+              key={user.id}
+              user={user}
             />
           ))}
         </div>

@@ -1,13 +1,10 @@
 "use client"
-import api from "@/api";
 import { useCreateClient } from "@/api/queries/clients";
-import useFiles from "@/api/queries/files";
 import Uploader from "@/components/uploader";
 import { Button, Input } from "@/shared";
-import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, FC } from "react";
+import { FC } from "react";
 import { Controller, FormProvider } from "react-hook-form";
 
 const ClientAddPage: FC = () => {

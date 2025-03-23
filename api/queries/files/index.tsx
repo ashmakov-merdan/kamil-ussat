@@ -16,11 +16,6 @@ interface UploadedFile {
   blurhash: string;
 }
 
-interface UploadCallbacks {
-  onSuccess?: (data: FileUploadResponse) => void;
-  onError?: (error: any) => void;
-}
-
 const useFiles = () => {
   const [files, setFiles] = useState<File[]>([]);
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);

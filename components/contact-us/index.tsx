@@ -1,10 +1,9 @@
 "use client"
-import { Heading, Tag } from "@/shared";
-import { cn } from "@/utils";
 import Image from "next/image";
 import { FC } from "react";
 import { MarkerIcon, PhoneIcon } from "../icons";
 import OrderForm from "./order-form";
+import contact from "@/assets/contact.jpg"
 
 const ContactUs: FC = () => {
   return (
@@ -12,7 +11,7 @@ const ContactUs: FC = () => {
       <div className="relative flex flex-row gap-x-10">
         <div className="hidden lg:block sticky top-24 h-fit flex-1 space-y-8">
           <Image
-            src={require("@/assets/contact.jpg")}
+            src={contact}
             alt={"contact-image"}
           />
           <div className="space-y-6">

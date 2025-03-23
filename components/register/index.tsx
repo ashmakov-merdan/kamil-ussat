@@ -97,7 +97,7 @@ const Register: FC = () => {
           <Controller
             control={control}
             name={"otp"}
-            render={({ field: { value, onChange }, fieldState: { invalid, error } }) => (
+            render={({ field: { value, onChange }, fieldState: { invalid } }) => (
               <div className="relative gap-x-3 w-full">
                 <Input
                   id={"otp"}

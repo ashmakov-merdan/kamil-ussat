@@ -1,9 +1,13 @@
 "use client"
-import navigation from "@/constants/navigation";
 import { Logo } from "@/shared";
 import Image from "next/image";
 import { FC } from "react";
 import Links from "../navigation/links";
+import github from "@/assets/social-media/github.svg"
+import facebook from "@/assets/social-media/facebook.svg"
+import whatsapp from "@/assets/social-media/whatsapp.svg"
+import telegram from "@/assets/social-media/telegram.svg"
+import instagram from "@/assets/social-media/instagram.svg"
 
 const Footer: FC = () => {
   return (
@@ -19,7 +23,7 @@ const Footer: FC = () => {
               <Image
                 width={24}
                 height={24}
-                src={require("@/assets/social-media/github.svg")}
+                src={github}
                 alt={"github"}
               />
             </a>
@@ -27,7 +31,7 @@ const Footer: FC = () => {
               <Image
                 width={24}
                 height={24}
-                src={require("@/assets/social-media/facebook.svg")}
+                src={facebook}
                 alt={"facebook"}
               />
             </a>
@@ -35,7 +39,7 @@ const Footer: FC = () => {
               <Image
                 width={24}
                 height={24}
-                src={require("@/assets/social-media/whatsapp.svg")}
+                src={whatsapp}
                 alt={"whatsapp"}
               />
             </a>
@@ -43,7 +47,7 @@ const Footer: FC = () => {
               <Image
                 width={24}
                 height={24}
-                src={require("@/assets/social-media/telegram.svg")}
+                src={telegram}
                 alt={"telegram"}
               />
             </a>
@@ -51,7 +55,7 @@ const Footer: FC = () => {
               <Image
                 width={24}
                 height={24}
-                src={require("@/assets/social-media/instagram.svg")}
+                src={instagram}
                 alt={"instagram"}
               />
             </a>
