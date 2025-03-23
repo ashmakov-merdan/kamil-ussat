@@ -33,7 +33,7 @@ const Login: FC = () => {
                 defaultValue={value}
                 onChange={onChange}
                 isInvalid={invalid}
-                errorMessage={error?.message ? error.message : ""}
+                errorMessage={error?.message ? t(`${error.message}`) : ""}
               />
             )}
           />
@@ -47,7 +47,7 @@ const Login: FC = () => {
                 defaultValue={value}
                 onChange={onChange}
                 isInvalid={invalid}
-                errorMessage={error?.message ? error.message : ""}
+                errorMessage={error?.message ? t(`${error.message}`) : ""}
               />
             )}
           />

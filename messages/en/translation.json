@@ -15,6 +15,8 @@
   "header": {
     "new-products": "New products",
     "check-out": "Check out our new products",
+    "title": "Crafting Intelligent Systems, Delivering Strategic Insights",
+    "subheading": "Our team of experienced software engineers and web developers provides comprehensive services to both domestic and international clients",
     "our-clients": "Our clients"
   },
   "features": {
@@ -31,9 +33,11 @@
     "dashboard": "Dashboard",
     "previous": "Previous",
     "next": "Next",
-    "add": "Add"
+    "add": "Add",
+    "send": "Send"
   },
   "fields": {
+    "message": "Message",
     "name": "Name",
     "name-tk": "Name (TK)",
     "name-ru": "Name (RU)",
@@ -83,5 +87,15 @@
     "no-services": "No services found. Add your first services.",
     "no-partners": "No partners found. Add your first partner.",
     "no-clients": "No clients found. Add your first client."
+  },
+  "validations": {
+    "email": {
+      "required": "Email is required",
+      "invalid": "Invalid email"
+    },
+    "password": {
+      "required": "Password is required",
+      "empty": "Password shouldn't be empty"
+    }
   }
 }

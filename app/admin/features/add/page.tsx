@@ -2,11 +2,13 @@
 import { useCreateFeature } from "@/api/queries/features";
 import Uploader from "@/components/uploader";
 import { Button, Input } from "@/shared";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { FC } from "react";
 import { Controller, FormProvider } from "react-hook-form";
 
 const FeatureAddPage: FC = () => {
+  const t = useTranslations();
   const router = useRouter();
   const { methods, onSubmit, fields, isPending, } = useCreateFeature();
   const { control } = methods;
@@ -15,7 +17,7 @@ const FeatureAddPage: FC = () => {
     <FormProvider {...methods}>
       <form onSubmit={onSubmit} className="p-6 space-y-6 bg-transparent rounded-lg border border-[#EAECF0] dark:border-[#1F242F]">
         <div className="space-y-6">
-          <div className="flex lg:flex-row gap-x-4">
+          <div className="flex flex-col md:flex-row gap-4">
             {fields.map((field, idx) => (
               field.name && field.name.map((nameField, nameIdx) => (
                 <Controller
@@ -26,7 +28,7 @@ const FeatureAddPage: FC = () => {
                     <div className="flex-1">
                       <Input
                         id={nameField.name}
-                        label={nameField.label}
+                        label={t(`fields.${nameField.label}`)}
                         defaultValue={value as string}
                         onChange={onChange}
                         isInvalid={invalid}
@@ -55,43 +57,24 @@ const FeatureAddPage: FC = () => {
               )}
             />
           </div>
-
-          <div className="flex items-center space-x-2">
-            <Controller
-              control={control}
-              name="is_active"
-              render={({ field: { value, onChange } }) => (
-                <>
-                  <input
-                    type="checkbox"
-                    id="is_active"
-                    checked={value}
-                    onChange={onChange}
-                    className="h-4 w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500"
-                  />
-                  <label htmlFor="is_active" className="text-sm font-medium text-[#344054] dark:text-[#CECFD2]">
-                    Active
-                  </label>
-                </>
-              )}
-            />
-          </div>
         </div>
 
         <div className="border-t border-[#EAECF0] dark:border-[#1F242F] pt-6">
-          <h3 className="text-base font-semibold mb-3 text-[#344054] dark:text-[#CECFD2]">Feature Image</h3>
+          <h3 className="text-base font-semibold mb-3 text-[#344054] dark:text-[#CECFD2]">{t("fields.images")}</h3>
           <Uploader />
         </div>
 
         <div className="flex justify-end gap-3">
           <Button
-            label="Cancel"
+            label={t("button.cancel")}
             variant={"light"}
+            type={"button"}
             onClick={() => router.back()}
           />
           <Button
-            label={isPending ? "Saving..." : "Save"}
+            label={t("button.save")}
             type="submit"
+            loading={isPending}
             disabled={isPending}
           />
         </div>

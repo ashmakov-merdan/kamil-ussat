@@ -10,7 +10,7 @@ const Header: FC = () => {
   const t = useTranslations("header");
 
   return (
-    <header className="mt-16 lg:mt-20 relative 2xl:container h-[90vh] xl:h-screen 2xl:mx-auto">
+    <header className="mt-16 lg:mt-20 relative 2xl:container h-fit xl:h-screen 2xl:mx-auto">
       <Shadow />
       <div className="max-lg:px-4 relative container mx-auto w-screen h-[60vh] sm:h-[65vh] border-y border-neutral-100 dark:border-neutral-100/10 overflow-hidden">
         <div className="w-full h-full flex flex-col justify-center items-center gap-y-12 z-[4]">
@@ -23,10 +23,10 @@ const Header: FC = () => {
                 <a href={"#products"} className="text-xs sm:text-sm hover:underline text-[#344054] dark:text-white transition-colors">{t("check-out")}</a>
               </div>
             </div>
-            <motion.div initial={{ opacity: 0, y: 300 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .6, ease: "easeInOut" }} className="gap-y-6">
+            <motion.div initial={{ opacity: 0, y: 300 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .6, ease: "easeInOut" }} className="flex flex-col items-center gap-y-6">
               <h1
-                className="text-3xl sm:text-5xl lg:text-[60px] text-center text-[#101828] dark:text-white font-semibold transition-colors">We build what we believe</h1>
-              <p className="max-w-3xl w-full text-center text-sm sm:text-base md:text-lg lg:text-xl font-normal text-[#475467] dark:text-[#94969C] transition-colors">We are team of software  engineers and web developers. We offer our services to a local and international companies. </p>
+                className="text-3xl sm:text-4xl lg:text-2xl text-center text-[#101828] dark:text-white font-semibold transition-colors">{t("title")}</h1>
+              <p className="max-w-3xl w-full text-center text-sm sm:text-base font-normal text-[#475467] dark:text-[#94969C] transition-colors">{t("subheading")}</p>
             </motion.div>
           </div>
         </div>

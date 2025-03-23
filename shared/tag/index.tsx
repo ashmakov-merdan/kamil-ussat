@@ -1,14 +1,20 @@
+import { cn } from "@/utils";
 import { FC } from "react";
 
 interface Props {
+  isSelected: boolean
+  onSelect: () => void
   text: string
 }
 
-const Tag: FC<Props> = ({ text }) => {
+const Tag: FC<Props> = ({ text, isSelected, onSelect }) => {
   return (
-    <div className="p-4 rounded-full border border-[#D0D5DD] dark:border-[#333741]">
+    <button type={"button"} onClick={onSelect} className={cn(
+      "p-3 rounded-full border cursor-pointer transition-colors",
+      isSelected ? "border-purple-500" : "border-[#D0D5DD] dark:border-[#333741]"
+    )}>
       <p className="font-semibold text-[#101828] dark:text-[#F5F5F6] transition-colors">{text}</p>
-    </div>
+    </button>
   )
 };
 

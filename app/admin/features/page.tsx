@@ -5,7 +5,7 @@ import { DndContext, PointerSensor, useSensor, useSensors, DragEndEvent } from '
 import { arrayMove, SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { ArrowUp, ArrowDown, GripVertical, Trash2, Edit } from "lucide-react";
-import { Button, Pagination } from "@/shared";
+import { Button, Pagination, Toggle } from "@/shared";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
@@ -78,29 +78,15 @@ const SortableItem = ({
       >
         <GripVertical size={16} className="md:w-[18px] md:h-[18px] text-[#344054] dark:text-[#CECFD2]" />
       </div>
-      <div className="p-3 col-span-5 md:col-span-5">
+      <div className="p-3 col-span-2 md:col-span-5">
         <h2 className="text-[#344054] dark:text-[#CECFD2] text-sm md:text-base truncate">{feature.name}</h2>
       </div>
-      <div className="p-1 md:p-3 col-span-6 flex items-center justify-end md:justify-start space-x-1 md:space-x-4">
-        <button
+      <div className="p-1 md:p-3 col-span-3 md:col-span-6 flex items-center justify-end md:justify-start space-x-1 md:space-x-4">
+        <Toggle
           onClick={() => onToggle(feature)}
-          disabled={isPending || isDeleting}
-          className="relative inline-flex h-5 md:h-6 w-10 md:w-11 items-center rounded-full focus:outline-none"
-          aria-pressed={feature.is_active}
-        >
-          <span
-            className={`${feature.is_active
-              ? 'bg-green-600 dark:bg-green-500'
-              : 'bg-gray-200 dark:bg-gray-700'
-              } absolute inset-0 rounded-full transition-colors duration-200 ease-in-out`}
-          />
-          <span
-            className={`${feature.is_active
-              ? 'translate-x-5 md:translate-x-6'
-              : 'translate-x-1'
-              } inline-block h-3 md:h-4 w-3 md:w-4 transform rounded-full bg-white transition-transform duration-200 ease-in-out`}
-          />
-        </button>
+          isDisabled={isPending || isDeleting}
+          isActive={feature.is_active}
+        />
         <Link 
           href={`/admin/features/${feature.id}`} 
           className="p-1 rounded-md hover:bg-blue-100 dark:hover:bg-blue-900 text-blue-500 dark:text-blue-400"
@@ -111,7 +97,7 @@ const SortableItem = ({
         <button
           onClick={() => onMoveUp(index)}
           disabled={isFirst || isPending || isDeleting}
-          className="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-[#161B26] disabled:opacity-50"
+          className="p-1 hidden sm:block rounded-md hover:bg-gray-100 dark:hover:bg-[#161B26] disabled:opacity-50"
           aria-label="Move up"
         >
           <ArrowUp size={16} className="md:w-[18px] md:h-[18px] text-[#344054] dark:text-[#CECFD2]" />
@@ -119,7 +105,7 @@ const SortableItem = ({
         <button
           onClick={() => onMoveDown(index)}
           disabled={isLast || isPending || isDeleting}
-          className="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-[#161B26] disabled:opacity-50"
+          className="p-1 hidden sm:block rounded-md hover:bg-gray-100 dark:hover:bg-[#161B26] disabled:opacity-50"
           aria-label="Move down"
         >
           <ArrowDown size={16} className="md:w-[18px] md:h-[18px] text-[#344054] dark:text-[#CECFD2]" />
@@ -138,7 +124,6 @@ const SortableItem = ({
 };
 
 const FeaturesPage: FC = () => {
-  const router = useRouter();
   const t = useTranslations();
   const { features, nextPage, prevPage, page, isLoading } = useFeatures();
   const { reorderFeatures, isPending } = useReorderFeatures();
@@ -181,8 +166,6 @@ const FeaturesPage: FC = () => {
       // Directly swap priorities between the two features
       const draggedPriority = draggedFeature.priority;
       const targetPriority = targetFeature.priority;
-      
-      console.log(`Swapping priorities: ${draggedFeature.name}(${draggedPriority}) ↔ ${targetFeature.name}(${targetPriority})`);
       
       // Update the dragged feature's priority
       reorderFeatures({
@@ -227,8 +210,6 @@ const FeaturesPage: FC = () => {
     // Get their priorities for swapping
     const currentPriority = currentFeature.priority;
     const adjacentPriority = adjacentFeature.priority;
-    
-    console.log(`Moving ${direction}: ${currentFeature.name}(${currentPriority}) ↔ ${adjacentFeature.name}(${adjacentPriority})`);
     
     // Create a new array with swapped positions
     const newOrderedFeatures = arrayMove([...orderedFeatures], index, targetIndex);
@@ -314,8 +295,8 @@ const FeaturesPage: FC = () => {
     return (
       <section className="flex flex-col">
         <AdminPage
-          title={t("section.features")}
-          addButtonLabel={t("button.add-feature")}
+          title={t("section.services")}
+          addButtonLabel={t("button.add")}
           addButtonLink="/admin/features/add"
         >
           <div className="grid grid-cols-6 md:grid-cols-12 bg-gray-50 dark:bg-[#161B26]">
@@ -323,10 +304,10 @@ const FeaturesPage: FC = () => {
               #
             </div>
             <div className="p-3 col-span-5 md:col-span-5 font-medium text-[#344054] dark:text-[#CECFD2]">
-              {t("label.name")}
+              {t("columns.service")}
             </div>
             <div className="p-3 hidden md:block md:col-span-6 font-medium text-[#344054] dark:text-[#CECFD2]">
-              {t("label.actions")}
+              {t("columns.actions")}
             </div>
           </div>
 
@@ -407,10 +388,6 @@ const FeaturesPage: FC = () => {
 
   return (
     <section id={"features"} className="space-y-6">
-      <div className="px-4 py-3 bg-[#F9FAFB] dark:bg-[#161B26] w-full inline-flex justify-between items-center gap-4 rounded-lg">
-        <h2 className="text-xl text-black dark:text-white font-semibold">{t("section.services")}</h2>
-        <Button label={t("button.add")} onClick={() => router.push("/admin/features/add")} />
-      </div>
       <div className="grid">{renderFeatures}</div>
     </section>
   );

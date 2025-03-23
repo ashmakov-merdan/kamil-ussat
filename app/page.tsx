@@ -1,4 +1,4 @@
-import { Companies, ContactUs, Features, Footer, Header, Navigation, Products, Services } from "@/components";
+import { Companies, ContactUs, Features, Footer, Header, Navigation, Services } from "@/components";
 
 export default function Home() {
   return (
@@ -6,7 +6,7 @@ export default function Home() {
       <Navigation />
       <Header />
       <Features />
-      <Products />
+      {/* <Products /> */}
       <Services />
       <Companies />
       <ContactUs />

@@ -2,11 +2,11 @@ import { z } from "zod";
 
 export const loginValidation = z.object({
   email: z
-    .string({ required_error: "Email is required" })
-    .email({ message: "Enter a valid email" }),
+    .string({ required_error: "validations.email.required" })
+    .email({ message: "validations.email.invalid" }),
   password: z
-    .string({ required_error: "Password is required" })
-    .min(1, "Password shouldn't be empty"),
+    .string({ required_error: "validations.password.required" })
+    .min(1, "validations.password.empty"),
 });
 
 export const registerValidation = z.object({

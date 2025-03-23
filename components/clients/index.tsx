@@ -1,27 +1,43 @@
+"use client"
 import { Subheading } from "@/shared";
-import { FC } from "react";
-import boltshift from "@/assets/boltshift.png"
-import lightbox from "@/assets/lightbox.png"
-import nietzsche from "@/assets/nietzsche.png"
+import { FC, useMemo } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-
-const clients = [boltshift, lightbox, nietzsche];
+import { useQuery } from "@tanstack/react-query";
+import api from "@/api";
+import { clearEmpty } from "@/utils";
 
 const Clients: FC = () => {
   const t = useTranslations("header");
+  const { data } = useQuery({
+    queryKey: ["clients"],
+    queryFn: async (): Promise<{ payload: IClient[] }> => {
+      const res = await api.get("/clients", {
+        params: clearEmpty({
+          page: 1,
+          limit: 30,
+          order_direction: "asc",
+          order_by: "priority",
+          is_active: true
+        })
+      });
+      return res.data;
+    }
+  });
+  const clients = useMemo<IClient[]>(() => data ? data.payload : [], [data]);
 
-  return (
+  return clients && (
     <div className="px-4 py-8 flex flex-col gap-y-8">
       <div className="flex items-center justify-center">
         <Subheading text={t("our-clients")} />
       </div>
-      <div className="flex flex-wrap justify-center items-center gap-x-3 max-w-sm:gap-x-6">
+      <div className="flex flex-wrap justify-center items-center gap-5">
         {clients.map((client, i) => <Image
-          className="w-20 lg:w-40"
+          width={180}
+          height={90}
           key={i}
-          src={client}
-          alt={`${client}-${i}`}
+          src={`https://kamilussat.com.tm/${client.files[0].path}`}
+          alt={`${client.name}-${i}`}
         />)}
       </div>
     </div>

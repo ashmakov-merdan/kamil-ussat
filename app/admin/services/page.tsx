@@ -254,7 +254,7 @@ const Services: FC = () => {
   return (
     <section className="flex flex-col">
       <AdminPage
-        title={t("section.services")}
+        title={t("section.features")}
         addButtonLabel={t("button.add")}
         addButtonLink="/admin/services/add"
       >
@@ -263,7 +263,7 @@ const Services: FC = () => {
             #
           </div>
           <div className="p-3 col-span-5 md:col-span-5 font-medium text-[#344054] dark:text-[#CECFD2]">
-            {t("columns.service")}
+            {t("columns.feature")}
           </div>
           <div className="p-3 hidden md:block md:col-span-6 font-medium text-[#344054] dark:text-[#CECFD2]">
             {t("columns.actions")}

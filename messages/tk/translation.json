@@ -15,6 +15,8 @@
   "header": {
     "new-products": "Täze önümler",
     "check-out": "Check out our new products",
+    "title": "Programma Üpjünçiliginiñ we Maglumaty Goramagynyñ Çözgütlerini Hödürleýäris",
+    "subheading": "Kärhanamyzyñ Tejribeli Programma we Web inženerleri bilen, Içerki we Halkara Müşderilere Giňişleýin Hyzmatlary Hödürleýäris",
     "our-clients": "Müşderilerimiz"
   },
   "features": {
@@ -31,9 +33,11 @@
     "dashboard": "Dolandyryş paneli",
     "previous": "Öňki",
     "next": "Indiki",
-    "add": "Goşmak"
+    "add": "Goşmak",
+    "send": "Ugratmak"
   },
   "fields": {
+    "message": "Hatyňyz",
     "name": "Ady",
     "name-tk": "Ady (TK)",
     "name-ru": "Ady (RU)",
@@ -83,5 +87,15 @@
     "no-services": "Hiç hili hyzmat goşulmady.",
     "no-partners": "Hiç hili hyzmatdaş ýok.",
     "no-clients": "Hiç hili müşderi ýok."
+  },
+  "validations": {
+    "email": {
+      "required": "E-poçta talap edilýär",
+      "invalid": "E-poçta nädogry"
+    },
+    "password": {
+      "required": "Açar sözi talap edilýär",
+      "empty": "Açar sözi giriziň"
+    }
   }
 }

@@ -1,7 +1,7 @@
 "use client"
 import api from "@/api";
 import { Fields } from "@/constants/fields";
-import { featureValidation, FeatureValues } from "@/validations/feature";
+import { featureValidation, FeatureValues, updateFeatureValidation } from "@/validations/feature";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
@@ -22,16 +22,17 @@ const useUpdate = () => {
   const queryClient = useQueryClient();
   const featureId = params?.id as string;
 
-  const methods = useForm<FeatureValues>({
-    resolver: zodResolver(featureValidation),
+  const methods = useForm<Omit<FeatureValues, "slug" | "priority">>({
+    resolver: zodResolver(updateFeatureValidation),
     defaultValues: {
-      priority: 1,
       files: [],
       is_active: true
     }
   });
   
-  const { handleSubmit, reset } = methods;
+  const { handleSubmit, reset, watch } = methods;
+
+  console.log(watch())
 
   // Fetch feature data
   const { data: featureData, isLoading } = useQuery({
@@ -49,8 +50,6 @@ const useUpdate = () => {
       const feature = featureData.payload;
       reset({
         name: feature.name,
-        slug: feature.slug,
-        priority: feature.priority,
         is_active: feature.is_active,
         files: feature.files || []
       });
@@ -83,7 +82,7 @@ const useUpdate = () => {
     }
   });
 
-  const onSubmit = useCallback((values: FeatureValues) => {
+  const onSubmit = useCallback((values: Omit<FeatureValues, "slug" | "priority">) => {
     if (!featureId) return;
     
     updateFeature({
