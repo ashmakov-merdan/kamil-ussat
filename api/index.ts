@@ -1,8 +1,10 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
+export const BASE_URL = process.env.API_URL;
+
 const api = axios.create({
-  baseURL: "https://kamilussat.com.tm/api/v2",
+  baseURL: `${BASE_URL}/api/v2`,
   headers: {
     "Content-Type": "application/json",
   },
@@ -40,7 +42,7 @@ api.interceptors.response.use(
          }
 
          const response = await axios.post(
-           `${process.env.NEXT_PUBLIC_API_URL}/authentications/token`,
+           `${BASE_URL}/authentications/token`,
            { refresh_token: refreshToken }
          );
 

@@ -6,7 +6,9 @@
     "clients": "Clients",
     "partners": "Partners",
     "users": "Users",
-    "contact-us": "Contact us"
+    "contact-us": "Contact us",
+    "orders": "Orders",
+    "tools": "Tools"
   },
   "theme": {
     "dark": "Dark",
@@ -34,7 +36,8 @@
     "previous": "Previous",
     "next": "Next",
     "add": "Add",
-    "send": "Send"
+    "send": "Send",
+    "delete": "Delete"
   },
   "fields": {
     "message": "Message",
@@ -52,7 +55,8 @@
     "lastName": "Last name",
     "birthdate": "Birth date",
     "verificationCode": "Verification code",
-    "logo": "Logo"
+    "logo": "Logo",
+    "role": "Role"
   },
   "uploader": {
     "click-to-upload": "Click to upload",
@@ -86,7 +90,8 @@
     "no-features": "No features found. Add your first feature.",
     "no-services": "No services found. Add your first services.",
     "no-partners": "No partners found. Add your first partner.",
-    "no-clients": "No clients found. Add your first client."
+    "no-clients": "No clients found. Add your first client.",
+    "no-tools": "No tools found. Add your first tool"
   },
   "validations": {
     "email": {

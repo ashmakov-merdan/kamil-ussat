@@ -1,3 +1,4 @@
+import { BASE_URL } from "@/api";
 import Image from "next/image";
 import { FC } from "react";
 
@@ -18,7 +19,7 @@ const Carousel: FC<Props> = ({ partners }) => {
               <Image
                 width={64}
                 height={64}
-                src={`https://kamilussat.com.tm/${company.files[0].path}`}
+                src={`${BASE_URL}/${company.files[0].path}`}
                 alt={company.name}
               />
             </div>

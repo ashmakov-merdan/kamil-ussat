@@ -6,7 +6,9 @@
     "clients": "Müşderiler",
     "partners": "Hyzmatdaşlar",
     "users": "Ulanyjylar",
-    "contact-us": "Habarlaşmak"
+    "contact-us": "Habarlaşmak",
+    "orders": "Sargytlar",
+    "tools": "Tools"
   },
   "theme": {
     "dark": "Dark",
@@ -34,7 +36,8 @@
     "previous": "Öňki",
     "next": "Indiki",
     "add": "Goşmak",
-    "send": "Ugratmak"
+    "send": "Ugratmak",
+    "delete": "Pozmak"
   },
   "fields": {
     "message": "Hatyňyz",
@@ -52,7 +55,8 @@
     "lastName": "Familýasy",
     "birthdate": "Doglan senesi",
     "verificationCode": "Tassyklaýyş kody",
-    "logo": "Logo"
+    "logo": "Logo",
+    "role": "Rol"
   },
   "uploader": {
     "click-to-upload": "Ýüklemek üçin basyň",
@@ -86,7 +90,8 @@
     "no-features": "Hiç hili aýratynlyk goşulmady",
     "no-services": "Hiç hili hyzmat goşulmady.",
     "no-partners": "Hiç hili hyzmatdaş ýok.",
-    "no-clients": "Hiç hili müşderi ýok."
+    "no-clients": "Hiç hili müşderi ýok.",
+    "no-tools": "No tools found. Add your first tool"
   },
   "validations": {
     "email": {

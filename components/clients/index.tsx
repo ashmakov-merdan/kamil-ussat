@@ -4,7 +4,7 @@ import { FC, useMemo } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useQuery } from "@tanstack/react-query";
-import api from "@/api";
+import api, { BASE_URL } from "@/api";
 import { clearEmpty } from "@/utils";
 
 const Clients: FC = () => {
@@ -36,7 +36,7 @@ const Clients: FC = () => {
           width={180}
           height={90}
           key={i}
-          src={`https://kamilussat.com.tm/${client.files[0].path}`}
+          src={`${BASE_URL}/${client.files[0].path}`}
           alt={`${client.name}-${i}`}
         />)}
       </div>
