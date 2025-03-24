@@ -292,11 +292,6 @@ const FeaturesPage: FC = () => {
 
     return (
       <section className="flex flex-col">
-        <AdminPage
-          title={t("section.services")}
-          addButtonLabel={t("button.add")}
-          addButtonLink="/admin/features/add"
-        >
           <div className="grid grid-cols-6 md:grid-cols-12 bg-gray-50 dark:bg-[#161B26]">
             <div className="p-3 col-span-1 text-center font-medium text-[#344054] dark:text-[#CECFD2]">
               #
@@ -339,7 +334,6 @@ const FeaturesPage: FC = () => {
               length={features?.length || 0}
             />
           </div>
-        </AdminPage>
 
         {confirmDelete.show && confirmDelete.feature && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -389,7 +383,13 @@ const FeaturesPage: FC = () => {
 
   return (
     <section id={"features"} className="space-y-6">
+      <AdminPage
+        title={t("section.services")}
+        addButtonLabel={t("button.add")}
+        addButtonLink="/admin/features/add"
+      >
       <div className="grid">{renderFeatures}</div>
+      </AdminPage>
     </section>
   );
 };

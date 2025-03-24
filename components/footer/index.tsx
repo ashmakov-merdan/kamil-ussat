@@ -8,8 +8,11 @@ import facebook from "@/assets/social-media/facebook.svg"
 import whatsapp from "@/assets/social-media/whatsapp.svg"
 import telegram from "@/assets/social-media/telegram.svg"
 import instagram from "@/assets/social-media/instagram.svg"
+import moment from "moment";
 
 const Footer: FC = () => {
+  const currentYear = moment().format("YYYY");
+
   return (
     <footer className="px-4 xl:px-0 mx-auto container pt-16 pb-12 space-y-8">
       <div className="space-y-10 lg:space-y-4 ">
@@ -63,7 +66,7 @@ const Footer: FC = () => {
         </div>
       </div>
       <div className="pt-8 flex flex-col lg:flex-row justify-between items-center gap-4 border-t-[1px] border-[#1F242F]">
-        <p className="text-nowrap text-[#667085] dark:text-[#94969C] text-sm lg:text-base">© 2077 Kamil ussat All rights reserved.</p>
+        <p className="text-nowrap text-[#667085] dark:text-[#94969C] text-sm lg:text-base">© {currentYear} Kamil ussat. All rights reserved.</p>
         <div className="inline-flex gap-x-4">
           <a className="text-[#667085] dark:text-[#94969C] text-sm lg:text-base">Terms</a>
           <a className="text-[#667085] dark:text-[#94969C] text-sm lg:text-base">Privacy</a>

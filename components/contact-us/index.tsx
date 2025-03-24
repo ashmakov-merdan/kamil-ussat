@@ -4,8 +4,10 @@ import { FC } from "react";
 import { MarkerIcon, PhoneIcon } from "../icons";
 import OrderForm from "./order-form";
 import contact from "@/assets/contact.jpg"
+import { useTranslations } from "next-intl";
 
 const ContactUs: FC = () => {
+  const t = useTranslations("contact");
   return (
     <section id="contact-us" className="px-4 xl:px-0 py-24 container mx-auto">
       <div className="relative flex flex-row gap-x-10">
@@ -20,8 +22,8 @@ const ContactUs: FC = () => {
                 <MarkerIcon />
               </div>
               <div className="space-y-1">
-                <h2 className="text-[18px] font-semibold text-[#101828] dark:text-[#F5F5F6]">Phone</h2>
-                <a href={"tel:+99365123456"} className="font-normal text-[#475467] dark:text-[#94969C]">+993 65123456</a>
+                <h2 className="text-[18px] font-semibold text-[#101828] dark:text-[#F5F5F6]">{t("address")}</h2>
+                <a href={"tel:+99365123456"} className="font-normal text-[#475467] dark:text-[#94969C]">{t("street")}</a>
               </div>
             </div>
             <div className="flex gap-x-3">
@@ -29,8 +31,8 @@ const ContactUs: FC = () => {
                 <PhoneIcon />
               </div>
               <div className="space-y-1">
-                <h2 className="text-[18px] font-semibold text-[#101828] dark:text-[#F5F5F6]">Phone</h2>
-                <a href={"tel:+99365123456"} className="font-normal text-[#475467] dark:text-[#94969C]">+993 65123456</a>
+                <h2 className="text-[18px] font-semibold text-[#101828] dark:text-[#F5F5F6]">{t("phone")}</h2>
+                <a href={"tel:+99365123456"} className="font-normal text-[#475467] dark:text-[#94969C]">+993 12 5 66 77</a>
               </div>
             </div>
           </div>

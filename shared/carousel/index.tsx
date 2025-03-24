@@ -23,7 +23,7 @@ const Carousel: FC<Props> = ({ partners }) => {
                 alt={company.name}
               />
             </div>
-            <h2>{company.name}</h2>
+            <h2 className="text-black dark:text-white">{company.name}</h2>
           </div>
         ))}
         {/* Only duplicate partners for infinite scroll effect when animating */}
@@ -37,7 +37,7 @@ const Carousel: FC<Props> = ({ partners }) => {
                 alt={company.name}
               />
             </div>
-            <h2>{company.name}</h2>
+            <h2 className="text-black dark:text-white">{company.name}</h2>
           </div>
         ))}
       </div>

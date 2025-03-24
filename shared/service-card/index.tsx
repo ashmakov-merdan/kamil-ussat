@@ -1,10 +1,13 @@
 "use client"
+import { BASE_URL } from "@/api";
 import { useAnimation, motion } from "framer-motion";
+import Image from "next/image";
 import { FC, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
 interface Props {
   title: string
+  image: string
 }
 
 const squareVaraints = {
@@ -12,7 +15,8 @@ const squareVaraints = {
   hidden: { opacity: 0, scale: 0 }
 };
 
-const ServiceCard: FC<Props> = ({ title }) => {
+const ServiceCard: FC<Props> = ({ title, image }) => {
+  console.log(image)
   const controls = useAnimation();
   const [ref, inView] = useInView();
 
@@ -24,8 +28,16 @@ const ServiceCard: FC<Props> = ({ title }) => {
 
   return (
     <motion.div ref={ref} animate={controls} initial={"hidden"} variants={squareVaraints} className="relative px-8 pb-8 pt-10 bg-[#F9FAFB] dark:bg-[#161B26] rounded-2xl">
-      <div className="hidden lg:flex absolute -top-6 right-0 left-0 justify-center">
-        <div className="w-12 h-12 rounded-full bg-[#F4EBFF] dark:bg-purple-500" />
+      <div className="flex absolute -top-6 right-0 left-0 justify-center">
+        <div className="w-12 h-12 flex justify-center items-center rounded-full bg-[#F4EBFF] dark:bg-purple-500 overflow-hidden">
+          <Image
+            width={48}
+            height={48}
+            src={`${BASE_URL}/${image}`}
+            alt={title}
+            className="object-cover"
+          />
+        </div>
       </div>
       <h2 className="text-center text-[#101828] dark:text-white text-base lg:text-xl font-semibold">{title}</h2>
     </motion.div>

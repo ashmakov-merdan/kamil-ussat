@@ -25,6 +25,11 @@
     "heading": "Giň gerimli IT çözgütleri",
     "subheading": "Programmalar, torlar, maglumat howpsuzlygy we kiberhowpsuzlygy üpjün edýän ygtybarly we ýokary öndürijilikli çözgütleri hödürleýäris"
   },
+  "contact": {
+    "address": "Aşgabat, Türkmenistan",
+    "street": "Saparmyrat Türkmenbaşy şaýoly 7",
+    "phone": "Telefon belgi"
+  },
   "button": {
     "login": "Giriş",
     "signup": "Agza bol",
@@ -33,6 +38,7 @@
     "save": "Ýatda sakla",
     "cancel": "Ýatyrmak",
     "dashboard": "Dolandyryş paneli",
+    "website": "Websaýt",
     "previous": "Öňki",
     "next": "Indiki",
     "add": "Goşmak",
@@ -76,6 +82,7 @@
     "partner": "Hyzmatdaş",
     "client": "Müşderi",
     "user": "Ulanyjy",
+    "tool": "Tool",
     "actions": "Amallar",
     "current-page": "Häzirki sahypa"
   },

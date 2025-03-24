@@ -28,8 +28,6 @@ const Services: FC = () => {
   });
   const services = useMemo<IFeature[]>(() => data ? data.payload : [], [data]);
 
-  console.log(services);
-
   return (
     <section id={"services"} className="px-4 2xl:px-0 container mx-auto pt-16 lg:pt-24 pb-32 lg:pb-40">
       <div>
@@ -38,13 +36,17 @@ const Services: FC = () => {
           desc="More services"
         />
       </div>
-      <div className="pt-12 grid gap-x-6 gap-y-10">
+      <div className="pt-12 grid  gap-x-6 gap-y-6 lg:gap-y-10">
         {services.reduce((acc: ReactNode[], _, index) => {
           if (index % 5 === 0) {
             acc.push(
               <div key={`group-${index}`} className="hidden lg:grid lg:grid-cols-3 gap-6">
                 {services.slice(index, index + 3).map((service, i) => (
-                  <ServiceCard key={`service-${index + i}`} title={service.name} />
+                  <ServiceCard
+                    key={`service-${index + i}`}
+                    title={service.name}
+                    image={service.files[0].path}
+                  />
                 ))}
               </div>
             );
@@ -53,7 +55,11 @@ const Services: FC = () => {
             acc.push(
               <div key={`group-${index}-second`} className="hidden lg:grid lg:grid-cols-2 gap-6">
                 {services.slice(index, index + 2).map((service, i) => (
-                  <ServiceCard key={`service-${index + i}`} title={service.name} />
+                  <ServiceCard
+                    key={`service-${index + i}`}
+                    title={service.name}
+                    image={service.files[0].path}
+                  />
                 ))}
               </div>
             );
@@ -65,14 +71,14 @@ const Services: FC = () => {
           if (index % 3 === 0) {
             acc.push(
               <div key={`tablet-single-${index}`} className="hidden sm:block lg:hidden">
-                <ServiceCard title={service.name} />
+                <ServiceCard image={service.files[0].path} title={service.name} />
               </div>
             );
           } else if (index % 3 === 1 && index + 1 < services.length) {
             acc.push(
               <div key={`tablet-double-${index}`} className="hidden sm:grid sm:grid-cols-2 lg:hidden gap-6">
-                <ServiceCard title={service.name} />
-                <ServiceCard title={services[index + 1].name} />
+                <ServiceCard image={service.files[0].path} title={service.name} />
+                <ServiceCard image={service.files[0].path} title={services[index + 1].name} />
               </div>
             );
           }
@@ -81,7 +87,7 @@ const Services: FC = () => {
 
         {services.map((service, index) => (
           <div key={`mobile-single-${index}`} className="sm:hidden">
-            <ServiceCard title={service.name} />
+            <ServiceCard image={service.files[0].path} title={service.name} />
           </div>
         ))}
       </div>

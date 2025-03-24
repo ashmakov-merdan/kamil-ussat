@@ -252,7 +252,7 @@ const ToolsPage: FC = () => {
   return (
     <section className="flex flex-col">
       <AdminPage
-        title={t("section.features")}
+        title={t("section.tools")}
         addButtonLabel={t("button.add")}
         addButtonLink="/admin/tools/add"
       >
@@ -261,7 +261,7 @@ const ToolsPage: FC = () => {
             #
           </div>
           <div className="p-3 col-span-5 md:col-span-5 font-medium text-[#344054] dark:text-[#CECFD2]">
-            {t("columns.feature")}
+            {t("columns.tool")}
           </div>
           <div className="p-3 hidden md:block md:col-span-6 font-medium text-[#344054] dark:text-[#CECFD2]">
             {t("columns.actions")}

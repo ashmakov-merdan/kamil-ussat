@@ -25,6 +25,11 @@
     "heading": "Comprehensive IT & Development Solutions",
     "subheading": "Providing scalable, secure, and high-performance solutions for software, networking, and security needs"
   },
+  "contact": {
+    "address": "Ashgabat, Turkmenistan",
+    "street": "Saparmyrat Turkmenbashy Ave 7",
+    "phone": "Phone"
+  },
   "button": {
     "login": "Login",
     "signup": "Sign up",
@@ -33,6 +38,7 @@
     "save": "Save",
     "cancel": "Cancel",
     "dashboard": "Dashboard",
+    "website": "Website",
     "previous": "Previous",
     "next": "Next",
     "add": "Add",
@@ -76,6 +82,7 @@
     "partner": "Partner",
     "client": "Client",
     "user": "User",
+    "tool": "Tool",
     "actions": "Actions",
     "current-page": "Current page"
   },

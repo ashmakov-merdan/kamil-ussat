@@ -12,9 +12,9 @@ const OrderServices: FC = () => {
   const { setValue, watch } = useFormContext<OrderValues>()
   const locale = useLocale();
   const { data } = useQuery({
-    queryKey: ["services", locale],
+    queryKey: ["features", locale],
     queryFn: async () => {
-      const res = await api.get("/services", {
+      const res = await api.get("/features", {
         params: clearEmpty({
           limit: 50,
           page: 1,
