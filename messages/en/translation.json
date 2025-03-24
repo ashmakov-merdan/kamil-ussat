@@ -73,6 +73,8 @@
   "auth": {
     "login-to-account": "Log in to your account",
     "welcome-back": "Welcome back! Please enter your details",
+    "register-account": "Register your account",
+    "enter-details": "Please enter your details",
     "dont-have-account": "Don't have an account?",
     "have-account": "Already have an account?"
   },
@@ -91,7 +93,11 @@
     "invalid-credentials": "Invalid credentials",
     "created": "Created successfully",
     "updated": "Updated successfully",
-    "deleted": "Deleted successfully"
+    "deleted": "Deleted successfully",
+    "registered": "Account registered successfully",
+    "sent-message": "Your message is sent",
+    "sent-otp": "Verification code is sent to your email",
+    "provide-email": "Please provide your email"
   },
   "placeholder": {
     "no-features": "No features found. Add your first feature.",

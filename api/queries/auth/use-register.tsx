@@ -3,11 +3,13 @@ import api from "@/api";
 import { registerValidation, RegisterValues } from "@/validations/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
 const useRegister = () => {
+  const t = useTranslations();
   const methods = useForm({
     resolver: zodResolver(registerValidation),
     defaultValues: {
@@ -24,8 +26,8 @@ const useRegister = () => {
       const res = await api.post('/authentications/send-otp', value);
       return res.data;
     },
-    onSuccess: (data) => {
-      toast.success("Verification code is sent to your e-mail")
+    onSuccess: () => {
+      toast.success(t("alert.sent-otp"))
     },
     onError: (error: any) => {
       console.log(error);
@@ -44,7 +46,7 @@ const useRegister = () => {
       return res.data
     },
     onSuccess: (data) => {
-      console.log(data);
+      toast.success(t("alert.registered"));
     },
     onError: (error: any) => {
       console.log(error);
@@ -53,7 +55,7 @@ const useRegister = () => {
 
   const onSend = useCallback(async () => {
     if (!email) {
-      toast.error("Please, provide your email")
+      toast.error(t("alert.provide-email"))
       return;
     };
 
@@ -61,7 +63,7 @@ const useRegister = () => {
       email,
       lang: "tk"
     })
-  }, [email]);
+  }, [email, t]);
 
   const onSubmit = useCallback(async (values: RegisterValues) => {
     register(values);

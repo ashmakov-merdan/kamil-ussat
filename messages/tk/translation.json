@@ -73,6 +73,8 @@
   "auth": {
     "login-to-account": "Hasabyňyz giriň",
     "welcome-back": "Welcome back! Maglumatyňyzy giriziň",
+    "register-account": "Agza bol",
+    "enter-details": "Maglumatlaryňyzy giriziň",
     "dont-have-account": "Hasabyňyz ýokmy?",
     "have-account": "Hasabyňyz barmy?"
   },
@@ -91,7 +93,11 @@
     "invalid-credentials": "Maglumatlar nädogry",
     "created": "Döredildi",
     "updated": "Täzelendi",
-    "deleted": "Pozuldy"
+    "deleted": "Pozuldy",
+    "registered": "Üstünlikli agza bolduňyz",
+    "sent-message": "Hatyňyz ugradyldy",
+    "sent-otp": "Tassyklaýyş kody e-poçtaňyza ugradyldy",
+    "provide-email": "E-poçtaňyzy görkeziň"
   },
   "placeholder": {
     "no-features": "Hiç hili aýratynlyk goşulmady",
