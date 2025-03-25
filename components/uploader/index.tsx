@@ -1,5 +1,5 @@
 "use client"
-import { FC, useState, useRef, DragEvent, ChangeEvent, useEffect } from "react";
+import { FC, useState, useRef, DragEvent, ChangeEvent, useEffect, useMemo } from "react";
 import { UploadIcon } from "../icons";
 import { useFormContext } from "react-hook-form";
 import useFiles from "@/api/queries/files";
@@ -16,7 +16,8 @@ interface UploadedFile {
 const Uploader: FC = () => {
   const t = useTranslations("uploader");
   const { setValue, watch } = useFormContext();
-  const formFiles = watch("files") || [] as UploadedFile[];
+  const watchedFiles = watch("files");
+  const formFiles = useMemo(() => watchedFiles || [] as UploadedFile[], [watchedFiles]);
   const { upload, isUploading, uploadedFiles } = useFiles();
 
   const [isDragging, setIsDragging] = useState(false);

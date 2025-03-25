@@ -1,7 +1,7 @@
 'use client'
 import { Avatar, Button, LanguageDropdown, Logo } from "@/shared";
 import SwitchTheme from "@/shared/switch-theme";
-import { FC, Fragment, useMemo } from "react";
+import { FC, useMemo } from "react";
 import Links from "./links";
 import Link from "next/link";
 import { useAuthStore } from "@/store";

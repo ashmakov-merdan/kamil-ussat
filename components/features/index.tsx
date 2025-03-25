@@ -3,7 +3,7 @@ import api from "@/api";
 import { FeatureCard, Title } from "@/shared";
 import { useQuery } from "@tanstack/react-query";
 import { useLocale, useTranslations } from "next-intl";
-import { FC, useMemo, useState, useEffect } from "react";
+import { FC, useMemo, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
