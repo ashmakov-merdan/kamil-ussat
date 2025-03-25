@@ -48,10 +48,7 @@ const MobileMenu: FC = () => {
         className="flex flex-col justify-center items-center w-10 h-10 space-y-1.5 focus:outline-none"
         aria-label="Toggle menu"
       >
-        <span
-          className={`block w-6 h-0.5 bg-gray-800 dark:bg-gray-300 transition-transform duration-300 ease-in-out ${isOpen ? 'transform rotate-45 translate-y-2' : ''
-            }`}
-        />
+        <span className={`block w-6 h-0.5 bg-gray-800 dark:bg-gray-300 transition-transform duration-300 ease-in-out ${isOpen ? 'transform rotate-45 translate-y-2' : ''}`} />
         <span
           className={`block w-6 h-0.5 bg-gray-800 dark:bg-gray-300 transition-opacity duration-300 ease-in-out ${isOpen ? 'opacity-0' : 'opacity-100'
             }`}
@@ -86,9 +83,13 @@ const MobileMenu: FC = () => {
               />
             </svg>
           </button>
-          <div className="sm:hidden inline-flex items-center gap-3">
-            <SwitchTheme />
-            {user ? <Avatar /> : <Button label={t("button.login")} variant={"flat"} onClick={() => router.push("/login")} />}
+          <div className="inline-flex gap-2.5">
+            <div className="block xl:hidden">
+              {user ? <Avatar /> : <Button label={t("button.login")} variant={"flat"} onClick={() => router.push("/login")} />}
+            </div>
+            <div className="block md:hidden">
+              <SwitchTheme />
+            </div>
           </div>
         </div>
 
@@ -116,7 +117,7 @@ const MobileMenu: FC = () => {
               </Link>
             ))
           )}
-          <div className="space-y-3">
+          {user && <div className="space-y-3">
             {(user && user.role === "admin") && !pathname.includes("/admin") && <div>
               <Button
                 variant={"primary"}
@@ -133,8 +134,8 @@ const MobileMenu: FC = () => {
                 onClick={onSubmit}
               />
             </div>}
-          </div>
-          <div className="mt-6">
+          </div>}
+          <div className="block md:hidden">
             <LanguageDropdown />
           </div>
         </div>

@@ -12,7 +12,7 @@ const Boxes: FC = () => {
   const generateRandomCells = () => {
     const newCells = [];
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 12; i++) {
       const randomRow = Math.floor(Math.random() * rows);
       const randomCol = Math.floor(Math.random() * cols);
       newCells.push({ row: randomRow, col: randomCol });
@@ -24,7 +24,7 @@ const Boxes: FC = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       generateRandomCells();
-    }, 3000);
+    }, 2000);
 
     return () => clearInterval(interval);
   }, []);

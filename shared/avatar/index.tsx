@@ -18,7 +18,7 @@ const Avatar: FC = () => {
     <Menu>
       <MenuButton>
         <div className="size-10 rounded-full border border-white/10 bg-red-500 grid place-items-center z-50">
-          <p className="text-white">M</p>
+          <p className="text-white">{user?.first_name[0]}</p>
         </div>
       </MenuButton>
       <MenuItems

@@ -35,6 +35,7 @@
     "signup": "Sign up",
     "logout": "Logout",
     "forgot": "Forgot password",
+    "confirm": "Confirm",
     "save": "Save",
     "cancel": "Cancel",
     "dashboard": "Dashboard",
@@ -57,6 +58,7 @@
     "images": "Images",
     "email": "Email",
     "password": "Password",
+    "newPassword": "New password",
     "firstName": "First name",
     "lastName": "Last name",
     "birthdate": "Birth date",
@@ -76,7 +78,9 @@
     "register-account": "Register your account",
     "enter-details": "Please enter your details",
     "dont-have-account": "Don't have an account?",
-    "have-account": "Already have an account?"
+    "have-account": "Already have an account?",
+    "reset-password": "Reset password",
+    "reset-description": "Fill all required fields to reset your password"
   },
   "columns": {
     "service": "Service",
@@ -97,14 +101,16 @@
     "registered": "Account registered successfully",
     "sent-message": "Your message is sent",
     "sent-otp": "Verification code is sent to your email",
-    "provide-email": "Please provide your email"
+    "provide-email": "Please provide your email",
+    "user-not-found": "User not found"
   },
   "placeholder": {
     "no-features": "No features found. Add your first feature.",
     "no-services": "No services found. Add your first services.",
     "no-partners": "No partners found. Add your first partner.",
     "no-clients": "No clients found. Add your first client.",
-    "no-tools": "No tools found. Add your first tool"
+    "no-tools": "No tools found. Add your first tool",
+    "no-products": "No products found. Add your first product"
   },
   "validations": {
     "email": {
@@ -114,6 +120,10 @@
     "password": {
       "required": "Password is required",
       "empty": "Password shouldn't be empty"
+    },
+    "newPassword": {
+      "required": "New password is required",
+      "empty": "New password shouldn't be empty"
     }
   }
 }

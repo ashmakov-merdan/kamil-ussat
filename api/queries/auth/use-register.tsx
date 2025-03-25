@@ -3,13 +3,15 @@ import api from "@/api";
 import { registerValidation, RegisterValues } from "@/validations/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import useSend from "./use-send";
 
 const useRegister = () => {
   const t = useTranslations();
+  const locale = useLocale();
   const methods = useForm({
     resolver: zodResolver(registerValidation),
     defaultValues: {
@@ -20,19 +22,7 @@ const useRegister = () => {
   const { handleSubmit, watch } = methods;
   const email = watch("email");
 
-  const { mutate: sendOTP, isPending: isSending } = useMutation({
-    mutationKey: ["send-otp"],
-    mutationFn: async (value: Record<string, string>) => {
-      const res = await api.post('/authentications/send-otp', value);
-      return res.data;
-    },
-    onSuccess: () => {
-      toast.success(t("alert.sent-otp"))
-    },
-    onError: (error: any) => {
-      console.log(error);
-    }
-  })
+  const { sendOTP, isSending } = useSend();
 
   const { mutate: register, isPending } = useMutation({
     mutationKey: ["register"],
@@ -61,9 +51,9 @@ const useRegister = () => {
 
     sendOTP({
       email,
-      lang: "tk"
+      lang: locale
     })
-  }, [email, t]);
+  }, [email, locale]);
 
   const onSubmit = useCallback(async (values: RegisterValues) => {
     register(values);

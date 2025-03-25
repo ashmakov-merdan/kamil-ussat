@@ -6,6 +6,7 @@ import useFiles from "@/api/queries/files";
 import { useTranslations } from "next-intl";
 import { toast } from "react-hot-toast";
 import Image from "next/image";
+import { BASE_URL } from "@/api";
 
 interface UploadedFile {
   path: string;
@@ -164,7 +165,7 @@ const Uploader: FC = () => {
                     <Image
                       width={32}
                       height={32}
-                      src={file.path}
+                      src={`${BASE_URL}/${file.path}`}
                       alt="Uploaded file"
                       className="h-full w-full object-cover"
                     />

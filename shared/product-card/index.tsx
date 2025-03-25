@@ -1,12 +1,12 @@
 import ArrowIcon from "@/components/icons/arrow-icon";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import { FC } from "react";
 
 interface Props {
-  priority: string
+  priority: string | number
   title: string
   desc: string
-  image: StaticImageData
+  image: string
 }
 
 const ProductCard: FC<Props> = ({ title, desc, image, priority }) => {
@@ -15,10 +15,8 @@ const ProductCard: FC<Props> = ({ title, desc, image, priority }) => {
       <div className="flex-1 relative aspect-video border border-neutral-100 dark:border-[#5F5F5F] rounded-xl overflow-hidden">
         <div className="absolute top-0 left-0 right-0 bottom-0 bg-black/20" />
         <Image
-          style={{
-            width: "100%",
-            height: "100%"
-          }}
+          width={548}
+          height={348}
           src={image}
           alt={title}
         />

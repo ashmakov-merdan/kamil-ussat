@@ -24,5 +24,14 @@ export const registerValidation = z.object({
   birthdate: z.string({ required_error: "Birth Date is required" }),
 });
 
+export const forgetValidation = z.object({
+  email: z
+    .string({ required_error: "validations.email.required" })
+    .email({ message: "validations.email.invalid" }),
+  new_password: z.string({ required_error: "validations.newPassword.required"}),
+  otp: z.string({ required_error: "validations.otp.required"}),
+});
+
 export type LoginValues = z.infer<typeof loginValidation>;
 export type RegisterValues = z.infer<typeof registerValidation>;
+export type ForgetValues = z.infer<typeof forgetValidation>;
