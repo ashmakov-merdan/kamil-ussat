@@ -1,15 +1,14 @@
 "use client"
 import api from "@/api"
 import { useQuery } from "@tanstack/react-query"
-import { useLocale, useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 import { FC, useMemo } from "react";
 import { BASE_URL } from "@/api";
 import Image from "next/image";
-import { Heading, Shadow, Title } from "@/shared";
+import { Shadow, Title } from "@/shared";
 
 const Tools: FC = () => {
   const locale = useLocale();
-  const t = useTranslations();
   const { data } = useQuery({
     queryKey: ["tools", locale],
     queryFn: async (): Promise<{ payload: ITool[] }> => {

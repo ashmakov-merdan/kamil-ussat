@@ -355,8 +355,8 @@ const UserItem: FC<{
 };
 
 const UsersPage: FC = () => {
-  const { users, page, prevPage, nextPage, status, onChangeStatus, refetch } = useUsers();
-  const { deleteUser, isDeleting } = useDeleteUser();
+  const { users, page, prevPage, nextPage, status, onChangeStatus } = useUsers();
+  const { deleteUser } = useDeleteUser();
   const t = useTranslations();
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
