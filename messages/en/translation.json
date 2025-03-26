@@ -62,6 +62,7 @@
     "firstName": "First name",
     "lastName": "Last name",
     "birthdate": "Birth date",
+    "status": "Status",
     "verificationCode": "Verification code",
     "logo": "Logo",
     "role": "Role"

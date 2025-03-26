@@ -42,9 +42,19 @@ body {
   100% { transform: translateX(-50%); }
 }
 
+@keyframes slide-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
 .animate-slide {
   display: flex;
   animation: slide 50s linear infinite;
+}
+
+.animate-slide-reverse {
+  display: flex;
+  animation: slide-reverse 50s linear infinite;
 }
 
 @layer utilities {

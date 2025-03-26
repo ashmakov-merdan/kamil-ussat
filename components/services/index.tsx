@@ -36,7 +36,8 @@ const Services: FC = () => {
           desc="More services"
         />
       </div>
-      <div className="pt-12 grid  gap-x-6 gap-y-6 lg:gap-y-10">
+      <div className="pt-12 grid gap-x-6 gap-y-6 lg:gap-y-10">
+        {/* Desktop Layout (lg and above) */}
         {services.reduce((acc: ReactNode[], _, index) => {
           if (index % 5 === 0) {
             acc.push(
@@ -67,29 +68,47 @@ const Services: FC = () => {
           return acc;
         }, [])}
 
-        {services.reduce((acc: ReactNode[], service, index) => {
-          if (index % 3 === 0) {
-            acc.push(
-              <div key={`tablet-single-${index}`} className="hidden sm:block lg:hidden">
-                <ServiceCard image={service.files[0].path} title={service.name} />
+        {/* Tablet and Mobile Layout (1-2-2-2-1 pattern) */}
+        {services.length > 0 && (
+          <>
+            {/* First item - full width */}
+            <div className="lg:hidden">
+              <ServiceCard 
+                image={services[0].files[0].path} 
+                title={services[0].name} 
+              />
+            </div>
+            
+            {/* Middle items in pairs (2-column grid) */}
+            {Array.from({ length: Math.floor((services.length - 2) / 2) }).map((_, pairIndex) => {
+              const startIdx = 1 + (pairIndex * 2);
+              return (
+                <div key={`pair-${pairIndex}`} className="lg:hidden grid grid-cols-2 gap-6">
+                  <ServiceCard 
+                    image={services[startIdx].files[0].path} 
+                    title={services[startIdx].name} 
+                  />
+                  {startIdx + 1 < services.length - 1 && (
+                    <ServiceCard 
+                      image={services[startIdx + 1].files[0].path} 
+                      title={services[startIdx + 1].name} 
+                    />
+                  )}
+                </div>
+              );
+            })}
+            
+            {/* Last item - full width */}
+            {services.length > 1 && (
+              <div className="lg:hidden">
+                <ServiceCard 
+                  image={services[services.length - 1].files[0].path} 
+                  title={services[services.length - 1].name} 
+                />
               </div>
-            );
-          } else if (index % 3 === 1 && index + 1 < services.length) {
-            acc.push(
-              <div key={`tablet-double-${index}`} className="hidden sm:grid sm:grid-cols-2 lg:hidden gap-6">
-                <ServiceCard image={service.files[0].path} title={service.name} />
-                <ServiceCard image={service.files[0].path} title={services[index + 1].name} />
-              </div>
-            );
-          }
-          return acc;
-        }, [])}
-
-        {services.map((service, index) => (
-          <div key={`mobile-single-${index}`} className="sm:hidden">
-            <ServiceCard image={service.files[0].path} title={service.name} />
-          </div>
-        ))}
+            )}
+          </>
+        )}
       </div>
     </section>
   );

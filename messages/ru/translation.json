@@ -62,6 +62,7 @@
     "firstName": "Имя",
     "lastName": "Фамилия",
     "birthdate": "Дата рождения",
+    "status": "Статус",
     "verificationCode": "Проверочный код",
     "logo": "Логотип",
     "role": "Роль"

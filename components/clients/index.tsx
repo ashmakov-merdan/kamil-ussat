@@ -70,7 +70,7 @@ const Clients: FC = () => {
         animate={animate}
       >
         {clients.map((client, i) => (
-          <motion.div key={i} variants={item}>
+          <motion.div key={i} variants={item} className="w-28 sm:w-32 md:w-44">
             <Image
               width={180}
               height={90}

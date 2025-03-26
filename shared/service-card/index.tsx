@@ -27,7 +27,7 @@ const ServiceCard: FC<Props> = ({ title, image }) => {
   }, [controls, inView]);
 
   return (
-    <motion.div ref={ref} animate={controls} initial={"hidden"} variants={squareVaraints} className="relative px-8 pb-8 pt-10 bg-[#F9FAFB] dark:bg-[#161B26] rounded-2xl">
+    <motion.div ref={ref} animate={controls} initial={"hidden"} variants={squareVaraints} className="relative pt-8 pb-6   md:px-8 md:pb-8 md:pt-10 bg-[#F9FAFB] dark:bg-[#161B26] rounded-2xl">
       <div className="flex absolute -top-6 right-0 left-0 justify-center">
         <div className="w-12 h-12 flex justify-center items-center rounded-full bg-[#F4EBFF] dark:bg-purple-500 overflow-hidden">
           <Image
@@ -39,7 +39,7 @@ const ServiceCard: FC<Props> = ({ title, image }) => {
           />
         </div>
       </div>
-      <h2 className="text-center text-[#101828] dark:text-white text-base lg:text-xl font-semibold">{title}</h2>
+      <h2 className="text-center text-[#101828] dark:text-white text-sm md:text-base lg:text-xl font-semibold">{title}</h2>
     </motion.div>
   )
 };

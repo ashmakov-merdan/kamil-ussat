@@ -1,10 +1,11 @@
 "use client"
-import { useUsers } from "@/api/queries/users";
+import { useUsers, useDeleteUser, useCreate, useUpdate } from "@/api/queries/users";
 import { AdminPage } from "@/components";
-import { Pagination } from "@/shared";
+import { Button, Input, Pagination } from "@/shared";
 import { useTranslations } from "next-intl";
 import { FC, useState, useEffect, useRef } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Plus, Edit, Trash2, X } from "lucide-react";
+import { Controller } from "react-hook-form";
 
 type StatusType = 'active' | 'blocked' | 'deactive';
 
@@ -75,7 +76,246 @@ const StatusDropdown: FC<StatusDropdownProps> = ({ status, onChangeStatus }) => 
   );
 };
 
-const UserItem: FC<{ user: IUser }> = ({ user }) => {
+interface UserModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  title: string;
+  user?: IUser;
+}
+
+const CreateUserModal: FC<UserModalProps> = ({ isOpen, onClose, title }) => {
+  const { methods, onSubmit, isSubmitting } = useCreate();
+  const t = useTranslations();
+  const { control, formState: { errors } } = methods;
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="bg-white dark:bg-[#0C111D] rounded-lg shadow-lg p-6 w-full max-w-md">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-bold text-[#344054] dark:text-[#CECFD2]">{title}</h2>
+          <button onClick={onClose} className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        <form onSubmit={onSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-[#344054] dark:text-[#CECFD2] mb-1">{t("fields.firstName")}</label>
+            <Controller
+              name="first_name"
+              control={control}
+              render={({ field }) => (
+                <input
+                  {...field}
+                  type="text"
+                  className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-[#161B26] text-[#344054] dark:text-[#CECFD2]"
+                />
+              )}
+            />
+            {errors.first_name && <p className="text-red-500 text-xs mt-1">{errors.first_name.message}</p>}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-[#344054] dark:text-[#CECFD2] mb-1">{t("fields.lastName")}</label>
+            <Controller
+              name="last_name"
+              control={control}
+              render={({ field }) => (
+                <input
+                  {...field}
+                  type="text"
+                  className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-[#161B26] text-[#344054] dark:text-[#CECFD2]"
+                />
+              )}
+            />
+            {errors.last_name && <p className="text-red-500 text-xs mt-1">{errors.last_name.message}</p>}
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-[#344054] dark:text-[#CECFD2] mb-1">{t("fields.role")}</label>
+            <Controller
+              name="role"
+              control={control}
+              render={({ field }) => (
+                <select
+                  {...field}
+                  className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-[#161B26] text-[#344054] dark:text-[#CECFD2]"
+                >
+                  <option value="admin">Admin</option>
+                  <option value="user">User</option>
+                </select>
+              )}
+            />
+            {errors.role && <p className="text-red-500 text-xs mt-1">{errors.role.message}</p>}
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-[#344054] dark:text-[#CECFD2] mb-1">{t("fields.birthdate")}</label>
+            <Controller
+              name="birthdate"
+              control={control}
+              render={({ field }) => (
+                <input
+                  {...field}
+                  type="date"
+                  className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-[#161B26] text-[#344054] dark:text-[#CECFD2]"
+                />
+              )}
+            />
+            {errors.birthdate && <p className="text-red-500 text-xs mt-1">{errors.birthdate.message}</p>}
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-[#344054] dark:text-[#CECFD2] mb-1">{t("fields.password")}</label>
+            <Controller
+              name="password"
+              control={control}
+              render={({ field }) => (
+                <input
+                  {...field}
+                  type="password"
+                  className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-[#161B26] text-[#344054] dark:text-[#CECFD2]"
+                />
+              )}
+            />
+            {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
+          </div>
+
+          <div className="flex justify-end space-x-2">
+            <Button 
+              label={t("button.cancel")}
+              type={"button"}
+              variant={"flat"}
+              onClick={onClose}
+            />
+            <Button 
+              label={t("button.save")}
+              type={"submit"}
+              loading={isSubmitting}
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+const UpdateUserModal: FC<UserModalProps> = ({ isOpen, onClose, title, user }) => {
+  const { methods, onSubmit, isSubmitting } = useUpdate(user?.id, user);
+  const t = useTranslations();
+  const { control, formState: { errors } } = methods;
+
+  if (!isOpen || !user) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="bg-white dark:bg-[#0C111D] rounded-lg shadow-lg p-6 w-full max-w-md">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-bold text-[#344054] dark:text-[#CECFD2]">{title}</h2>
+          <button onClick={onClose} className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        <form onSubmit={onSubmit} className="space-y-4">
+          <div>
+            <Controller
+              name="first_name"
+              control={control}
+              render={({ field: { value, onChange }, fieldState: { invalid, error } }) => (
+                <Input
+                  id={"first_name"}
+                  label={t("fields.firstName")}
+                  defaultValue={value}
+                  onChange={onChange}
+                  isInvalid={invalid}
+                  errorMessage={error?.message ? error.message : ""}
+                />
+              )}
+            />
+            {errors.first_name && <p className="text-red-500 text-xs mt-1">{errors.first_name.message}</p>}
+          </div>
+
+          <div>
+            <Controller
+              name="last_name"
+              control={control}
+              render={({ field: { value, onChange }, fieldState: { invalid, error } }) => (
+                <Input
+                  id={"last_name"}
+                  label={t("fields.lastName")}
+                  defaultValue={value}
+                  onChange={onChange}
+                  isInvalid={invalid}
+                  errorMessage={error?.message ? error.message : ""}
+                />
+              )}
+            />
+            {errors.last_name && <p className="text-red-500 text-xs mt-1">{errors.last_name.message}</p>}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-[#344054] dark:text-[#CECFD2] mb-1">{t("fields.role")}</label>
+            <Controller
+              name="role"
+              control={control}
+              render={({ field }) => (
+                <select
+                  {...field}
+                  className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-[#161B26] text-[#344054] dark:text-[#CECFD2]"
+                >
+                  <option value="admin">Admin</option>
+                  <option value="user">User</option>
+                </select>
+              )}
+            />
+            {errors.role && <p className="text-red-500 text-xs mt-1">{errors.role.message}</p>}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-[#344054] dark:text-[#CECFD2] mb-1">{t("fields.status")}</label>
+            <Controller
+              name="status"
+              control={control}
+              render={({ field }) => (
+                <select
+                  {...field}
+                  className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-[#161B26] text-[#344054] dark:text-[#CECFD2]"
+                >
+                  <option value="active">Active</option>
+                  <option value="blocked">Blocked</option>
+                  <option value="deactive">Deactive</option>
+                </select>
+              )}
+            />
+            {errors.status && <p className="text-red-500 text-xs mt-1">{errors.status.message}</p>}
+          </div>
+
+          <div className="flex justify-end space-x-2">
+            <Button 
+              type={"button"}
+              onClick={onClose}
+              label={t("button.cancel")}
+              variant={"flat"}
+            />
+            <Button
+              type="submit"
+              loading={isSubmitting}
+              label={t("button.save")}
+              disabled={isSubmitting}
+              className="px-4 py-2 text-sm bg-purple-600 text-white rounded-md disabled:opacity-50"
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+const UserItem: FC<{
+  user: IUser;
+  onEdit: (user: IUser) => void;
+  onDelete: (id: number) => void;
+}> = ({ user, onEdit, onDelete }) => {
   const isAdmin = user.role === 'admin';
 
   return (
@@ -83,12 +323,12 @@ const UserItem: FC<{ user: IUser }> = ({ user }) => {
       <div className="col-span-1 text-center text-sm text-[#344054] dark:text-[#CECFD2]">
         {user.id}
       </div>
-      <div className="col-span-5 md:col-span-4 flex flex-col">
+      <div className="col-span-3 md:col-span-3 flex flex-col">
         <h3 className="text-sm font-medium text-[#344054] dark:text-[#CECFD2]">
           {user.first_name} {user.last_name}
         </h3>
       </div>
-      <div className="hidden md:block md:col-span-5 text-sm text-[#344054] dark:text-[#CECFD2]">
+      <div className="hidden md:block md:col-span-4 text-sm text-[#344054] dark:text-[#CECFD2]">
         {user.email}
       </div>
       <div className="hidden md:block md:col-span-2 text-sm text-[#344054] dark:text-[#CECFD2]">
@@ -96,35 +336,81 @@ const UserItem: FC<{ user: IUser }> = ({ user }) => {
           {user.role}
         </span>
       </div>
+      <div className="col-span-2 md:col-span-2 flex justify-end space-x-2">
+        <button
+          onClick={() => onEdit(user)}
+          className="p-1 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+        >
+          <Edit className="w-4 h-4" />
+        </button>
+        <button
+          onClick={() => onDelete(user.id)}
+          className="p-1 text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-200"
+        >
+          <Trash2 className="w-4 h-4" />
+        </button>
+      </div>
     </div>
   );
 };
 
 const UsersPage: FC = () => {
-  const { users, page, prevPage, nextPage, status, onChangeStatus } = useUsers();
+  const { users, page, prevPage, nextPage, status, onChangeStatus, refetch } = useUsers();
+  const { deleteUser, isDeleting } = useDeleteUser();
   const t = useTranslations();
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<IUser | undefined>(undefined);
+
+  const handleOpenCreateModal = () => setIsCreateModalOpen(true);
+  const handleCloseCreateModal = () => setIsCreateModalOpen(false);
+
+  const handleOpenUpdateModal = (user: IUser) => {
+    setSelectedUser(user);
+    setIsUpdateModalOpen(true);
+  };
+  const handleCloseUpdateModal = () => {
+    setIsUpdateModalOpen(false);
+    setSelectedUser(undefined);
+  };
+
+  const handleDeleteUser = (id: number) => {
+    if (window.confirm(t("confirmations.deleteUser"))) {
+      deleteUser(id);
+    }
+  };
 
   return (
     <section id={"users"}>
       <AdminPage title={t("section.users")}>
-        <div className="flex justify-end p-3 bg-gray-50 dark:bg-[#161B26]">
+        <div className="flex justify-end gap-3 p-3 bg-gray-50 dark:bg-[#161B26]">
           <StatusDropdown
             status={status}
             onChangeStatus={onChangeStatus}
           />
+          <button
+            onClick={handleOpenCreateModal}
+            className="flex items-center space-x-1 px-3 py-2 bg-purple-600 text-white rounded-md"
+          >
+            <Plus className="w-4 h-4" />
+            <span>{t("button.add")}</span>
+          </button>
         </div>
         <div className="grid grid-cols-6 md:grid-cols-12 bg-gray-50 dark:bg-[#161B26]">
           <div className="p-3 col-span-1 text-center font-medium text-[#344054] dark:text-[#CECFD2]">
             #
           </div>
-          <div className="p-3 col-span-5 md:col-span-4 font-medium text-[#344054] dark:text-[#CECFD2]">
+          <div className="p-3 col-span-3 md:col-span-3 font-medium text-[#344054] dark:text-[#CECFD2]">
             {t("fields.name")}
           </div>
-          <div className="p-3 hidden md:block md:col-span-5 font-medium text-[#344054] dark:text-[#CECFD2]">
+          <div className="p-3 hidden md:block md:col-span-4 font-medium text-[#344054] dark:text-[#CECFD2]">
             {t("fields.email")}
           </div>
           <div className="p-3 hidden md:block md:col-span-2 font-medium text-[#344054] dark:text-[#CECFD2]">
             {t("fields.role")}
+          </div>
+          <div className="p-3 col-span-2 md:col-span-2 text-right font-medium text-[#344054] dark:text-[#CECFD2]">
+            {t("columns.actions")}
           </div>
         </div>
 
@@ -133,6 +419,8 @@ const UsersPage: FC = () => {
             <UserItem
               key={user.id}
               user={user}
+              onEdit={handleOpenUpdateModal}
+              onDelete={handleDeleteUser}
             />
           ))}
         </div>
@@ -146,6 +434,19 @@ const UsersPage: FC = () => {
           />
         </div>
       </AdminPage>
+
+      <CreateUserModal
+        isOpen={isCreateModalOpen}
+        onClose={handleCloseCreateModal}
+        title={"Create user"}
+      />
+
+      <UpdateUserModal
+        isOpen={isUpdateModalOpen}
+        onClose={handleCloseUpdateModal}
+        title={"Update user"}
+        user={selectedUser}
+      />
     </section>
   );
 };

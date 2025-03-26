@@ -12,5 +12,6 @@ import Login from "./login"
 import Register from "./register";
 import MobileMenu from "./mobile-menu";
 import AdminPage from "./admin-page";
+import Tools from "./tools";
 
-export { Clients, Companies, ContactUs, Features, Footer, Header, Login, Navigation, Products, Services, Sidebar, Register, MobileMenu, AdminPage };
+export { Clients, Companies, ContactUs, Features, Footer, Header, Login, Navigation, Products, Services, Sidebar, Register, MobileMenu, AdminPage, Tools };
