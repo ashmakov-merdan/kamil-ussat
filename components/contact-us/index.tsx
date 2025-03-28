@@ -13,7 +13,9 @@ const ContactUs: FC = () => {
       <div className="relative flex flex-col-reverse lg:flex-row gap-x-10">
         <div className="lg:sticky top-24 h-fit flex-1 space-y-8">
           <Image
-            className="hidden lg:block"
+            width={575}
+            height={600}
+            className="hidden h-[680px] aspect-[8/16] object-cover lg:block"
             src={contact}
             alt={"contact-image"}
           />

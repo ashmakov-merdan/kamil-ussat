@@ -4,10 +4,23 @@ import { motion } from "framer-motion";
 import { FC, useEffect, useState } from "react";
 
 const Boxes: FC = () => {
-  const isDark = localStorage.theme === "dark";
+  const [isDark, setIsDark] = useState(false);
   const rows = 8;
   const cols = 16;
   const [activeCells, setActiveCells] = useState<{ row: number; col: number }[]>([]);
+
+  // Handle localStorage safely on client side
+  useEffect(() => {
+    setIsDark(localStorage.theme === "dark");
+    
+    // Listen for theme changes
+    const handleStorageChange = () => {
+      setIsDark(localStorage.theme === "dark");
+    };
+    
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
 
   const generateRandomCells = () => {
     const newCells = [];
@@ -22,6 +35,8 @@ const Boxes: FC = () => {
   };
 
   useEffect(() => {
+    generateRandomCells(); // Initial generation
+    
     const interval = setInterval(() => {
       generateRandomCells();
     }, 2000);
@@ -35,19 +50,29 @@ const Boxes: FC = () => {
         const row = Math.floor(index / cols);
         const col = index % cols;
         const isActive = activeCells.some(cell => cell.row === row && cell.col === col);
+        
+        const variants = {
+          active: {
+            backgroundColor: isDark ? "#4B4F52" : "rgba(0, 0, 0, 1)",
+            transition: {
+              backgroundColor: { duration: 1.5, ease: "easeInOut" }
+            }
+          },
+          inactive: {
+            backgroundColor: isDark ? "rgba(0, 0, 0, 0)" : "rgba(255, 255, 255, 0)",
+            transition: {
+              backgroundColor: { duration: 1.5, ease: "easeInOut" }
+            }
+          }
+        };
 
         return (
           <motion.div
             key={index}
-            className="w-28 h-28 border border-gray-600 dark:border-gray-200 opacity-[0.03] bg-transparent transition-all duration-200"
-            animate={{
-              backgroundColor: isActive 
-                ? (isDark ? "rgba(255, 255, 255, 1)" : "rgba(0, 0, 0, 1)") 
-                : (isDark ? "rgba(0, 0, 0, 0)" : "rgba(255, 255, 255, 0)")
-            }}
-            transition={{
-              backgroundColor: { duration: 1, ease: "easeIn" }
-            }}
+            className="w-28 h-28 border border-gray-600 dark:border-gray-200 opacity-[0.03]"
+            initial="inactive"
+            animate={isActive ? "active" : "inactive"}
+            variants={variants}
           />
         );
       })}
