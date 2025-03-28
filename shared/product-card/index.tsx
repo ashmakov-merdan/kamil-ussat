@@ -13,7 +13,7 @@ const ProductCard: FC<Props> = ({ title, desc, image, priority }) => {
   return (
     <div className="flex-grow-0 flex-shrink-0 max-w-[280px] md:max-w-[548px] space-y-4">
       <div className="flex-1 relative aspect-video border border-neutral-100 dark:border-[#5F5F5F] rounded-xl overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 bottom-0 bg-black/20" />
+        <div className="absolute top-0 left-0 right-0 bottom-0 bg-black/5" />
         <Image
           width={548}
           height={348}

@@ -1,14 +1,9 @@
 "use client"
 import { Logo } from "@/shared";
-import Image from "next/image";
 import { FC } from "react";
 import Links from "../navigation/links";
-import github from "@/assets/social-media/github.svg"
-import facebook from "@/assets/social-media/facebook.svg"
-import whatsapp from "@/assets/social-media/whatsapp.svg"
-import telegram from "@/assets/social-media/telegram.svg"
-import instagram from "@/assets/social-media/instagram.svg"
 import moment from "moment";
+import { FacebookLogo, GithubLogo, InstagramLogo, TelegramIcon, WhatsAppLogo } from "../icons";
 
 const Footer: FC = () => {
   const currentYear = moment().format("YYYY");
@@ -22,45 +17,20 @@ const Footer: FC = () => {
         <div className="flex flex-col lg:flex-row justify-between gap-y-12 lg:items-center">
           <Links />
           <div className="inline-flex gap-x-7 lg:gap-x-4">
-            <a className="size-12 bg-[#F2F4F7] dark:bg-[#1F242F] rounded-full flex justify-center items-center">
-              <Image
-                width={24}
-                height={24}
-                src={github}
-                alt={"github"}
-              />
+            <a title={"Github"} className="size-12 bg-[#F2F4F7] dark:bg-[#1F242F] rounded-full flex justify-center items-center cursor-pointer">
+              <GithubLogo />
             </a>
-            <a className="size-12 bg-[#F2F4F7] dark:bg-[#1F242F] rounded-full flex justify-center items-center">
-              <Image
-                width={24}
-                height={24}
-                src={facebook}
-                alt={"facebook"}
-              />
+            <a title="Facebook" className="size-12 bg-[#F2F4F7] dark:bg-[#1F242F] rounded-full flex justify-center items-center">
+              <FacebookLogo />
             </a>
-            <a className="size-12 bg-[#F2F4F7] dark:bg-[#1F242F] rounded-full flex justify-center items-center">
-              <Image
-                width={24}
-                height={24}
-                src={whatsapp}
-                alt={"whatsapp"}
-              />
+            <a title={"WhatsApp"} className="size-12 bg-[#F2F4F7] dark:bg-[#1F242F] rounded-full flex justify-center items-center">
+              <WhatsAppLogo />
             </a>
-            <a className="size-12 bg-[#F2F4F7] dark:bg-[#1F242F] rounded-full flex justify-center items-center">
-              <Image
-                width={24}
-                height={24}
-                src={telegram}
-                alt={"telegram"}
-              />
+            <a title={"Instagram"} className="size-12 bg-[#F2F4F7] dark:bg-[#1F242F] rounded-full flex justify-center items-center">
+              <InstagramLogo />
             </a>
-            <a className="size-12 bg-[#F2F4F7] dark:bg-[#1F242F] rounded-full flex justify-center items-center">
-              <Image
-                width={24}
-                height={24}
-                src={instagram}
-                alt={"instagram"}
-              />
+            <a title={"Telegram"} className="size-12 bg-[#F2F4F7] dark:bg-[#1F242F] rounded-full flex justify-center items-center">
+              <TelegramIcon />
             </a>
           </div>
         </div>

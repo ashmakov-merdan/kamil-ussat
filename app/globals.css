@@ -39,22 +39,24 @@ body {
 
 @keyframes slide {
   0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  100% { transform: translateX(calc(-50% - 8px)); }
 }
 
 @keyframes slide-reverse {
-  0% { transform: translateX(-50%); }
+  0% { transform: translateX(calc(-50% - 8px)); }
   100% { transform: translateX(0); }
 }
 
 .animate-slide {
   display: flex;
-  animation: slide 50s linear infinite;
+  animation: slide 30s linear infinite;
+  will-change: transform;
 }
 
 .animate-slide-reverse {
   display: flex;
-  animation: slide-reverse 50s linear infinite;
+  animation: slide-reverse 30s linear infinite;
+  will-change: transform;
 }
 
 @layer utilities {

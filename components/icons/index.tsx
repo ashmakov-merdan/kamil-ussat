@@ -7,5 +7,10 @@ import UploadIcon from "./upload-icon";
 import PlusIcon from "./plus-icon";
 import SunIcon from "./sun-icon";
 import MoonIcon from "./moon-icon";
+import GithubLogo from "./github-logo";
+import FacebookLogo from "./facebook-logo";
+import WhatsAppLogo from "./whatsapp-logo";
+import InstagramLogo from "./instagram-logo";
+import TelegramIcon from "./telegram-icon";
 
-export { PhoneIcon, ArrowIcon, MarkerIcon, LogoIcon, Spinner, UploadIcon, PlusIcon, MoonIcon, SunIcon };
+export { PhoneIcon, ArrowIcon, MarkerIcon, LogoIcon, Spinner, UploadIcon, PlusIcon, MoonIcon, SunIcon, GithubLogo, FacebookLogo, WhatsAppLogo, InstagramLogo, TelegramIcon };

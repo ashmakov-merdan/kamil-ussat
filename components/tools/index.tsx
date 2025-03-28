@@ -26,11 +26,9 @@ const Tools: FC = () => {
   });
   const tools = useMemo<ITool[]>(() => data ? data.payload : [], [data]);
 
-  // Split tools into two rows for alternate direction carousels
   const firstHalf = useMemo(() => tools.slice(0, Math.ceil(tools.length / 2)), [tools]);
   const secondHalf = useMemo(() => tools.slice(Math.ceil(tools.length / 2)), [tools]);
 
-  // Check if we should animate (more than 3 tools in a row)
   const shouldAnimateRow1 = firstHalf.length > 3;
   const shouldAnimateRow2 = secondHalf.length > 3;
 
@@ -50,10 +48,10 @@ const Tools: FC = () => {
 
         <div className="pt-16">
           {/* First row - Left to Right */}
-          <div className="overflow-hidden py-6">
-            <div className={`flex ${shouldAnimateRow1 ? "w-max animate-slide" : "flex-wrap justify-center"}`}>
+          <div className="overflow-hidden py-6 relative">
+            <div className={`flex gap-2 md:gap-8 ${shouldAnimateRow1 ? "w-max animate-slide" : "flex-wrap justify-center"}`}>
               {firstHalf.map((tool, index) => (
-                <div key={index} className="w-40 mx-4 flex flex-col items-center justify-center flex-shrink-0">
+                <div key={index} className="w-[90px] md:w-40 flex flex-col items-center justify-center flex-shrink-0">
                   <div className="w-16 h-16 flex justify-center items-center rounded-xl">
                     <Image
                       width={64}
@@ -66,7 +64,7 @@ const Tools: FC = () => {
               ))}
               {/* Duplicate for infinite scroll effect when animating */}
               {shouldAnimateRow1 && firstHalf.map((tool, index) => (
-                <div key={index + firstHalf.length} className="w-40 bg-red-500 mx-4 flex flex-col items-center justify-center flex-shrink-0 space-y-3">
+                <div key={index + firstHalf.length} className="w-[90px] md:w-40 flex flex-col items-center justify-center flex-shrink-0">
                   <div className="w-16 h-16 flex justify-center items-center rounded-xl">
                     <Image
                       width={64}
@@ -81,10 +79,10 @@ const Tools: FC = () => {
           </div>
 
           {/* Second row - Right to Left */}
-          <div className="overflow-hidden py-6">
-            <div className={`flex ${shouldAnimateRow2 ? "w-max animate-slide-reverse" : "flex-wrap justify-center"}`}>
+          <div className="overflow-hidden py-6 relative">
+            <div className={`flex gap-2 md:gap-8 ${shouldAnimateRow2 ? "w-max animate-slide-reverse" : "flex-wrap justify-center"}`}>
               {secondHalf.map((tool, index) => (
-                <div key={index} className="w-40 mx-4 flex flex-col items-center justify-center flex-shrink-0 space-y-3">
+                <div key={index} className="w-[90px] md:w-40 flex flex-col items-center justify-center flex-shrink-0">
                   <div className="w-16 h-16 flex justify-center items-center rounded-xl">
                     <Image
                       width={64}
@@ -97,7 +95,7 @@ const Tools: FC = () => {
               ))}
               {/* Duplicate for infinite scroll effect when animating */}
               {shouldAnimateRow2 && secondHalf.map((tool, index) => (
-                <div key={index + secondHalf.length} className="w-40 mx-4 flex flex-col items-center justify-center flex-shrink-0 space-y-3">
+                <div key={index + secondHalf.length} className="w-[90px] md:w-40 flex flex-col items-center justify-center flex-shrink-0">
                   <div className="w-16 h-16 flex justify-center items-center rounded-xl">
                     <Image
                       width={64}

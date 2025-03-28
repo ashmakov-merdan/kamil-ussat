@@ -10,9 +10,10 @@ const ContactUs: FC = () => {
   const t = useTranslations("contact");
   return (
     <section id="contact-us" className="px-4 xl:px-0 py-24 container mx-auto">
-      <div className="relative flex flex-row gap-x-10">
-        <div className="hidden lg:block sticky top-24 h-fit flex-1 space-y-8">
+      <div className="relative flex flex-col-reverse lg:flex-row gap-x-10">
+        <div className="lg:sticky top-24 h-fit flex-1 space-y-8">
           <Image
+            className="hidden lg:block"
             src={contact}
             alt={"contact-image"}
           />
@@ -23,7 +24,7 @@ const ContactUs: FC = () => {
               </div>
               <div className="space-y-1">
                 <h2 className="text-[18px] font-semibold text-[#101828] dark:text-[#F5F5F6]">{t("address")}</h2>
-                <a href={"tel:+99365123456"} className="font-normal text-[#475467] dark:text-[#94969C]">{t("street")}</a>
+                <a href={"https://maps.app.goo.gl/j59FprGCeiABrhe19"} target="_blank" className="font-normal text-[#475467] dark:text-[#94969C]">{t("street")}</a>
               </div>
             </div>
             <div className="flex gap-x-3">
@@ -32,7 +33,7 @@ const ContactUs: FC = () => {
               </div>
               <div className="space-y-1">
                 <h2 className="text-[18px] font-semibold text-[#101828] dark:text-[#F5F5F6]">{t("phone")}</h2>
-                <a href={"tel:+99365123456"} className="font-normal text-[#475467] dark:text-[#94969C]">+993 12 5 66 77</a>
+                <a href={"tel:+99364132986"} className="font-normal text-[#475467] dark:text-[#94969C]">+993 64132986</a>
               </div>
             </div>
           </div>
