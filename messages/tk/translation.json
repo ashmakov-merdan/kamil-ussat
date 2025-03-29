@@ -8,7 +8,7 @@
     "users": "Ulanyjylar",
     "contact-us": "Habarlaşmak",
     "orders": "Sargytlar",
-    "tools": "Tools"
+    "tools": "Gurallar"
   },
   "theme": {
     "dark": "Dark",
@@ -17,7 +17,7 @@
   "header": {
     "new-products": "Täze önümler",
     "check-out": "Döwrebap çözgütler",
-    "title": "Programma Üpjünçiliginiñ we Maglumaty Goramagynyñ Çözgütlerini Hödürleýäris",
+    "title": "Innowasion IT Çözgütleri Hödürleýäris",
     "subheading": "Kärhanamyzyñ Tejribeli Programma we Web inženerleri bilen, Içerki we Halkara Müşderilere Giňişleýin Hyzmatlary Hödürleýäris",
     "our-clients": "Müşderilerimiz"
   },
@@ -25,7 +25,24 @@
     "heading": "Giň gerimli IT çözgütleri",
     "subheading": "Programmalar, torlar, maglumat howpsuzlygy we kiberhowpsuzlygy üpjün edýän ygtybarly we ýokary öndürijilikli çözgütleri hödürleýäris"
   },
+  "services": {
+    "heading": "Ygtybarly we täsirli hyzmatlar"
+  },
+  "tools": {
+    "heading": "Tehnologiýalar we gurallar",
+    "subheading": "Siziň taslamaňyz üçin peýdalanyljak tehnologiýalar we gurallar"
+  },
+  "products": {
+    "heading": "Programmalarymyz",
+    "subheading": "Şu gün satyn almak bilen 20% arzanladyş alyň we 6 hepde mugt goldawymyzdan peýdalanyp bilersiňiz."
+  },
+  "collaborates": {
+    "heading": "Hyzmatdaşlyk edýän kompaniýalarymyz"
+  },
   "contact": {
+    "heading": "Taslamaňyza bilelikde başlalyň",
+    "subheading": "Siz bilen täze taslama başlamaga hemişe taýýardyrys.",
+    "choose-service": "Taslamanyň görnüşini saýlaň",
     "address": "Aşgabat, Türkmenistan",
     "street": "Saparmyrat Türkmenbaşy şaýoly 7",
     "phone": "Telefon belgi"

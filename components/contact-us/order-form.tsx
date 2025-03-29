@@ -17,8 +17,8 @@ const OrderForm: FC = () => {
     <div className="flex-1 space-y-12">
       <div className="space-y-12">
         <div className="space-y-5">
-          <Heading text="Let's start your project" isCentered={false} />
-          <p className="text-xl font-normal text-[#94969C]">Our friendly team would love to hear from you.</p>
+          <Heading text={t("contact.heading")} isCentered={false} />
+          <p className="text-xl font-normal text-[#94969C]">{t("contact.subheading")}</p>
         </div>
         <FormProvider {...methods}>
           <form className="w-full max-w-xl flex flex-col gap-y-4 lg:gap-y-6" onSubmit={onSubmit}>
@@ -34,7 +34,6 @@ const OrderForm: FC = () => {
                       defaultValue={value}
                       onChange={onChange}
                       isInvalid={invalid}
-                      errorMessage={error?.message ? error.message : ""}
                     />
                   )}
                 />
@@ -50,7 +49,6 @@ const OrderForm: FC = () => {
                       defaultValue={value}
                       onChange={onChange}
                       isInvalid={invalid}
-                      errorMessage={error?.message ? error.message : ""}
                     />
                   )}
                 />
@@ -67,7 +65,6 @@ const OrderForm: FC = () => {
                     defaultValue={value}
                     onChange={onChange}
                     isInvalid={invalid}
-                    errorMessage={error?.message ? error.message : ""}
                   />
                 )}
               />
@@ -83,13 +80,12 @@ const OrderForm: FC = () => {
                     defaultValue={value}
                     onChange={onChange}
                     isInvalid={invalid}
-                    errorMessage={error?.message ? error.message : ""}
                   />
                 )}
               />
             </div>
             <div className="space-y-6">
-              <h1 className={cn("text-xl md:text-2xl font-semibold text-[#101828] dark:text-[#F5F5F6]")}>Choose service what you need</h1>
+              <h1 className={cn("text-xl md:text-2xl font-semibold text-[#101828] dark:text-[#F5F5F6]")}>{t("contact.choose-service")}</h1>
               <OrderServices />
             </div>
             <div className="">

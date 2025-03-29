@@ -4,11 +4,12 @@ import { Heading, Shadow } from "@/shared";
 import Carousel from "@/shared/carousel";
 import { clearEmpty } from "@/utils";
 import { useQuery } from "@tanstack/react-query";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { FC, useMemo } from "react";
 
 const Companies: FC = () => {
   const locale = useLocale();
+  const t = useTranslations();
   const { data } = useQuery({
     queryKey: ["partners"],
     queryFn: async (): Promise<{ payload: IPartner[]}> => {
@@ -29,7 +30,7 @@ const Companies: FC = () => {
       <div className="relative container mx-auto">
         <Shadow className="w-10 lg:w-80 from-[#F9FAFB] dark:from-[#161B26]" />
         <div className="text-center">
-          <Heading text="Companies that we collaborate" />
+          <Heading text={t("collaborates.heading")} />
         </div>
         <div className="pt-16">
           <Carousel partners={partners} />

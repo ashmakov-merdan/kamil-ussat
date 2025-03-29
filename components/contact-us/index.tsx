@@ -8,6 +8,7 @@ import { useTranslations } from "next-intl";
 
 const ContactUs: FC = () => {
   const t = useTranslations("contact");
+  
   return (
     <section id="contact-us" className="px-4 xl:px-0 py-24 container mx-auto">
       <div className="relative flex flex-col-reverse lg:flex-row gap-x-10">

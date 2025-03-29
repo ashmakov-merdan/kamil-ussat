@@ -25,7 +25,24 @@
     "heading": "Comprehensive IT & Development Solutions",
     "subheading": "Providing scalable, secure, and high-performance solutions for software, networking, and security needs"
   },
+  "services": {
+    "heading": "Reliable and efficient services"
+  },
+  "tools": {
+    "heading": "Tools & Technologies",
+    "subheading": "We use modern and effective technologies for your projects"
+  },
+  "products": {
+    "heading": "Our products",
+    "subheading": "Get 20% off today and receive free instructions and support for 6 weeks!"
+  },
+  "collaborates": {
+    "heading": "Companies that we collaborate"
+  },
   "contact": {
+    "heading": "Let's start your project",
+    "subheading": "Our friendly team would love to hear from you",
+    "choose-service": "Choose a service you need",
     "address": "Ashgabat, Turkmenistan",
     "street": "Saparmyrat Turkmenbashy Ave 7",
     "phone": "Phone"
