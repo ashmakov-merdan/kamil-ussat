@@ -1,10 +1,10 @@
 "use client"
 import Image from "next/image";
 import { FC } from "react";
-import { MarkerIcon, PhoneIcon } from "../icons";
 import OrderForm from "./order-form";
 import contact from "@/assets/contact.jpg"
 import { useTranslations } from "next-intl";
+import ContactsList from "../contacts-list";
 
 const ContactUs: FC = () => {
   const t = useTranslations("contact");
@@ -20,26 +20,7 @@ const ContactUs: FC = () => {
             src={contact}
             alt={"contact-image"}
           />
-          <div className="space-y-6">
-            <div className="flex gap-x-3">
-              <div className="size-12 rounded-full flex justify-center items-center bg-[#F2F4F7] dark:bg-[#1F242F]">
-                <MarkerIcon />
-              </div>
-              <div className="space-y-1">
-                <h2 className="text-[18px] font-semibold text-[#101828] dark:text-[#F5F5F6]">{t("address")}</h2>
-                <a href={"https://maps.app.goo.gl/j59FprGCeiABrhe19"} target="_blank" className="font-normal text-[#475467] dark:text-[#94969C]">{t("street")}</a>
-              </div>
-            </div>
-            <div className="flex gap-x-3">
-              <div className="size-12 rounded-full flex justify-center items-center bg-[#F2F4F7] dark:bg-[#1F242F]">
-                <PhoneIcon />
-              </div>
-              <div className="space-y-1">
-                <h2 className="text-[18px] font-semibold text-[#101828] dark:text-[#F5F5F6]">{t("phone")}</h2>
-                <a href={"tel:+99364132986"} className="font-normal text-[#475467] dark:text-[#94969C]">+993 64132986</a>
-              </div>
-            </div>
-          </div>
+          <ContactsList />
         </div>
         <OrderForm />
       </div>

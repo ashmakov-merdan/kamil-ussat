@@ -16,6 +16,7 @@ const Sidebar: FC = () => {
         <Link href={"/admin/clients"} className="block whitespace-nowrap w-full text-black dark:text-white bg-[#FFFFFF] bg-[#FFFFFF]/40 dark:bg-[#0C111D] dark:hover:bg-[#0C111D]/60 px-3 py-2 rounded-lg transition-all">{t("section.clients")}</Link>
         <Link href={"/admin/partners"} className="block whitespace-nowrap w-full text-black dark:text-white bg-[#FFFFFF] bg-[#FFFFFF]/40 dark:bg-[#0C111D] dark:hover:bg-[#0C111D]/60 px-3 py-2 rounded-lg transition-all">{t("section.partners")}</Link>
         <Link href={"/admin/orders"} className="block whitespace-nowrap w-full text-black dark:text-white bg-[#FFFFFF] bg-[#FFFFFF]/40 dark:bg-[#0C111D] dark:hover:bg-[#0C111D]/60 px-3 py-2 rounded-lg transition-all">{t("section.orders")}</Link>
+        <Link href={"/admin/contacts"} className="block whitespace-nowrap w-full text-black dark:text-white bg-[#FFFFFF] bg-[#FFFFFF]/40 dark:bg-[#0C111D] dark:hover:bg-[#0C111D]/60 px-3 py-2 rounded-lg transition-all">{t("section.contact-us")}</Link>
       </div>
     </aside>
   )

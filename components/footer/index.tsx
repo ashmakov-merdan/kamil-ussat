@@ -3,7 +3,7 @@ import { Logo } from "@/shared";
 import { FC } from "react";
 import Links from "../navigation/links";
 import moment from "moment";
-import { FacebookLogo, GithubLogo, InstagramLogo, TelegramIcon, WhatsAppLogo } from "../icons";
+import SocialContacts from "../social-contacts";
 
 const Footer: FC = () => {
   const currentYear = moment().format("YYYY");
@@ -16,23 +16,7 @@ const Footer: FC = () => {
         </div>
         <div className="flex flex-col lg:flex-row justify-between gap-y-12 lg:items-center">
           <Links />
-          <div className="inline-flex gap-x-7 lg:gap-x-4">
-            <a title={"Github"} className="size-12 bg-[#F2F4F7] transition-colors hover:bg-purple-200 dark:hover:bg-[#7F56D9] dark:bg-[#1F242F] rounded-full flex justify-center items-center cursor-pointer">
-              <GithubLogo />
-            </a>
-            <a title="Facebook" className="size-12 bg-[#F2F4F7] transition-colors hover:bg-purple-200 dark:hover:bg-[#7F56D9] dark:bg-[#1F242F] rounded-full flex justify-center items-center">
-              <FacebookLogo />
-            </a>
-            <a title={"WhatsApp"} className="size-12 bg-[#F2F4F7] transition-colors hover:bg-purple-200 dark:hover:bg-[#7F56D9] dark:bg-[#1F242F] rounded-full flex justify-center items-center">
-              <WhatsAppLogo />
-            </a>
-            <a title={"Instagram"} className="size-12 bg-[#F2F4F7] transition-colors hover:bg-purple-200 dark:hover:bg-[#7F56D9] dark:bg-[#1F242F] rounded-full flex justify-center items-center">
-              <InstagramLogo />
-            </a>
-            <a title={"Telegram"} className="size-12 bg-[#F2F4F7] transition-colors hover:bg-purple-200 dark:hover:bg-[#7F56D9] dark:bg-[#1F242F] rounded-full flex justify-center items-center">
-              <TelegramIcon />
-            </a>
-          </div>
+          <SocialContacts />
         </div>
       </div>
       <div className="pt-8 flex flex-col lg:flex-row justify-between items-center gap-4 border-t-[1px] border-[#1F242F]">
