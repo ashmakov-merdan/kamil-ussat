@@ -122,8 +122,8 @@ const ContactsPage: FC = () => {
       )}
       
       {editingContact && (
-        <div className="mb-8 p-4 border rounded-md bg-slate-50 dark:bg-slate-800">
-          <h2 className="text-xl font-semibold mb-4">Edit Contact</h2>
+        <div className="mb-8 p-4 border rounded-md border-neutral-200 dark:border-neutral-700 bg-transparent">
+          <h2 className="text-xl font-semibold mb-4 text-black dark:text-white">Edit Contact</h2>
           <ContactForm
             contactId={editingContact.id}
             initialData={editingContact.data}
