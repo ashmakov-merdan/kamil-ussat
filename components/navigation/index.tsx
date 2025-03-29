@@ -25,7 +25,7 @@ const Navigation: FC = () => {
         isAuthPage ? "justify-end" : "justify-between"
       )}>
         {!isAuthPage && <Link href={"/"}>
-          <Logo className="w-32 lg:w-44" />
+          <Logo className="w-32 lg:w-36" />
         </Link>}
         {(!isAuthPage && !isAdminPage) && <Links />}
         <div className="flex items-center gap-2">

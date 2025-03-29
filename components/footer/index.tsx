@@ -12,7 +12,7 @@ const Footer: FC = () => {
     <footer className="px-4 xl:px-0 mx-auto container pt-16 pb-12 space-y-8">
       <div className="space-y-10 lg:space-y-4 ">
         <div>
-          <Logo />
+          <Logo className="w-32 lg:w-36" />
         </div>
         <div className="flex flex-col lg:flex-row justify-between gap-y-12 lg:items-center">
           <Links />

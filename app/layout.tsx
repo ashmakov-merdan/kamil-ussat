@@ -9,6 +9,9 @@ import { NextIntlClientProvider } from "next-intl";
 export const metadata: Metadata = {
   title: "Kämil Ussat",
   description: "Kämil Ussat – A team of skilled software engineers and web developers dedicated to building innovative solutions for both local and international companies.",
+  icons: {
+    icon: '/favicon.svg',
+  },
 };
 
 export default async function RootLayout({
