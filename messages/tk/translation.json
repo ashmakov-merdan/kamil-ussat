@@ -135,6 +135,15 @@
       "required": "E-poçta talap edilýär",
       "invalid": "E-poçta nädogry"
     },
+    "firstName": {
+      "required": "Adyňyzy giriziň"
+    },
+    "lastName": {
+      "required": "Familýaňyzy giriziň"
+    },
+    "birthDate": {
+      "required": "Doglan senäňizi giriziň"
+    },
     "password": {
       "required": "Açar sözi talap edilýär",
       "empty": "Açar sözi giriziň"

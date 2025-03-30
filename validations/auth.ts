@@ -11,17 +11,17 @@ export const loginValidation = z.object({
 
 export const registerValidation = z.object({
   email: z
-    .string({ required_error: "Email is required" })
-    .email({ message: "Invalid email" }),
+    .string({ required_error: "validations.email.required" })
+    .email({ message: "validations.email.invalid" }),
   password: z
-    .string({ required_error: "Password is required" })
-    .min(8, "Password should be at least 8 characters"),
+    .string({ required_error: "validations.password.required" })
+    .min(8, "validations.password.empty"),
   otp: z.string({ required_error: "Provide verification code" }),
-  first_name: z.string({ required_error: "First name is required" }),
-  last_name: z.string({ required_error: "Last name is required" }),
+  first_name: z.string({ required_error: "validations.firstName.required" }),
+  last_name: z.string({ required_error: "validations.lastName.required" }),
   lang: z.string(),
   mode: z.string(),
-  birthdate: z.string({ required_error: "Birth Date is required" }),
+  birthdate: z.string({ required_error: "validations.birthDate.required" }),
 });
 
 export const forgetValidation = z.object({

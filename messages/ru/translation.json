@@ -128,12 +128,21 @@
     "no-partners": "Партнеры не найдены. Добавьте первого партнера.",
     "no-clients": "Клиенты не найдены. Добавьте первого клиента.",
     "no-tools": "Инструменты не найдены. Добавьте свой первый инструмент.",
-        "no-products": "No products found. Add your first product"
+    "no-products": "No products found. Add your first product"
   },
   "validations": {
     "email": {
       "required": "Требуется электронная почта",
       "invalid": "Неверный электронной почты"
+    },
+    "firstName": {
+      "required": "Имя обязательно"
+    },
+    "lastName": {
+      "required": "Фамилия обязательна"
+    },
+    "birthDate": {
+      "required": "Дата рождения обязательна"
     },
     "password": {
       "required": "Требуется пароль",

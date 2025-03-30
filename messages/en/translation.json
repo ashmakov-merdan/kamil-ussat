@@ -135,6 +135,15 @@
       "required": "Email is required",
       "invalid": "Invalid email"
     },
+    "firstName": {
+      "required": "First name is required"
+    },
+    "lastName": {
+      "required": "Last name is required"
+    },
+    "birthDate": {
+      "required": "Birth date is required"
+    },
     "password": {
       "required": "Password is required",
       "empty": "Password shouldn't be empty"
