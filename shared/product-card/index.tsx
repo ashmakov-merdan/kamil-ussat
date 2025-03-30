@@ -17,6 +17,7 @@ const ProductCard: FC<Props> = ({ title, desc, image, priority }) => {
         <Image
           width={548}
           height={348}
+          className="h-full"
           src={image}
           alt={title}
         />
