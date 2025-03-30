@@ -27,7 +27,7 @@ const OrderForm: FC = () => {
                 <Controller
                   control={control}
                   name={"first_name"}
-                  render={({ field: { value, onChange }, fieldState: { invalid, error } }) => (
+                  render={({ field: { value, onChange }, fieldState: { invalid } }) => (
                     <Input
                       id="first_name"
                       label={t("fields.firstName")}
@@ -42,7 +42,7 @@ const OrderForm: FC = () => {
                 <Controller
                   control={control}
                   name={"last_name"}
-                  render={({ field: { value, onChange }, fieldState: { invalid, error } }) => (
+                  render={({ field: { value, onChange }, fieldState: { invalid } }) => (
                     <Input
                       id="last_name"
                       label={t("fields.lastName")}
@@ -58,7 +58,7 @@ const OrderForm: FC = () => {
               <Controller
                 control={control}
                 name={"email"}
-                render={({ field: { value, onChange }, fieldState: { invalid, error } }) => (
+                render={({ field: { value, onChange }, fieldState: { invalid } }) => (
                   <Input
                     id="email"
                     label={t("fields.email")}
@@ -73,7 +73,7 @@ const OrderForm: FC = () => {
               <Controller
                 control={control}
                 name={"description"}
-                render={({ field: { value, onChange }, fieldState: { invalid, error } }) => (
+                render={({ field: { value, onChange }, fieldState: { invalid } }) => (
                   <Textarea
                     id={"description"}
                     label={t("fields.message")}

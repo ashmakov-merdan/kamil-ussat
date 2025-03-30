@@ -3,7 +3,6 @@ import { FC, useState, useCallback } from "react";
 import { ContactTypeValues, ContactValues } from "@/validations/contact";
 import { useContacts, useDelete } from "@/api/queries/contacts";
 import { getContactIcon, getContactLabel } from "@/utils/contact-utils";
-import { useTranslations } from "next-intl";
 import { Pencil, Trash2 } from "lucide-react";
 import ContactForm from "./components/contact-form";
 
@@ -20,7 +19,6 @@ const ContactsPage: FC = () => {
   const { onDelete } = useDelete();
   const [editingContact, setEditingContact] = useState<{ id: number, data: ContactValues } | null>(null);
   const [isAddingNew, setIsAddingNew] = useState(false);
-  const t = useTranslations();
   
   const contacts: IContactResponse[] = data?.payload || [];
   
