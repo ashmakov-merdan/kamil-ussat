@@ -24,13 +24,10 @@ const ContactsList: FC<ContactsListProps> = ({ className = "" }) => {
     return null;
   }
   
-  // Get contacts from response
   const contacts: IContactResponse[] = data.payload || [];
   
-  // Sort contacts by priority
   const sortedContacts = [...contacts].sort((a, b) => a.priority - b.priority);
   
-  // Filter active contacts
   const activeContacts = sortedContacts.filter(contact => contact.is_active);
   
   if (!activeContacts.length) {

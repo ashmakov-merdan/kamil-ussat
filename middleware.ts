@@ -11,17 +11,14 @@ interface DecodedToken {
 // Routes that don't require authentication
 const publicRoutes = ["/login", "/register", "/forgot-password"];
 const homeRoute = "/";
-const adminRoutes = ["/admin", "/admin/:path*"];
 
 export default async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
   const accessToken = request.cookies.get("access_token")?.value;
   const refreshToken = request.cookies.get("refresh_token")?.value;
   
-  // Home route is always accessible regardless of auth state
-  if (path === homeRoute) {
-    return NextResponse.next();
-  }
+  // Check if route is an admin route
+  const isAdminRoute = path.startsWith('/admin');
   
   // Handle auth pages (login, register, etc.)
   if (publicRoutes.includes(path)) {
@@ -44,10 +41,12 @@ export default async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
   
-  // Check if route is an admin route
-  const isAdminRoute = path.startsWith('/admin');
+  // Only protect admin routes, all other routes are freely accessible
+  if (!isAdminRoute) {
+    return NextResponse.next();
+  }
   
-  // For protected routes, check for valid tokens
+  // For admin routes, check for valid tokens
   if (!accessToken && !refreshToken) {
     return NextResponse.redirect(new URL("/login", request.url));
   }

@@ -3,12 +3,9 @@ import Image from "next/image";
 import { FC } from "react";
 import OrderForm from "./order-form";
 import contact from "@/assets/contact.jpg"
-import { useTranslations } from "next-intl";
 import ContactsList from "../contacts-list";
 
 const ContactUs: FC = () => {
-  const t = useTranslations("contact");
-  
   return (
     <section id="contact-us" className="px-4 xl:px-0 py-24 container mx-auto">
       <div className="relative flex flex-col-reverse lg:flex-row gap-x-10">

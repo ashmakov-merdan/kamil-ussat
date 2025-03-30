@@ -37,7 +37,12 @@ api.interceptors.response.use(
          if (!refreshToken) {
            Cookies.remove("access_token");
            Cookies.remove("refresh_token");
-           window.location.href = "/login";
+           
+           // Check if the current path is an admin route before redirecting
+           const isAdminRoute = window.location.pathname.startsWith('/admin');
+           if (isAdminRoute) {
+             window.location.href = "/login";
+           }
            return Promise.reject(error);
          }
 
@@ -57,7 +62,12 @@ api.interceptors.response.use(
        } catch (refreshError) {
          Cookies.remove("access_token");
          Cookies.remove("refresh_token");
-         window.location.href = "/login";
+         
+         // Check if the current path is an admin route before redirecting
+         const isAdminRoute = window.location.pathname.startsWith('/admin');
+         if (isAdminRoute) {
+           window.location.href = "/login";
+         }
          return Promise.reject(refreshError);
        }
      }
