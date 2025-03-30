@@ -92,6 +92,7 @@ const Register: FC = () => {
                 defaultValue={value}
                 onChange={onChange}
                 isInvalid={invalid}
+                type={"password"}
                 errorMessage={error?.message ? error.message : ""}
               />
             )}

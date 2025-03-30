@@ -67,10 +67,8 @@ const Services: FC = () => {
           return acc;
         }, [])}
 
-        {/* Tablet and Mobile Layout (1-2-2-2-1 pattern) */}
         {services.length > 0 && (
           <>
-            {/* First item - full width */}
             <div className="lg:hidden">
               <ServiceCard 
                 image={services[0].files[0].path} 
@@ -78,7 +76,6 @@ const Services: FC = () => {
               />
             </div>
             
-            {/* Middle items in pairs (2-column grid) */}
             {Array.from({ length: Math.floor((services.length - 2) / 2) }).map((_, pairIndex) => {
               const startIdx = 1 + (pairIndex * 2);
               return (
@@ -97,7 +94,6 @@ const Services: FC = () => {
               );
             })}
             
-            {/* Last item - full width */}
             {services.length > 1 && (
               <div className="lg:hidden">
                 <ServiceCard 

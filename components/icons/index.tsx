@@ -12,5 +12,7 @@ import FacebookLogo from "./facebook-logo";
 import WhatsAppLogo from "./whatsapp-logo";
 import InstagramLogo from "./instagram-logo";
 import TelegramIcon from "./telegram-icon";
+import EyeIcon from "./eye";
+import EyeSlash from "./eye-slash";
 
-export { PhoneIcon, ArrowIcon, MarkerIcon, LogoIcon, Spinner, UploadIcon, PlusIcon, MoonIcon, SunIcon, GithubLogo, FacebookLogo, WhatsAppLogo, InstagramLogo, TelegramIcon };
+export { PhoneIcon, ArrowIcon, MarkerIcon, LogoIcon, Spinner, UploadIcon, PlusIcon, MoonIcon, SunIcon, GithubLogo, FacebookLogo, WhatsAppLogo, InstagramLogo, TelegramIcon, EyeIcon, EyeSlash };
