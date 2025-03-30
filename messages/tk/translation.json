@@ -143,5 +143,10 @@
       "required": "Täze açar sözi talap edilýär",
       "empty": "Täze açar sözi giriziň"
     }
+  },
+  "footer": {
+    "rights": "Ähli hukuklar goralan",
+    "terms": "Şertler",
+    "privacy": "Gizlinlik"
   }
 }

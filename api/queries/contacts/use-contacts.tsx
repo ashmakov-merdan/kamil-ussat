@@ -30,7 +30,6 @@ const useContacts = () => {
       return res.data;
     }
   });
-  const contacts = useMemo(() => data ? data.payload : [], [data]);
 
   return { 
     data,

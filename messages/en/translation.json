@@ -143,5 +143,10 @@
       "required": "New password is required",
       "empty": "New password shouldn't be empty"
     }
+  },
+  "footer": {
+    "rights": "All rights reserved",
+    "terms": "Terms",
+    "privacy": "Privacy"
   }
 }
