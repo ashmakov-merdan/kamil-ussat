@@ -58,7 +58,7 @@ const Clients: FC = () => {
     }
   };
 
-  return clients && (
+  return clients.length > 0 && (
     <div className="px-4 py-8 flex flex-col gap-y-8">
       <div className="flex items-center justify-center">
         <Subheading text={t("our-clients")} />

@@ -5,12 +5,15 @@ import Clients from "../clients";
 import { Shadow } from "@/shared";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { cn } from "@/utils";
 
 const Header: FC = () => {
   const t = useTranslations("header");
 
   return (
-    <header className="mt-16 lg:mt-20 relative 2xl:container h-fit xl:h-screen 2xl:mx-auto">
+    <header className={cn(
+      "mt-16 lg:mt-20 relative 2xl:container h-fit xl:h-screen 2xl:mx-auto"
+    )}>
       <Shadow />
       <div className="max-lg:px-4 relative container mx-auto w-screen h-[60vh] sm:h-[65vh] border-y border-neutral-100 dark:border-neutral-100/10 overflow-hidden">
         <div className="w-full h-full flex flex-col justify-center items-center gap-y-12 z-[4]">

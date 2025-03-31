@@ -61,7 +61,7 @@ const Features: FC = () => {
     }
   };
 
-  return features?.length ? (
+  return features?.length > 0 ? (
     <section id={'features'} className="px-4 xl:px-0 container mx-auto py-10 md:py-24 flex flex-col gap-y-16">
       <div className="flex flex-col gap-y-3 md:gap-y-5">
         <Title

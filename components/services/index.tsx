@@ -28,7 +28,7 @@ const Services: FC = () => {
   });
   const services = useMemo<IFeature[]>(() => data ? data.payload : [], [data]);
 
-  return (
+  return services.length > 0 && (
     <section id={"services"} className="px-4 2xl:px-0 container mx-auto pt-16 lg:pt-24 pb-32 lg:pb-40">
       <div>
         <Title

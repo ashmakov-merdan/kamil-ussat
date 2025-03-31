@@ -7,8 +7,7 @@ interface Props {
 };
 
 const Carousel: FC<Props> = ({ partners }) => {
-  // Check if we should animate (more than 6 partners)
-  const shouldAnimate = partners.length > 6;
+  const shouldAnimate = partners.length > 8;
   
   return (
     <div className="overflow-hidden py-6">
@@ -23,10 +22,10 @@ const Carousel: FC<Props> = ({ partners }) => {
                 alt={company.name}
               />
             </div>
-            <h2 className="text-black dark:text-white">{company.name}</h2>
+            <h2 className="text-center text-black dark:text-white">{company.name}</h2>
           </div>
         ))}
-        {/* Only duplicate partners for infinite scroll effect when animating */}
+        
         {shouldAnimate && partners.map((company, index) => (
           <div key={index + partners.length} className="w-40 mx-4 flex flex-col items-center justify-center flex-shrink-0">
             <div className="w-16 h-16 flex justify-center items-center rounded-xl">
@@ -37,7 +36,7 @@ const Carousel: FC<Props> = ({ partners }) => {
                 alt={company.name}
               />
             </div>
-            <h2 className="text-black dark:text-white">{company.name}</h2>
+            <h2 className="text-center text-black dark:text-white">{company.name}</h2>
           </div>
         ))}
       </div>

@@ -25,7 +25,7 @@ const Products: FC = () => {
   });
   const products = useMemo<IProduct[]>(() => data ? data.payload : [], [data]);
 
-  return (
+  return products.length > 0 && (
     <section id={"products"} className="px-4 2xl:px-0 container mx-auto py-10 md:py-24 space-y-16">
       <div className="max-w-3xl space-y-5">
         <Title

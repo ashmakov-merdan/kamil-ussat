@@ -33,7 +33,7 @@ const Tools: FC = () => {
   const shouldAnimateRow1 = firstHalf.length > 3;
   const shouldAnimateRow2 = secondHalf.length > 3;
 
-  return (
+  return tools.length > 0 && (
     <section id="tools" className="bg-[#F9FAFB] dark:bg-[#161B26] py-12">
       <div className="relative container mx-auto">
         <Shadow className="w-10 lg:w-80 from-[#F9FAFB] dark:from-[#161B26]" />

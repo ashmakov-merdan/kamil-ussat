@@ -25,7 +25,7 @@ const Companies: FC = () => {
   });
   const partners = useMemo<IPartner[]>(() => data ? data.payload : [], [data]);
 
-  return partners && (
+  return partners.length > 0 && (
   <section id={"collaborates"} className="bg-[#F9FAFB] dark:bg-[#161B26] py-12">
       <div className="relative container mx-auto">
         <Shadow className="w-10 lg:w-80 from-[#F9FAFB] dark:from-[#161B26]" />
