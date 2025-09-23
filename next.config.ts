@@ -1,19 +1,19 @@
 import type { NextConfig } from "next";
 import createNextIntPlugin from "next-intl/plugin";
-
+const apiUrl = process.env.API_URL || "kamilussat.com.tm";
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "kamilussat.com.tm",
+        hostname: apiUrl,
         port: "",
         pathname: "/public/**"
       }
     ]
   },
   env: {
-    API_URL: process.env.API_URL
+    API_URL: apiUrl
   }
 };
 
