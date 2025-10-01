@@ -9,6 +9,12 @@ const nextConfig: NextConfig = {
         hostname: "kamilussat.com",
         port: "",
         pathname: "/public/**"
+      },
+      {
+        protocol: "https",
+        hostname: "kamilussat.com.tm",
+        port: "",
+        pathname: "/public/**"
       }
     ]
   },
