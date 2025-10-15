@@ -24,10 +24,10 @@ const CheckIcon: FC<Props> = ({ size = 20, color="black" }) => {
         strokeMiterlimit="10"
         strokeDasharray=""
         strokeDashoffset="0"
-        fontFamily="none"
-        fontWeight="none"
-        fontSize="none"
-        textAnchor="none"
+        fontFamily=""
+        fontWeight=""
+        fontSize=""
+        textAnchor="start"
         style={{ mixBlendMode: "normal" }}
       >
         <g

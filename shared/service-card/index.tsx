@@ -10,13 +10,23 @@ interface Props {
   image: string
 }
 
-const squareVaraints = {
-  visible: { opacity: 1, scale: 1, transition: { type: "spring", stiffness: 100, damping: 20 } },
-  hidden: { opacity: 0, scale: 0 }
+const squareVariants = {
+  visible: { 
+    opacity: 1, 
+    scale: 1 
+  },
+  hidden: { 
+    opacity: 0, 
+    scale: 0 
+  },
+  transition: { 
+    type: "spring",
+    stiffness: 100,
+    damping: 20
+  }
 };
 
 const ServiceCard: FC<Props> = ({ title, image }) => {
-  console.log(image)
   const controls = useAnimation();
   const [ref, inView] = useInView();
 
@@ -27,7 +37,7 @@ const ServiceCard: FC<Props> = ({ title, image }) => {
   }, [controls, inView]);
 
   return (
-    <motion.div ref={ref} animate={controls} initial={"hidden"} variants={squareVaraints} className="relative pt-8 pb-6   md:px-8 md:pb-8 md:pt-10 bg-[#F9FAFB] dark:bg-[#161B26] rounded-2xl">
+    <motion.div ref={ref} animate={controls} initial="hidden" variants={squareVariants} className="relative pt-8 pb-6 md:px-8 md:pb-8 md:pt-10 bg-[#F9FAFB] dark:bg-[#161B26] rounded-2xl">
       <div className="flex absolute -top-6 right-0 left-0 justify-center">
         <div className="w-12 h-12 flex justify-center items-center rounded-full bg-[#F4EBFF] dark:bg-purple-500 overflow-hidden">
           <Image

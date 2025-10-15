@@ -53,16 +53,14 @@ const Boxes: FC = () => {
         
         const variants = {
           active: {
-            backgroundColor: isDark ? "#4B4F52" : "rgba(0, 0, 0, 1)",
-            transition: {
-              backgroundColor: { duration: 1.5, ease: "easeInOut" }
-            }
+            backgroundColor: isDark ? "#4B4F52" : "rgba(0, 0, 0, 1)"
           },
           inactive: {
-            backgroundColor: isDark ? "rgba(0, 0, 0, 0)" : "rgba(255, 255, 255, 0)",
-            transition: {
-              backgroundColor: { duration: 1.5, ease: "easeInOut" }
-            }
+            backgroundColor: isDark ? "rgba(0, 0, 0, 0)" : "rgba(255, 255, 255, 0)"
+          },
+          transition: {
+            duration: 1.5,
+            ease: [0.4, 0.0, 0.2, 1] // Matches Material Design's standard easing
           }
         };
 
