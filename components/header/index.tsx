@@ -62,7 +62,6 @@ const Header: FC = () => {
               animate="visible"
               className="flex flex-col items-center gap-y-6 relative"
             >
-              {/* Gradient background animation */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ 
@@ -78,15 +77,13 @@ const Header: FC = () => {
                 }}
                 className="absolute w-full h-full bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 dark:from-blue-400/10 dark:via-purple-400/10 dark:to-pink-400/10 blur-3xl rounded-full"
               />
-              
-              {/* Title with split text effect */}
               <motion.div
                 initial="hidden"
                 animate="visible"
                 className="relative"
               >
                 <motion.h1
-                  key={t("title")} // Key change forces remount and animation reset
+                  key={t("title")}
                   className="text-3xl sm:text-4xl lg:text-2xl text-center text-[#101828] dark:text-white font-semibold transition-colors relative z-10 overflow-hidden"
                 >
                   {t("title").split("").map((char, index) => (
@@ -119,7 +116,6 @@ const Header: FC = () => {
                 </motion.h1>
               </motion.div>
 
-              {/* Description with staggered reveal and blur effect */}
               <motion.div
                 initial="hidden"
                 animate="visible"

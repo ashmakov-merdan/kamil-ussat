@@ -1,65 +1,21 @@
 "use client"
 import { Title } from "@/shared";
 import ProductCard from "@/shared/product-card";
-import { FC, useRef, useEffect } from "react";
-import { useTranslations } from "next-intl";
+import { FC, useRef, useEffect, useMemo } from "react";
+import { useTranslations, useLocale } from "next-intl";
 import { motion, useSpring, useMotionValue } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import api, { BASE_URL } from "@/api";
 
-// Temporary mock data
-const mockProducts = [
-  {
-    id: 1,
-    name: "Enterprise CRM System",
-    description: "Comprehensive customer relationship management solution with AI-powered insights, advanced analytics, and seamless integration capabilities.",
-    files: [{ path: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop" }],
-    priority: 1
-  },
-  {
-    id: 2,
-    name: "Cloud Infrastructure",
-    description: "Scalable and secure cloud infrastructure solutions with automated deployment, real-time monitoring, and disaster recovery.",
-    files: [{ path: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2424&auto=format&fit=crop" }],
-    priority: 2
-  },
-  {
-    id: 3,
-    name: "Cybersecurity Suite",
-    description: "Advanced threat detection and prevention system with machine learning algorithms and real-time vulnerability assessment.",
-    files: [{ path: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=2370&auto=format&fit=crop" }],
-    priority: 3
-  },
-  {
-    id: 4,
-    name: "Data Analytics Platform",
-    description: "Powerful data visualization and analytics platform with predictive modeling, custom dashboards, and automated reporting.",
-    files: [{ path: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2370&auto=format&fit=crop" }],
-    priority: 4
-  },
-  {
-    id: 5,
-    name: "DevOps Automation",
-    description: "End-to-end DevOps automation solution for continuous integration, deployment, and infrastructure management.",
-    files: [{ path: "https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?q=80&w=2374&auto=format&fit=crop" }],
-    priority: 5
-  },
-  {
-    id: 6,
-    name: "Enterprise IoT Platform",
-    description: "Comprehensive IoT management platform with real-time device monitoring, data processing, and automated workflows.",
-    files: [{ path: "https://images.unsplash.com/photo-1580584126903-c17d41830450?q=80&w=2439&auto=format&fit=crop" }],
-    priority: 6
-  }
-];
-
-interface MockProduct {
+interface IProduct {
   id: number;
   name: string;
   description: string;
   files: { path: string }[];
-  priority: number;
 }
 
 const Products: FC = () => {
+  const locale = useLocale();
   const t = useTranslations();
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -73,7 +29,6 @@ const Products: FC = () => {
     stiffness: 200
   });
 
-  // Handle scroll
   useEffect(() => {
     if (!scrollRef.current) return;
 
@@ -100,7 +55,21 @@ const Products: FC = () => {
     };
   }, [scrollProgress, scrollX]);
 
-  const products = mockProducts;
+  const { data } = useQuery({
+    queryKey: ["products", locale],
+    queryFn: async (): Promise<{ payload: IProduct[] }> => {
+      const res = await api.get("/products", { params: {
+        limit: 50,
+        page: 1,
+        order_direction: "asc",
+        order_by: "priority",
+        lang: locale
+      }});
+      return res.data;
+    }
+  });
+
+  const products = useMemo<IProduct[]>(() => data ? data.payload : [], [data]);
 
   return products.length > 0 && (
     <section 
@@ -111,7 +80,6 @@ const Products: FC = () => {
     >
 
       <div className="space-y-16 relative">
-        {/* Fixed title section */}
         <motion.div 
           className="max-w-3xl space-y-5"
           initial={{ opacity: 0, y: 20 }}
@@ -135,7 +103,6 @@ const Products: FC = () => {
           </motion.p>
         </motion.div>
 
-        {/* Scrollable products section */}
         <motion.div 
           className="relative"
           initial={{ opacity: 0 }}
@@ -161,11 +128,11 @@ const Products: FC = () => {
                   width: '100%'
                 }}
               >
-            {products.map((product: MockProduct, index: number) => (
+            {products.map((product: IProduct, index: number) => (
               <ProductCard 
                 key={product.id}
                 title={product.name}
-                image={product.files[0].path}
+                image={`${BASE_URL}/${product.files[0].path}`}
                 desc={product.description}
                 priority={String(index + 1).padStart(2, '0')}
               />

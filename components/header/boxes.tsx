@@ -10,7 +10,6 @@ const Boxes: FC = () => {
   const [activeCells, setActiveCells] = useState<{ row: number; col: number }[]>([]);
   const [hoveredCell, setHoveredCell] = useState<{ row: number; col: number } | null>(null);
 
-  // Handle localStorage safely on client side
   useEffect(() => {
     const updateTheme = () => {
       setIsDark(document.documentElement.classList.contains('dark'));
@@ -18,7 +17,6 @@ const Boxes: FC = () => {
     
     updateTheme();
     
-    // Create MutationObserver to watch for theme changes
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.attributeName === 'class') {
@@ -56,11 +54,11 @@ const Boxes: FC = () => {
   };
 
   useEffect(() => {
-    generateRandomCells(); // Initial generation
+    generateRandomCells();
     
     const interval = setInterval(() => {
       generateRandomCells();
-    }, 3000); // Increased interval for smoother feel
+    }, 3000);
 
     return () => clearInterval(interval);
   }, []);

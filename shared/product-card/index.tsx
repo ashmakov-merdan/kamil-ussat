@@ -13,11 +13,9 @@ interface Props {
 const ProductCard: FC<Props> = ({ title, desc, image, priority }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   
-  // Mouse move animation values
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   
-  // Smooth spring animation for mouse movement
   const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [7, -7]), {
     stiffness: 300,
     damping: 30
@@ -27,7 +25,6 @@ const ProductCard: FC<Props> = ({ title, desc, image, priority }) => {
     damping: 30
   });
 
-  // Image scale and arrow movement springs
   const imageScale = useSpring(1, {
     stiffness: 200,
     damping: 20

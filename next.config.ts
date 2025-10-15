@@ -15,12 +15,6 @@ const nextConfig: NextConfig = {
         hostname: "kamilussat.com.tm",
         port: "",
         pathname: "/public/**"
-      },
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-        port: '',
-        pathname: '/**'
       }
     ]
   },
