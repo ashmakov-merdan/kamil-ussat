@@ -71,10 +71,28 @@ const ProductCard: FC<Props> = ({ title, desc, image, priority }) => {
         transformStyle: "preserve-3d",
         perspective: "1000px"
       }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      initial={{ 
+        opacity: 0,
+        scale: 0.9,
+        rotateX: 10,
+        y: 50
+      }}
+      whileInView={{ 
+        opacity: 1,
+        scale: 1,
+        rotateX: 0,
+        y: 0
+      }}
+      viewport={{ 
+        once: true,
+        margin: "-100px",
+        amount: 0.3
+      }}
+      transition={{ 
+        type: "spring",
+        duration: 0.5,
+        bounce: 0.05
+      }}
     >
       <div 
         className="flex-1 relative aspect-video rounded-2xl overflow-hidden bg-gradient-to-tl from-neutral-50 to-neutral-100 dark:from-neutral-900 dark:to-neutral-800"
@@ -89,13 +107,13 @@ const ProductCard: FC<Props> = ({ title, desc, image, priority }) => {
           style={{ translateZ: "75px" }}
         />
         <motion.div
-          className="relative w-full h-full"
+          className="relative rounded-2xl w-full h-full"
           style={{ scale: imageScale }}
         >
           <Image
             width={1000}
             height={600}
-            className="h-full w-full object-cover bg-transparent"
+            className="h-full w-full rounded-2xl object-cover bg-transparent"
             src={image}
             alt={title}
             priority
