@@ -8,27 +8,48 @@ const Boxes: FC = () => {
   const rows = 8;
   const cols = 16;
   const [activeCells, setActiveCells] = useState<{ row: number; col: number }[]>([]);
+  const [hoveredCell, setHoveredCell] = useState<{ row: number; col: number } | null>(null);
 
   // Handle localStorage safely on client side
   useEffect(() => {
-    setIsDark(localStorage.theme === "dark");
-    
-    // Listen for theme changes
-    const handleStorageChange = () => {
-      setIsDark(localStorage.theme === "dark");
+    const updateTheme = () => {
+      setIsDark(document.documentElement.classList.contains('dark'));
     };
     
-    window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
+    updateTheme();
+    
+    // Create MutationObserver to watch for theme changes
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+          updateTheme();
+        }
+      });
+    });
+    
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+    
+    return () => observer.disconnect();
   }, []);
 
   const generateRandomCells = () => {
     const newCells = [];
+    const usedPositions = new Set();
 
     for (let i = 0; i < 12; i++) {
-      const randomRow = Math.floor(Math.random() * rows);
-      const randomCol = Math.floor(Math.random() * cols);
-      newCells.push({ row: randomRow, col: randomCol });
+      let position;
+      do {
+        const randomRow = Math.floor(Math.random() * rows);
+        const randomCol = Math.floor(Math.random() * cols);
+        position = `${randomRow}-${randomCol}`;
+      } while (usedPositions.has(position));
+      
+      const [row, col] = position.split('-').map(Number);
+      usedPositions.add(position);
+      newCells.push({ row, col });
     }
 
     setActiveCells(newCells);
@@ -39,7 +60,7 @@ const Boxes: FC = () => {
     
     const interval = setInterval(() => {
       generateRandomCells();
-    }, 2000);
+    }, 3000); // Increased interval for smoother feel
 
     return () => clearInterval(interval);
   }, []);
@@ -50,27 +71,50 @@ const Boxes: FC = () => {
         const row = Math.floor(index / cols);
         const col = index % cols;
         const isActive = activeCells.some(cell => cell.row === row && cell.col === col);
+        const isHovered = hoveredCell?.row === row && hoveredCell?.col === col;
         
         const variants = {
           active: {
-            backgroundColor: isDark ? "#4B4F52" : "rgba(0, 0, 0, 1)"
+            backgroundColor: isDark 
+              ? "rgba(75, 79, 82, 0.9)" 
+              : "rgba(0, 0, 0, 0.5)",
+            scale: 1.05
           },
           inactive: {
-            backgroundColor: isDark ? "rgba(0, 0, 0, 0)" : "rgba(255, 255, 255, 0)"
+            backgroundColor: "rgba(0, 0, 0, 0)",
+            scale: 1
           },
-          transition: {
-            duration: 1.5,
-            ease: [0.4, 0.0, 0.2, 1] // Matches Material Design's standard easing
+          hover: {
+            backgroundColor: isDark 
+              ? "rgba(75, 79, 82, 0.9)" 
+              : "rgba(0, 0, 0, 0.5)",
+            scale: 1.1
           }
         };
 
         return (
           <motion.div
             key={index}
-            className="w-28 h-28 border border-gray-600 dark:border-gray-200 opacity-[0.03]"
+            className="w-28 h-28 border border-gray-600 dark:border-gray-200 opacity-[0.03] cursor-pointer"
             initial="inactive"
-            animate={isActive ? "active" : "inactive"}
+            animate={isHovered ? "hover" : isActive ? "active" : "inactive"}
             variants={variants}
+            transition={{
+              duration: 1.2,
+              ease: "easeInOut"
+            }}
+            whileHover={{
+              scale: 1.1,
+              backgroundColor: isDark 
+                ? "rgba(75, 79, 82, 0.6)" 
+                : "rgba(0, 0, 0, 0.25)",
+              transition: {
+                duration: 0.2,
+                ease: "easeOut"
+              }
+            }}
+            onHoverStart={() => setHoveredCell({ row, col })}
+            onHoverEnd={() => setHoveredCell(null)}
           />
         );
       })}
