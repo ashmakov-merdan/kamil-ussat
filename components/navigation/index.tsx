@@ -19,7 +19,7 @@ const Navigation: FC = () => {
   const router = useRouter();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-white dark:bg-[#0C111D] py-3 lg:py-5 z-[5]">
+    <nav className="fixed top-0 left-0 right-0 bg-white dark:bg-[#0C111D] py-3 lg:py-5 z-[999]">
       <div className={cn(
         "px-5 container mx-auto flex justify-between items-center gap-x-10",
         isAuthPage ? "justify-end" : "justify-between"

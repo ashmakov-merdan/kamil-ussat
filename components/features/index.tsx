@@ -39,39 +39,69 @@ const Features: FC = () => {
   }, [inView, isSuccess, features, controls]);
 
   const container = {
-    hidden: { opacity: 1 },
+    hidden: { opacity: 0 },
     show: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.1
+        staggerChildren: 0.15,
+        delayChildren: 0.3
       }
     }
   };
 
   const item = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { 
+      opacity: 0, 
+      y: 40,
+      scale: 0.9
+    },
     show: { 
       opacity: 1, 
-      y: 0
+      y: 0,
+      scale: 1
+    }
+  };
+
+  const titleVariants = {
+    hidden: { 
+      opacity: 0,
+      y: -20
     },
-    transition: { 
-      duration: 0.5,
-      ease: [0.43, 0.13, 0.23, 0.96] // Custom easing curve for smoother motion
+    show: { 
+      opacity: 1,
+      y: 0
     }
   };
 
   return features?.length > 0 ? (
     <section id={'features'} className="px-4 xl:px-0 container mx-auto py-10 md:py-24 flex flex-col gap-y-16">
-      <div className="flex flex-col gap-y-3 md:gap-y-5">
+      <motion.div 
+        initial="hidden"
+        animate={controls}
+        variants={titleVariants}
+        transition={{
+          duration: 0.6,
+          ease: "easeOut"
+        }}
+        className="flex flex-col gap-y-3 md:gap-y-5"
+      >
         <Title
           title={t("section.features")}
           desc={t("features.heading")}
         />
-        <div className="lg:max-w-3xl w-full mx-auto lg:px-12">
+        <motion.div 
+          className="lg:max-w-3xl w-full mx-auto lg:px-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            delay: 0.2,
+            duration: 0.5,
+            ease: "easeOut"
+          }}
+        >
           <p className="text-base sm:text-[18px] md:text-xl font-normal text-[#94969C] text-center">{t("features.subheading")}</p>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
       <motion.div 
         ref={ref}
         className="grid grid-cols-2 lg:grid-cols-3 gap-8"
@@ -80,7 +110,16 @@ const Features: FC = () => {
         animate={controls}
       >
         {features.map((feature) => (
-          <motion.div key={feature.id} variants={item}>
+          <motion.div 
+            key={feature.id} 
+            variants={item}
+            transition={{
+              type: "spring",
+              stiffness: 150,
+              damping: 20,
+              mass: 1
+            }}
+          >
             <FeatureCard 
               title={feature.name as string}
               desc={feature.description as string}
